@@ -12,7 +12,7 @@ fi
 
 # Symlinking configuration files from this repo
 if [ ! -L "$HOME/.ssh/config" ]; then
-    if [ -f "$ALTERNATIVE_SSH_KEY_FILE" ]; then
+    if [ -f "$HOME/$ALTERNATIVE_SSH_KEY_FILE" ]; then
         log_string "Symlinking alternative ssh config file"
         ln -s "$(pwd)/ssh/config.alternative.conf" "$HOME/.ssh/config"
     else
