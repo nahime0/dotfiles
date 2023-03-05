@@ -1,0 +1,21 @@
+inoremap kj <Esc>
+
+set mouse=a
+set number
+set relativenumber
+
+
+call plug#begin()
+
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'Shougo/unite.vim'
+Plug 'preservim/nerdtree'
+Plug 'itchyny/lightline.vim'
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+call plug#end()
+
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
