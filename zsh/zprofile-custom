@@ -1,0 +1,10 @@
+# Add the next lines to ~/.zprofile
+# if [ -f ~/.zprofile-custom ]; then
+#     source ~/.zprofile-custom
+# fi
+
+s() {
+        cd ~/Sviluppo/$1
+}
+
+alias ssh-add-all="ssh-add --apple-use-keychain --apple-load-keychain"

@@ -29,3 +29,11 @@ if [ ! -L "$HOME/.gitconfig" ]; then
 else
   log_string "Symbolink link for git file already exists"
 fi
+
+# ZSH
+if [ ! -L "$HOME/.zprofile-custom" ]; then
+  log_string "Symlinking custom zprofile config file"
+  ln -s "$(pwd)/zsh/zprofile-custom" "$HOME/.zprofile-custom"
+else
+  log_string "Symbolink link for custom zprofile file already exists"
+fi
