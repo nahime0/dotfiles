@@ -37,3 +37,12 @@ if [ ! -L "$HOME/.zprofile-custom" ]; then
 else
   log_string "Symbolink link for custom zprofile file already exists"
 fi
+
+# Tmux
+
+if [ ! -L "$HOME/.tmux.conf" ]; then
+  log_string "Symlinking tmux config file"
+  ln -s "$(pwd)/tmux/tmux.conf" "$HOME/.tmux.conf"
+else
+  log_string "Symbolink link for tmux file already exists"
+fi
