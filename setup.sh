@@ -46,3 +46,10 @@ if [ ! -L "$HOME/.tmux.conf" ]; then
 else
   log_string "Symbolink link for tmux file already exists"
 fi
+if [ ! -L "$HOME/.tmux" ]; then
+  log_string "Symlinking tmux config directory"
+  ln -s "$(pwd)/tmux/tmux" "$HOME/.tmux"
+else
+  log_string "Symbolink link for tmux config directory already exists"
+fi
+
