@@ -9,3 +9,4 @@ s() {
 
 alias ssh-add-all="ssh-add --apple-use-keychain --apple-load-keychain"
 alias yd-pl="youtube-dl -o \"%(playlist_index)s-%(title)s.%(ext)s\""
+alias tmux="tmux new -As0"
