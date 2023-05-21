@@ -1,27 +1,120 @@
-inoremap kj <Esc>
-
-set mouse=a
-set number
-set relativenumber
-
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 call plug#begin()
 
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'preservim/nerdtree'
-Plug 'itchyny/lightline.vim'
+"Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'github/copilot.vim'
+Plug 'tpope/vim-fugitive'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
+filetype off                  " required
+let mapleader=','
+set clipboard=unnamed
+set nocompatible              " be iMproved, required
+set mouse=a
+set number
+set relativenumber
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" Always show current position
+set ruler
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" When searching try to be smart about cases 
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch
+
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" -------------------------------------
+"  Appearance settings
+" -------------------------------------
+
+syntax enable
+
+" Airline settings
+let g:airline_theme='papercolor'
+let g:airline_powerline_fonts = 1
+
+" -------------------------------------
+"  File & backup settings
+" -------------------------------------
+
+set nobackup
+set nowb
+set noswapfile
+
+" -------------------------------------
+"  Text settings
+" -------------------------------------
+
+" Use spaces, damn it!
+set expandtab
+set smarttab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set autoindent
+set nowrap
+set textwidth=0
+
+" -----
+" KEYS
+" -----
+
+inoremap <C-e> <Esc>A
+inoremap <C-a> <Esc>I
+imap kj <Esc>
+
+map <silent> <F1> :NERDTreeToggle %:p:h<CR>
+map <silent> <F2> :NERDTreeFocus<CR>
+map <silent> <F12> :TagbarToggle<CR>
+
+nnoremap <leader>cd :cd %:p:h<CR>
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+set splitbelow
+set splitright
+
+" Auto exit when NERDTree is the only window
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

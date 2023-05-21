@@ -12,6 +12,14 @@ fi
 
 # Symlinking configuration files from this repo
 
+# VIM
+if [ ! -L "$HOME/.vimrc" ]; then
+  log_string "Symlinking vim config file"
+  ln -s "$(pwd)/vim/vimrc" "$HOME/.vimrc"
+else
+  log_string "Symbolink link for vim config file already exists"
+fi
+
 # SSH
 if [ ! -L "$HOME/.ssh/config" ]; then
   log_string "Symlinking ssh config file"
