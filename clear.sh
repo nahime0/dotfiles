@@ -45,7 +45,6 @@ if [ -L "$HOME/.zprofile-custom" ]; then
   rm -rf "$HOME/.zprofile-custom"
 fi
 
-
 # Tmux
 if [ -L "$HOME/.tmux.conf" ]; then
   log_string "Removing symbolic link for tmux config file"
