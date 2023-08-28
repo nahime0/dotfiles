@@ -20,6 +20,14 @@ else
   log_string "Symbolink link for vim config file already exists"
 fi
 
+# IdeaVIM
+if [ ! -L "$HOME/.ideavimrc" ]; then
+  log_string "Symlinking ideavim config file"
+  ln -s "$(pwd)/vim/ideavimrc" "$HOME/.ideavimrc"
+else
+  log_string "Symbolink link for ideavim config file already exists"
+fi
+
 # SSH
 if [ ! -L "$HOME/.ssh/config" ]; then
   log_string "Symlinking ssh config file"
