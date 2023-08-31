@@ -40,7 +40,7 @@ fi
 if [ ! -L "$HOME/.gitconfig" ]; then
   log_string "Symlinking git config files"
   ln -s "$(pwd)/git/gitconfig" "$HOME/.gitconfig"
-  ln -s "$(pwd)/git/gitconfig-athomos" "$HOME/.gitconfig-athomos"
+  ln -s "$(pwd)/git/gitconfig-netsons" "$HOME/.gitconfig-netsons"
   ln -s "$(pwd)/git/gitconfig-vuppi" "$HOME/.gitconfig-vuppi"
 else
   log_string "Symbolink link for git file already exists"
