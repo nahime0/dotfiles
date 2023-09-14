@@ -10,8 +10,10 @@ s() {
 }
 
 # Path management
+# - Add composer bin path to PATH
+# - Add cargo bin path to PATH
 
-PATH=$PATH:$HOME/.composer/vendor/bin
+PATH=$PATH:$HOME/.composer/vendor/bin:$HOME/.cargo/bin
 
 # Aliases
 
