@@ -69,3 +69,20 @@ else
   log_string "Symbolink link for tmux config directory already exists"
 fi
 
+# Emacs
+## Step 1 backup existing folder, if exists
+
+if [ -d "$HOME/.emacs.d" ] && [ ! -L "$HOME/.emacs.d" ]; then
+  log_string "Backing up emacs config directory"
+  mv "$HOME/.emacs.d" "$HOME/.emacs.d.bak"
+fi
+
+## Step 2 create symlink
+
+if [ ! -L "$HOME/.emacs.d" ]; then
+  log_string "Symlinking emacs config directory"
+  ln -s "$(pwd)/emacs/emacs.d" "$HOME/.emacs.d"
+else
+  log_string "Symbolink link for emacs config directory already exists"
+fi
+
