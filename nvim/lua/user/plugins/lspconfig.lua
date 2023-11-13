@@ -5,18 +5,31 @@
 require('mason').setup()
 require('mason-lspconfig').setup({ automatic_installation = true })
 
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 -- PHP - Intelephense
 -- No need to install intelephense with npm, as mason will take care
-require('lspconfig').intelephense.setup({})
+require('lspconfig').intelephense.setup({ capabilities = capabilities })
 
 -- Javascript - Volar with takeover mode
 require('lspconfig').volar.setup({
+  capabilities = capabilities,
   -- Enable take over mode
   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue'},
 })
 
 -- Tailwind- taliwindcss
-require('lspconfig').tailwindcss.setup({})
+require('lspconfig').tailwindcss.setup({ capabilities = capabilities })
+
+-- JSON
+require('lspconfig').jsonls.setup({
+  capabilities = capabilities,
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+    }
+  }
+})
 
 -- Keymaps
 vim.keymap.set('n', '<Leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>')
