@@ -11,6 +11,9 @@ vim.opt.smartindent     = true
 -- Do not wrap lines, use horizontal scroll instead
 vim.opt.wrap = false
 
+-- Show always sign column to avoid window moving
+vim.opt.signcolumn = 'yes:1'
+
 -- Line numbers and relative line numbers to the current line
 vim.opt.number          = true
 vim.opt.relativenumber  = true
