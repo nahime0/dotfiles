@@ -145,6 +145,145 @@ use({
     end,
 })
 
+-- Fuzzy finder
+use({
+    'nvim-telescope/telescope.nvim',
+    after = 'tokyonight.nvim',
+    requires = {
+        'nvim-lua/plenary.nvim',
+        'kyazdani42/nvim-web-devicons',
+        'nvim-telescope/telescope-live-grep-args.nvim',
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+    },
+    config = function()
+        require('user/plugins/telescope')
+    end,
+})
+
+-- Side tree
+use ({
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    requires = { 
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+        "MunifTanjim/nui.nvim",
+        -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+        {
+            's1n7ax/nvim-window-picker',
+            opts = {
+                filter_rules = {
+                    autoselect_one = true,
+                    include_current_win = false,
+                    bo = {
+                        filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+                        buftype = { 'terminal', "quickfix" },
+                    },
+                },
+                highlights = {
+                    statusline = {
+                        focused = {
+                            bg = '#9d7cd8',
+                        },
+                        unfocused = {
+                            bg = '#9d7cd8',
+                        },
+                    },
+                },
+            },
+        },
+    },
+    config = function()
+        require('user/plugins/neo-tree')
+    end,
+})
+
+-- Include lualine
+use({
+    'nvim-lualine/lualine.nvim',
+    requires = {
+        'arkav/lualine-lsp-progress',
+        'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+        require('user/plugins/lualine')
+    end,
+})
+
+-- Include bufferline
+use({
+    'akinsho/bufferline.nvim',
+    requires = 'kyazdani42/nvim-web-devicons',
+    after = 'tokyonight.nvim',
+    config = function()
+        require('user/plugins/bufferline')
+    end,
+})
+
+-- Indent blank lines
+use({
+    'lukas-reineke/indent-blankline.nvim',
+    config = function()
+        require('user/plugins/indent-blankline')
+    end,
+})
+
+-- Use a dashboard
+use({
+    'glepnir/dashboard-nvim',
+    config = function()
+        require('user/plugins/dashboard-nvim')
+    end,
+})
+
+-- Integrate git
+use({
+    'lewis6991/gitsigns.nvim',
+    config = function()
+        require('gitsigns').setup({
+            -- current_line_blame = true
+        })
+        vim.keymap.set('n', ']h', ':Gitsigns next_hunk<CR>')
+        vim.keymap.set('n', '[h', ':Gitsigns prev_hunk<CR>')
+        vim.keymap.set('n', 'gs', ':Gitsigns stage_hunk<CR>')
+        vim.keymap.set('n', 'gS', ':Gitsigns undo_stage_hunk<CR>')
+        vim.keymap.set('n', 'gp', ':Gitsigns preview_hunk<CR>')
+        vim.keymap.set('n', 'gb', ':Gitsigns blame_line<CR>')
+
+    end,
+})
+
+use({
+    'tpope/vim-fugitive',
+    requires = 'tpope/vim-rhubarb',
+})
+
+-- Launch terminal in a window
+use({
+    'voldikss/vim-floaterm',
+    config = function()
+        vim.g.floaterm_width = 0.8
+        vim.g.floaterm_height = 0.8
+        vim.keymap.set('n', '<C-t>', ':FloatermToggle<CR>')
+        vim.keymap.set('t', '<C-t>', '<C-\\><C-n>:FloatermToggle<CR>')
+    end,
+})
+
+-- Add support for treesitter
+use({
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+        require('nvim-treesitter.install').update({ with_sync = true })
+    end,
+    requires = {
+        'JoosepAlviste/nvim-ts-context-commentstring',
+        'nvim-treesitter/nvim-treesitter-textobjects',
+    },
+    config = function()
+        require('user.plugins.treesitter')
+    end,
+})
+
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins
 if packer_bootstrap then
