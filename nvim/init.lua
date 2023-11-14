@@ -1,4 +1,4 @@
--- Basic information on how to use Lua in neovim: 
+-- Basic information on how to use Lua in neovim:
 -- https://github.com/nanotee/nvim-lua-guide
 
 -- Plugins
