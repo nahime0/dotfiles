@@ -31,7 +31,7 @@ vim.opt.mouse = 'a'
 vim.opt.termguicolors = true
 
 -- Enable spell checking
-vim.opt.spell = true
+vim.opt.spell = false
 
 -- Search case insensitive
 vim.opt.ignorecase  = true
