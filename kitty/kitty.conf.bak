@@ -22,13 +22,13 @@ tab_title_max_length 20
 
 # Window
 window_padding_width 10
-# macos_titlebar_color background
+macos_titlebar_color background
 
 #####################
 # -- Kitty Theme -- #
 #####################
 
 # BEGIN_KITTY_THEME
-# Tokyo Night Moon
-include tokyo_night_moon.conf
+# One Dark
+include tokyo_night.conf
 # END_KITTY_THEME
