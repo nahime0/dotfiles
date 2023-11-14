@@ -50,6 +50,10 @@ vim.keymap.set('v', 'y', 'myy`y')
 -- Delete the selection into the _ register, then paste
 vim.keymap.set('v', 'p', '"_dP')
 
+-- Buffer switch
+vim.keymap.set('n', '<C-j>', ':bprev<CR>')
+vim.keymap.set('n', '<C-k>', ':bnext<CR>')
+
 --------------------------------------------------------------------------------
 -- Mixed mode mappings
 --------------------------------------------------------------------------------
