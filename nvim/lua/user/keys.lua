@@ -51,8 +51,8 @@ vim.keymap.set('v', 'y', 'myy`y')
 vim.keymap.set('v', 'p', '"_dP')
 
 -- Buffer switch
-vim.keymap.set('n', '<C-j>', ':bprev<CR>')
-vim.keymap.set('n', '<C-k>', ':bnext<CR>')
+vim.keymap.set('n', '<Leader>j', ':bprev<CR>')
+vim.keymap.set('n', '<Leader>k', ':bnext<CR>')
 
 --------------------------------------------------------------------------------
 -- Mixed mode mappings
