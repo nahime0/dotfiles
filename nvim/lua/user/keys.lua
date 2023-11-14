@@ -48,7 +48,7 @@ vim.keymap.set('v', 'y', 'myy`y')
 
 -- A paste, in visual mode, should not replace the current selection
 -- Delete the selection into the _ register, then paste
-vim.keymap.set('v', 'p', '"_dP') 
+vim.keymap.set('v', 'p', '"_dP')
 
 --------------------------------------------------------------------------------
 -- Mixed mode mappings
