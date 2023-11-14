@@ -40,7 +40,7 @@ require('null-ls').setup({
       end,
     }),
     -- @todo check Neotree filetypes
-    require('null-ls').builtins.diagnostics.trail_space.with({ disabled_filetypes = {'neotree'} }),
+    require('null-ls').builtins.diagnostics.trail_space,
     require('null-ls').builtins.formatting.eslint_d.with({
       condition = function(utils)
         return utils.root_has_file({ '.eslintrc.js'} )
