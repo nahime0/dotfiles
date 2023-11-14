@@ -86,3 +86,6 @@ else
   log_string "Symbolink link for emacs config directory already exists"
 fi
 
+# PHPactor
+rm -rf "$HOME/config/.phpactor"
+ln -s "${pwd}/phpactor" "$HOME/.config/phpactor"
