@@ -23,5 +23,5 @@ alias t="tmux new -As0"
 
 # Export the default editor, this will make `sudo -e` work to edit file as root
 
-export EDITOR="vim"
+export EDITOR="nvim"
 
