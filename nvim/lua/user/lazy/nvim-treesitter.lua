@@ -49,7 +49,10 @@ return {
   config = function (_, opts)
     require('nvim-treesitter.configs').setup(opts)
 
+
     -- Support for custom filetypes
+    -- For more information about tree-sitter-blade, see
+    -- https://github.com/EmranMR/tree-sitter-blade/discussions/19#discussion-5400675
     local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
     parser_config.blade = {
       install_info = {
