@@ -54,8 +54,8 @@ rm -rf $HOME/.config/nvim
 ln -s $DIR/nvim $HOME/.config/nvim
 
 # PHPactor
-rm -rf "$HOME/.config/phpactor"
-ln -s "${pwd}/phpactor" "$HOME/.config/phpactor"
+rm -rf $HOME/.config/phpactor
+ln -s $DIR/phpactor $HOME/.config/phpactor
 
 # Binaries
 rm -rf $HOME/bin/p
