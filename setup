@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+# Retrieve the directory of this script
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+##################
+# Private stuff  #
+##################
+
+# SSH config file
+mkdir -p $HOME/.ssh/
+rm -rf $HOME/.ssh/config
+ln -s $DIR/ssh/config.conf $HOME/.ssh/config
+
+# Git
+rm -rf $HOME/.gitconfig
+rm -rf $HOME/.gitconfig-netsons
+rm -rf $HOME/.gitconfig-vuppi
+ln -s $DIR/git/gitconfig $HOME/.gitconfig
+ln -s $DIR/git/gitconfig-netsons $HOME/.gitconfig-netsons
+ln -s $DIR/git/gitconfig-vuppi $HOME/.gitconfig-vuppi
+
+
+######################
+# Software and tools #
+######################
+
+# Kitty
+rm -rf $HOME/.config/kitty
+ln -s $DIR/kitty $HOME/.config/kitty
+
+# zsh
+rm -rf $HOME/.zprofile-custom
+ln -s $DIR/zsh/zprofile-custom $HOME/.zprofile-custom
+
+# Tmux
+rm -rf $HOME/.tmux.conf
+ln -s $DIR/tmux/tmux.conf $HOME/.tmux.conf
+
+# Emacs
+rm -rf $HOME/.emacs.d
+
+# VIM
+rm -rf $HOME/.vimrc
+ln -s $DIR/vim/vimrc $HOME/.vimrc
+
+# IdeaVIM
+rm -rf $HOME/.ideavimrc
+ln -s $DIR/vim/ideavimrc $HOME/.ideavimrc
+ln -s $DIR/emacs/emacs.d $HOME/.emacs.d
+
+# Neovim
+rm -rf $HOME/.config/nvim
+ln -s $DIR/nvim $HOME/.config/nvim
+
+# PHPactor
+rm -rf "$HOME/.config/phpactor"
+ln -s "${pwd}/phpactor" "$HOME/.config/phpactor"
+
+# Binaries
+rm -rf $HOME/bin/p
+ln -s $DIR/bin/p $HOME/bin/p
