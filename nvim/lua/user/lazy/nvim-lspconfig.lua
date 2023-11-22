@@ -65,6 +65,11 @@ return {
       }
     })
 
+    -- HTML
+    require('lspconfig').html.setup({
+      capabilities = capabilities,
+    })
+
     -- Vue, JavaScript, TypeScript
     require('lspconfig').volar.setup({
       on_attach = function(client, bufnr)
