@@ -16,9 +16,11 @@ ln -s $DIR/ssh/config.conf $HOME/.ssh/config
 rm -rf $HOME/.gitconfig
 rm -rf $HOME/.gitconfig-netsons
 rm -rf $HOME/.gitconfig-vuppi
+rm -rf $HOME/.gitignore
 ln -s $DIR/git/gitconfig $HOME/.gitconfig
 ln -s $DIR/git/gitconfig-netsons $HOME/.gitconfig-netsons
 ln -s $DIR/git/gitconfig-vuppi $HOME/.gitconfig-vuppi
+ln -s $DIR/git/gitignore $HOME/.gitignore
 
 
 ######################
