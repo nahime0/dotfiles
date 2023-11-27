@@ -3,6 +3,14 @@
 # Retrieve the directory of this script
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+#################
+# Install fonts #
+#################
+
+# ComicShanns
+rm -rf $HOME/Library/Fonts/ComicShanns
+cp -r $DIR/fonts/ComicShanns $HOME/Library/Fonts/ComicShanns
+
 ################################################
 # Ensure that command line tools are installed #
 ################################################
