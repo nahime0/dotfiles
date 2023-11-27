@@ -22,6 +22,16 @@ ln -s $DIR/git/gitconfig-netsons $HOME/.gitconfig-netsons
 ln -s $DIR/git/gitconfig-vuppi $HOME/.gitconfig-vuppi
 ln -s $DIR/git/gitignore $HOME/.gitignore
 
+################################################
+# Ensure that command line tools are installed #
+################################################
+
+# Xcode command line tools
+if ! xcode-select -p &> /dev/null; then
+    echo "Xcode command line tools not found. Installing..."
+    xcode-select --install
+fi
+
 ##################
 # Needed folders #
 ##################
