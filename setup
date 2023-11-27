@@ -89,8 +89,8 @@ rm -rf $HOME/.config/kitty
 ln -s $DIR/kitty $HOME/.config/kitty
 
 # zsh
-rm -rf $HOME/.zprofile-custom
-ln -s $DIR/zsh/zprofile-custom $HOME/.zprofile-custom
+rm -rf $HOME/.zshrc
+ln -s $DIR/zsh/zshrc $HOME/.zshrc
 
 # Tmux
 rm -rf $HOME/.tmux.conf
