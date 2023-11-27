@@ -22,10 +22,20 @@ ln -s $DIR/git/gitconfig-netsons $HOME/.gitconfig-netsons
 ln -s $DIR/git/gitconfig-vuppi $HOME/.gitconfig-vuppi
 ln -s $DIR/git/gitignore $HOME/.gitignore
 
+##################
+# Needed folders #
+##################
+
 
 ######################
 # Software and tools #
 ######################
+
+# Ensure that $HOME/bin exists
+mkdir -p $HOME/bin
+
+# Ensure that $HOME/config exists
+mkdir -p $HOME/.config
 
 # Kitty
 rm -rf $HOME/.config/kitty
@@ -75,9 +85,6 @@ fi
 ##########################
 # pkgx: https://pkgx.sh/ #
 ##########################
-
-# Ensure that $HOME/bin exists
-mkdir -p $HOME/bin
 
 # Be sure that pkgx is installed
 curl -Ssf https://pkgx.sh | sh
