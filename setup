@@ -61,11 +61,14 @@ ln -s $DIR/phpactor $HOME/.config/phpactor
 
 # Binaries
 rm -rf $HOME/bin/p
-ln -s $DIR/bin/p $HOME/bin/p
+ln -s $DIR/bin/project-switcher $HOME/bin/p
 
 ##########################
 # pkgx: https://pkgx.sh/ #
 ##########################
+
+# Ensure that $HOME/bin exists
+mkdir -p $HOME/bin
 
 # Be sure that pkgx is installed
 curl -Ssf https://pkgx.sh | sh
