@@ -117,10 +117,11 @@ alias t="tmux new -As0"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Path management
+# - Add ~/bin to PATH
 # - Add composer bin path to PATH
 # - Add cargo bin path to PATH
 
-PATH=$PATH:$HOME/.composer/vendor/bin:$HOME/.cargo/bin
+export PATH="$HOME/bin:$HOME/.composer/vendor/bin:$HOME/.cargo/bin"
 
 ########
 # Herd #

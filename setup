@@ -120,7 +120,6 @@ ln -s $DIR/phpactor $HOME/.config/phpactor
 rm -rf $HOME/bin/p
 ln -s $DIR/bin/project-switcher $HOME/bin/p
 
-
 ##########################
 # pkgx: https://pkgx.sh/ #
 ##########################
