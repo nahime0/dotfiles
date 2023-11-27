@@ -90,7 +90,9 @@ ln -s $DIR/kitty $HOME/.config/kitty
 
 # zsh
 rm -rf $HOME/.zshrc
+rm -rf $HOME/.p10k.zsh
 ln -s $DIR/zsh/zshrc $HOME/.zshrc
+ln -s $DIR/zsh/p10k.zsh $HOME/.p10k.zsh
 
 # Tmux
 rm -rf $HOME/.tmux.conf
