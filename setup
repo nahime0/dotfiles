@@ -194,7 +194,11 @@ ln -s $DIR/bin/pkgx/neovim/nvim $HOME/bin/nvim
 
 # Node
 rm -rf $HOME/bin/node
+rm -rf $HOME/bin/npm
+rm -rf $HOME/bin/npx
 ln -s $DIR/bin/pkgx/nodejs/node $HOME/bin/node
+ln -s $DIR/bin/pkgx/nodejs/npm $HOME/bin/npm
+ln -s $DIR/bin/pkgx/nodejs/npx $HOME/bin/npx
 
 # PHP
 rm -rf $HOME/bin/pear
