@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Load directly the binary file, if it exists
+if [ -f "$HOME/.pkgx/python.org/v*/bin/python" ]; then
+  exec "$HOME/.pkgx/python.org/v*/bin/python" "$@"
+else # Otherwise, load the pkgx script
+  exec pkgx +python.org -- python "$@"
+fi
