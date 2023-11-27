@@ -194,6 +194,30 @@ ln -s $DIR/bin/pkgx/neovim/nvim $HOME/bin/nvim
 rm -rf $HOME/bin/node
 ln -s $DIR/bin/pkgx/nodejs/node $HOME/bin/node
 
+# PHP
+rm -rf $HOME/bin/pear
+rm -rf $HOME/bin/pecl
+rm -rf $HOME/bin/phar
+rm -rf $HOME/bin/php
+rm -rf $HOME/bin/php-cgi
+rm -rf $HOME/bin/php-config
+rm -rf $HOME/bin/phpdbg
+rm -rf $HOME/bin/phpize
+ln -s $DIR/bin/pkgx/php/pear $HOME/bin/pear
+ln -s $DIR/bin/pkgx/php/pecl $HOME/bin/pecl
+ln -s $DIR/bin/pkgx/php/phar $HOME/bin/phar
+ln -s $DIR/bin/pkgx/php/php $HOME/bin/php
+ln -s $DIR/bin/pkgx/php/php-cgi $HOME/bin/php-cgi
+ln -s $DIR/bin/pkgx/php/php-config $HOME/bin/php-config
+ln -s $DIR/bin/pkgx/php/phpdbg $HOME/bin/phpdbg
+ln -s $DIR/bin/pkgx/php/phpize $HOME/bin/phpize
+
+# PHP / Composer
+rm -rf $HOME/bin/composer
+rm -rf $HOME/bin/composer.phar
+ln -s $DIR/bin/pkgx/composer/composer $HOME/bin/composer
+ln -s $DIR/bin/pkgx/composer/composer.phar $HOME/bin/composer.phar
+
 # Tmux
 rm -rf $HOME/bin/tmux
 ln -s $DIR/bin/pkgx/tmux/tmux $HOME/bin/tmux
