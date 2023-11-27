@@ -30,6 +30,14 @@ if [ ! -d $HOME/.oh-my-zsh ]; then
     exit 1
 fi
 
+###############################
+# Install powerlevel10k theme #
+###############################
+if [ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]; then
+    echo "powerlevel10k theme not found. Installing..."
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+fi
+
 #########
 # Kitty #
 #########
