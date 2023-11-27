@@ -3,6 +3,27 @@
 # Retrieve the directory of this script
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+################################################
+# Ensure that command line tools are installed #
+################################################
+
+# Xcode command line tools
+if ! xcode-select -p &> /dev/null; then
+    echo "Xcode command line tools not found. Installing..."
+    echo "Re run this script after the installation is complete."
+    xcode-select --install
+    exit 1
+fi
+
+#######################################
+# Install oh-my-zsh, if not installed #
+#######################################
+
+if [ ! -d $HOME/.oh-my-zsh ]; then
+    echo "oh-my-zsh not found. Installing..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
 ##################
 # Private stuff  #
 ##################
@@ -21,16 +42,6 @@ ln -s $DIR/git/gitconfig $HOME/.gitconfig
 ln -s $DIR/git/gitconfig-netsons $HOME/.gitconfig-netsons
 ln -s $DIR/git/gitconfig-vuppi $HOME/.gitconfig-vuppi
 ln -s $DIR/git/gitignore $HOME/.gitignore
-
-################################################
-# Ensure that command line tools are installed #
-################################################
-
-# Xcode command line tools
-if ! xcode-select -p &> /dev/null; then
-    echo "Xcode command line tools not found. Installing..."
-    xcode-select --install
-fi
 
 ##################
 # Needed folders #
