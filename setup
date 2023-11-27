@@ -80,10 +80,8 @@ ln -s $DIR/bin/pkgx/fzf/fzf $HOME/bin/fzf
 
 # bun: https://bun.sh/
 rm -rf $HOME/bin/bun
-ln -s $DIR/bin/pkgx/bun/bun $HOME/bin/bun
-
-# bunx: https://bun.sh/docs/cli/bunx
 rm -rf $HOME/bin/bunx
+ln -s $DIR/bin/pkgx/bun/bun $HOME/bin/bun
 ln -s $DIR/bin/pkgx/bun/bunx $HOME/bin/bunx
 
 # git
