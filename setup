@@ -75,6 +75,7 @@ fi
 mkdir -p $HOME/.ssh/
 rm -rf $HOME/.ssh/config
 ln -s $DIR/ssh/config.conf $HOME/.ssh/config
+echo "Symbolic link created for SSH config file..."
 
 # Git
 rm -rf $HOME/.gitconfig
@@ -85,6 +86,7 @@ ln -s $DIR/git/gitconfig $HOME/.gitconfig
 ln -s $DIR/git/gitconfig-netsons $HOME/.gitconfig-netsons
 ln -s $DIR/git/gitconfig-vuppi $HOME/.gitconfig-vuppi
 ln -s $DIR/git/gitignore $HOME/.gitignore
+echo "Symbolic link created for Git config file..."
 
 ##################
 # Needed folders #
@@ -92,9 +94,11 @@ ln -s $DIR/git/gitignore $HOME/.gitignore
 
 # Ensure that $HOME/bin exists
 mkdir -p $HOME/bin
+echo "Created $HOME/bin folder..."
 
 # Ensure that $HOME/config exists
 mkdir -p $HOME/.config
+echo "Created $HOME/.config folder..."
 
 ######################
 # Software and tools #
@@ -103,6 +107,7 @@ mkdir -p $HOME/.config
 # Kitty
 rm -rf $HOME/.config/kitty
 ln -s $DIR/kitty $HOME/.config/kitty
+echo "Symbolic link created for Kitty config file..."
 
 # zsh
 rm -rf $HOME/.zshrc
@@ -111,34 +116,42 @@ rm -rf $HOME/.p10k.zsh
 ln -s $DIR/zsh/zshrc $HOME/.zshrc
 ln -s $DIR/zsh/zprofile $HOME/.zprofile
 ln -s $DIR/zsh/p10k.zsh $HOME/.p10k.zsh
+echo "Symbolic link created for zsh config file..."
 
 # Tmux
 rm -rf $HOME/.tmux.conf
 ln -s $DIR/tmux/tmux.conf $HOME/.tmux.conf
+echo "Symbolic link created for Tmux config file..."
 
 # Emacs
 rm -rf $HOME/.emacs.d
+ln -s $DIR/emacs/emacs.d $HOME/.emacs.d
+echo "Symbolic link created for Emacs config file..."
 
 # VIM
 rm -rf $HOME/.vimrc
 ln -s $DIR/vim/vimrc $HOME/.vimrc
+echo "Symbolic link created for VIM config file..."
 
 # IdeaVIM
 rm -rf $HOME/.ideavimrc
 ln -s $DIR/vim/ideavimrc $HOME/.ideavimrc
-ln -s $DIR/emacs/emacs.d $HOME/.emacs.d
+echo "Symbolic link created for IdeaVIM config file..."
 
 # Neovim
 rm -rf $HOME/.config/nvim
 ln -s $DIR/nvim $HOME/.config/nvim
+echo "Symbolic link created for Neovim config file..."
 
 # PHPactor
 rm -rf $HOME/.config/phpactor
 ln -s $DIR/phpactor $HOME/.config/phpactor
+echo "Symbolic link created for PHPactor config file..."
 
 # Binaries
 rm -rf $HOME/bin/p
 ln -s $DIR/bin/project-switcher $HOME/bin/p
+echo "Symbolic link created for project-switcher..."
 
 ##########################
 # pkgx: https://pkgx.sh/ #
@@ -147,16 +160,19 @@ ln -s $DIR/bin/project-switcher $HOME/bin/p
 # Ripgrep (rg): https://github.com/BurntSushi/ripgrep
 rm -rf $HOME/bin/rg
 ln -s $DIR/bin/pkgx/ripgrep/rg $HOME/bin/rg
+echo "Symbolic link created for ripgrep..."
 
 # fzf: https://github.com/junegunn/fzf
 rm -rf $HOME/bin/fzf
 ln -s $DIR/bin/pkgx/fzf/fzf $HOME/bin/fzf
+echo "Symbolic link created for fzf..."
 
 # bun: https://bun.sh/
 rm -rf $HOME/bin/bun
 rm -rf $HOME/bin/bunx
 ln -s $DIR/bin/pkgx/bun/bun $HOME/bin/bun
 ln -s $DIR/bin/pkgx/bun/bunx $HOME/bin/bunx
+echo "Symbolic link created for bun..."
 
 # git
 rm -rf $HOME/bin/git
@@ -175,22 +191,27 @@ ln -s $DIR/bin/pkgx/git-scm/git-shell $HOME/bin/git-shell
 ln -s $DIR/bin/pkgx/git-scm/git-upload-archive $HOME/bin/git-upload-archive
 ln -s $DIR/bin/pkgx/git-scm/git-upload-pack $HOME/bin/git-upload-pack
 ln -s $DIR/bin/pkgx/git-scm/scalar $HOME/bin/scalar
+echo "Symbolic link created for git..."
 
 # Python
 rm -rf $HOME/bin/python
 ln -s $DIR/bin/pkgx/python/python $HOME/bin/python
+echo "Symbolic link created for python..."
 
 # Pip
 rm -rf $HOME/bin/pip
 ln -s $DIR/bin/pkgx/python/pip $HOME/bin/pip
+echo "Symbolic link created for pip..."
 
 # Youtube-dl
 rm -rf $HOME/bin/youtube-dl
 ln -s $DIR/bin/pkgx/youtube-dl/youtube-dl $HOME/bin/youtube-dl
+echo "Symbolic link created for youtube-dl..."
 
 # NeoVim
 rm -rf $HOME/bin/nvim
 ln -s $DIR/bin/pkgx/neovim/nvim $HOME/bin/nvim
+echo "Symbolic link created for NeoVim..."
 
 # Node
 rm -rf $HOME/bin/node
@@ -199,6 +220,7 @@ rm -rf $HOME/bin/npx
 ln -s $DIR/bin/pkgx/nodejs/node $HOME/bin/node
 ln -s $DIR/bin/pkgx/nodejs/npm $HOME/bin/npm
 ln -s $DIR/bin/pkgx/nodejs/npx $HOME/bin/npx
+echo "Symbolic link created for Node..."
 
 # PHP
 rm -rf $HOME/bin/pear
@@ -217,13 +239,16 @@ ln -s $DIR/bin/pkgx/php/php-cgi $HOME/bin/php-cgi
 ln -s $DIR/bin/pkgx/php/php-config $HOME/bin/php-config
 ln -s $DIR/bin/pkgx/php/phpdbg $HOME/bin/phpdbg
 ln -s $DIR/bin/pkgx/php/phpize $HOME/bin/phpize
+echo "Symbolic link created for PHP..."
 
 # PHP / Composer
 rm -rf $HOME/bin/composer
 rm -rf $HOME/bin/composer.phar
 ln -s $DIR/bin/pkgx/composer/composer $HOME/bin/composer
 ln -s $DIR/bin/pkgx/composer/composer.phar $HOME/bin/composer.phar
+echo "Symbolic link created for PHP / Composer..."
 
 # Tmux
 rm -rf $HOME/bin/tmux
 ln -s $DIR/bin/pkgx/tmux/tmux $HOME/bin/tmux
+echo "Symbolic link created for Tmux..."
