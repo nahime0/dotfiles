@@ -106,8 +106,10 @@ ln -s $DIR/kitty $HOME/.config/kitty
 
 # zsh
 rm -rf $HOME/.zshrc
+rm -rf $HOME/.zprofile
 rm -rf $HOME/.p10k.zsh
 ln -s $DIR/zsh/zshrc $HOME/.zshrc
+ln -s $DIR/zsh/zprofile $HOME/.zprofile
 ln -s $DIR/zsh/p10k.zsh $HOME/.p10k.zsh
 
 # Tmux
