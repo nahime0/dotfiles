@@ -117,3 +117,7 @@ ln -s $DIR/bin/pkgx/youtube-dl/youtube-dl $HOME/bin/youtube-dl
 # NeoVim
 rm -rf $HOME/bin/nvim
 ln -s $DIR/bin/pkgx/neovim/nvim $HOME/bin/nvim
+
+# Node
+rm -rf $HOME/bin/node
+ln -s $DIR/bin/pkgx/nodejs/node $HOME/bin/node
