@@ -1,7 +1,8 @@
 #!/bin/sh
-if [ "$PKGX_UNINSTALL" != 1 ]; then
+
+# Load directly the binary file, if it exists
+if [ -f "$HOME/.pkgx/crates.io/ripgrep/v*/bin/rg" ]; then
+  exec "$HOME/.pkgx/crates.io/ripgrep/v*/bin/rg" "$@"
+else # Otherwise, load the pkgx script
   exec pkgx +crates.io/ripgrep -- rg "$@"
-else
-  cd "$(dirname "$0")"
-  rm rg && echo "uninstalled: crates.io/ripgrep" >&2
 fi

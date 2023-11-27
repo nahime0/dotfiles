@@ -1,7 +1,8 @@
 #!/bin/sh
-if [ "$PKGX_UNINSTALL" != 1 ]; then
+
+# Load directly the binary file, if it exists
+if [ -f "$HOME/.pkgx/git-scm.org/v*/bin/scalar" ]; then
+  exec "$HOME/.pkgx/git-scm.org/v*/bin/scalar" "$@"
+else # Otherwise, load the pkgx script
   exec pkgx +git-scm.org -- scalar "$@"
-else
-  cd "$(dirname "$0")"
-  rm git git-cvsserver git-receive-pack git-shell git-upload-archive git-upload-pack scalar git-credential-osxkeychain && echo "uninstalled: git-scm.org" >&2
 fi

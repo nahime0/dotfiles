@@ -1,2 +1,8 @@
 #!/bin/sh
-exec pkgx +bun.sh -- bun "$@"
+
+# Load directly the binary file, if it exists
+if [ -f "$HOME/.pkgx/bun.sh/v*/bin/bun" ]; then
+  exec "$HOME/.pkgx/bun.sh/v*/bin/bun" "$@"
+else # Otherwise, load the pkgx script
+  exec pkgx +bun.sh -- bun "$@"
+fi
