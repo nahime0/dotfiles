@@ -26,16 +26,15 @@ ln -s $DIR/git/gitignore $HOME/.gitignore
 # Needed folders #
 ##################
 
-
-######################
-# Software and tools #
-######################
-
 # Ensure that $HOME/bin exists
 mkdir -p $HOME/bin
 
 # Ensure that $HOME/config exists
 mkdir -p $HOME/.config
+
+######################
+# Software and tools #
+######################
 
 # Kitty
 rm -rf $HOME/.config/kitty
