@@ -101,3 +101,15 @@ ln -s $DIR/bin/pkgx/git-scm/git-shell $HOME/bin/git-shell
 ln -s $DIR/bin/pkgx/git-scm/git-upload-archive $HOME/bin/git-upload-archive
 ln -s $DIR/bin/pkgx/git-scm/git-upload-pack $HOME/bin/git-upload-pack
 ln -s $DIR/bin/pkgx/git-scm/scalar $HOME/bin/scalar
+
+# Python
+rm -rf $HOME/bin/python
+ln -s $DIR/bin/pkgx/python/python $HOME/bin/python
+
+# Pip
+rm -rf $HOME/bin/pip
+ln -s $DIR/bin/pkgx/python/pip $HOME/bin/pip
+
+# Youtube-dl
+rm -rf $HOME/bin/youtube-dl
+ln -s $DIR/bin/pkgx/youtube-dl/youtube-dl $HOME/bin/youtube-dl
