@@ -63,6 +63,15 @@ ln -s $DIR/phpactor $HOME/.config/phpactor
 rm -rf $HOME/bin/p
 ln -s $DIR/bin/project-switcher $HOME/bin/p
 
+#########
+# Kitty #
+#########
+
+if [ ! -d /Applications/kitty.app ]; then
+    echo "Kitty.app not found. Installing..."
+    exec $DIR/setup-kitty
+fi
+
 ##########################
 # pkgx: https://pkgx.sh/ #
 ##########################
