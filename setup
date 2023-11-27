@@ -62,3 +62,26 @@ ln -s $DIR/phpactor $HOME/.config/phpactor
 # Binaries
 rm -rf $HOME/bin/p
 ln -s $DIR/bin/p $HOME/bin/p
+
+##########################
+# pkgx: https://pkgx.sh/ #
+##########################
+
+# Be sure that pkgx is installed
+curl -Ssf https://pkgx.sh | sh
+
+# Ripgrep (rg): https://github.com/BurntSushi/ripgrep
+rm -rf $HOME/bin/rg
+ln -s $DIR/bin/rg $HOME/bin/rg
+
+# fzf: https://github.com/junegunn/fzf
+rm -rf $HOME/bin/fzf
+ln -s $DIR/bin/fzf $HOME/bin/fzf
+
+# bun: https://bun.sh/
+rm -rf $HOME/bin/bun
+ln -s $DIR/bin/bun $HOME/bin/bun
+
+# bunx: https://bun.sh/docs/cli/bunx
+rm -rf $HOME/bin/bunx
+ln -s $DIR/bin/bunx $HOME/bin/bunx
