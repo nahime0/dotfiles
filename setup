@@ -11,6 +11,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 if ! xcode-select -p &> /dev/null; then
     echo "Xcode command line tools not found. Installing..."
     echo "Re run this script after the installation is complete."
+    echo "Press a key to continue..."
+    read -n 1
     xcode-select --install
     exit 1
 fi
@@ -21,7 +23,32 @@ fi
 
 if [ ! -d $HOME/.oh-my-zsh ]; then
     echo "oh-my-zsh not found. Installing..."
+    echo "Re run this script after the installation is complete."
+    echo "Press a key to continue..."
+    read -n 1
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    exit 1
+fi
+
+#########
+# Kitty #
+#########
+
+if [ ! -d /Applications/kitty.app ]; then
+    echo "Kitty.app not found. Installing... Re run this script after the installation is complete."
+    echo "Press a key to continue..."
+    read -n 1
+    exec $DIR/setup-kitty
+    exit 1
+fi
+
+if [ ! -f /usr/local/bin/pkgx ]; then
+    echo "pkgx not found. Installing..."
+    echo "Re run this script after the installation is complete."
+    echo "Press a key to continue..."
+    read -n 1
+    curl -Ssf https://pkgx.sh | sh
+    exit 1
 fi
 
 ##################
@@ -93,21 +120,10 @@ ln -s $DIR/phpactor $HOME/.config/phpactor
 rm -rf $HOME/bin/p
 ln -s $DIR/bin/project-switcher $HOME/bin/p
 
-#########
-# Kitty #
-#########
-
-if [ ! -d /Applications/kitty.app ]; then
-    echo "Kitty.app not found. Installing..."
-    exec $DIR/setup-kitty
-fi
 
 ##########################
 # pkgx: https://pkgx.sh/ #
 ##########################
-
-# Be sure that pkgx is installed
-curl -Ssf https://pkgx.sh | sh
 
 # Ripgrep (rg): https://github.com/BurntSushi/ripgrep
 rm -rf $HOME/bin/rg
