@@ -121,3 +121,7 @@ ln -s $DIR/bin/pkgx/neovim/nvim $HOME/bin/nvim
 # Node
 rm -rf $HOME/bin/node
 ln -s $DIR/bin/pkgx/nodejs/node $HOME/bin/node
+
+# Tmux
+rm -rf $HOME/bin/tmux
+ln -s $DIR/bin/pkgx/tmux/tmux $HOME/bin/tmux
