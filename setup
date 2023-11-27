@@ -72,19 +72,19 @@ curl -Ssf https://pkgx.sh | sh
 
 # Ripgrep (rg): https://github.com/BurntSushi/ripgrep
 rm -rf $HOME/bin/rg
-ln -s $DIR/bin/pkgx/rg $HOME/bin/rg
+ln -s $DIR/bin/pkgx/ripgrep/rg $HOME/bin/rg
 
 # fzf: https://github.com/junegunn/fzf
 rm -rf $HOME/bin/fzf
-ln -s $DIR/bin/pkgx/fzf $HOME/bin/fzf
+ln -s $DIR/bin/pkgx/fzf/fzf $HOME/bin/fzf
 
 # bun: https://bun.sh/
 rm -rf $HOME/bin/bun
-ln -s $DIR/bin/pkgx/bun $HOME/bin/bun
+ln -s $DIR/bin/pkgx/bun/bun $HOME/bin/bun
 
 # bunx: https://bun.sh/docs/cli/bunx
 rm -rf $HOME/bin/bunx
-ln -s $DIR/bin/pkgx/bunx $HOME/bin/bunx
+ln -s $DIR/bin/pkgx/bun/bunx $HOME/bin/bunx
 
 # git
 rm -rf $HOME/bin/git
@@ -95,11 +95,11 @@ rm -rf $HOME/bin/git-shell
 rm -rf $HOME/bin/git-upload-archive
 rm -rf $HOME/bin/git-upload-pack
 rm -rf $HOME/bin/scalar
-ln -s $DIR/bin/pkgx/git $HOME/bin/git
-ln -s $DIR/bin/pkgx/git-credential-osxkeychain $HOME/bin/git-credential-osxkeychain
-ln -s $DIR/bin/pkgx/git-cvsserver $HOME/bin/git-cvsserver
-ln -s $DIR/bin/pkgx/git-receive-pack $HOME/bin/git-receive-pack
-ln -s $DIR/bin/pkgx/git-shell $HOME/bin/git-shell
-ln -s $DIR/bin/pkgx/git-upload-archive $HOME/bin/git-upload-archive
-ln -s $DIR/bin/pkgx/git-upload-pack $HOME/bin/git-upload-pack
-ln -s $DIR/bin/pkgx/scalar $HOME/bin/scalar
+ln -s $DIR/bin/pkgx/git-scm/git $HOME/bin/git
+ln -s $DIR/bin/pkgx/git-scm/git-credential-osxkeychain $HOME/bin/git-credential-osxkeychain
+ln -s $DIR/bin/pkgx/git-scm/git-cvsserver $HOME/bin/git-cvsserver
+ln -s $DIR/bin/pkgx/git-scm/git-receive-pack $HOME/bin/git-receive-pack
+ln -s $DIR/bin/pkgx/git-scm/git-shell $HOME/bin/git-shell
+ln -s $DIR/bin/pkgx/git-scm/git-upload-archive $HOME/bin/git-upload-archive
+ln -s $DIR/bin/pkgx/git-scm/git-upload-pack $HOME/bin/git-upload-pack
+ln -s $DIR/bin/pkgx/git-scm/scalar $HOME/bin/scalar
