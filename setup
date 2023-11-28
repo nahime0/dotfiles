@@ -252,3 +252,19 @@ echo "Symbolic link created for PHP / Composer..."
 rm -rf $HOME/bin/tmux
 ln -s $DIR/bin/pkgx/tmux/tmux $HOME/bin/tmux
 echo "Symbolic link created for Tmux..."
+
+# Force download of needed libraries
+ehco "The installed version of Git is:"
+~/bin/git --version
+echo "The installed version of PHP is:"
+~/bin/php --version
+echo "The installed version of Composer is:"
+~/bin/composer --version
+echo "The installed version of Ripgrep is:"
+~/bin/rg --version
+echo "The installed version of fzf is:"
+~/bin/fzf --version
+echo "The installed version of node is:"
+~/bin/node --version
+echo "The installed version of npm is:"
+~/bin/npm --version
