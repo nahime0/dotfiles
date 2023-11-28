@@ -38,8 +38,8 @@ return {
     sources = {
       "filesystem",
       "buffers",
-      "git_status",
-      "document_symbols",
+      -- "git_status",
+      -- "document_symbols",
     },
     source_selector = {
       winbar = true,
