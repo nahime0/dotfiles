@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Load directly the binary file, if it exists
+if [ -f "$HOME/.pkgx/charm.sh/gum/v*/bin/gum" ]; then
+  exec "$HOME/.pkgx/charm.sh/gum/v*/bin/gum" "$@"
+else # Otherwise, load the pkgx script
+  exec pkgx +charm.sh/gum -- gum "$@"
+fi
