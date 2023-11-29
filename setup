@@ -1,90 +1,36 @@
 #!/usr/bin/env zsh
 
-# Retrieve the directory of this script
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+################################################################################
+# Setup needed variables and env                                               #
+#                                                                              #
+# 1. The directory of the script                                               #
+# 2. The path of the gum binary                                                #
+#                                                                              #
+# Then this script will take care of installing the needed fonts, and the      #
+# needed software and tools.                                                   #
+################################################################################
 
-#################
-# Install fonts #
-#################
+export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+export GUM=$DIR/bin/pkgx/gum/gum
 
-# ComicShanns
-rm -rf $HOME/Library/Fonts/ComicShanns
-cp -r $DIR/fonts/ComicShanns $HOME/Library/Fonts/ComicShanns
+$DIR/installers/fonts.sh
+$DIR/installers/xcode-command-line-tools.sh
+$DIR/installers/pkgx.sh
 
-################################################
-# Ensure that command line tools are installed #
-################################################
-
-# Xcode command line tools
-if ! xcode-select -p &> /dev/null; then
-    echo "Xcode command line tools not found. Installing..."
-    echo "Re run this script after the installation is complete."
-    echo "Press a key to continue..."
-    read -n 1
-    xcode-select --install
-    exit 1
-fi
-
-################
-# Install pkgx #
-################
-
-if [ ! -f /usr/local/bin/pkgx ]; then
-    echo "pkgx not found. Installing..."
-    echo "Re run this script after the installation is complete."
-    echo "Press a key to continue..."
-    read -n 1
-    curl -Ssf https://pkgx.sh | sh
-    exit 1
-fi
-
-GUM=$DIR/bin/pkgx/gum/gum
-
-$DIR/bin/pkgx/gum/gum style --border normal --padding "0 4" --border-foreground 212 "Xcode and pkgx are installed."
+$GUM style --border normal --padding "0 4" --border-foreground 212 "Xcode and pkgx are installed."
 
 if ! $GUM confirm "Continue with the installation?" ; then
     $GUM style --padding "0 2" "Installation aborted."
     exit 1
 fi
 
-#######################################
-# Install oh-my-zsh, if not installed #
-#######################################
-
-if [ ! -d $HOME/.oh-my-zsh ]; then
-    if $GUM confirm "Do you want to install oh-my-zsh?" ; then
-        $GUM style --padding "0 2" "Installing oh-my-zsh..."
-        $GUM style --padding "0 2" "Re run this script after the installation is complete."
-        $GUM style --padding "0 2" "Press a key to continue..."
-        read -n 1
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-        exit 1
-    fi
-fi
-
-###############################
-# Install powerlevel10k theme #
-###############################
-if [ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]; then
-    if $GUM confirm "Do you want to install powerlevel10k theme?" ; then
-        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
-    fi
-fi
-
-#########
-# Kitty #
-#########
-
-if [ ! -d /Applications/kitty.app ]; then
-    if $GUM confirm "Do you want to install Kitty?" ; then
-        $GUM style --padding "0 2" "Installing Kitty..."
-        $GUM style --padding "0 2" "Re run this script after the installation is complete."
-        $GUM style --padding "0 2" "Press a key to continue..."
-        read -n 1
-        exec $DIR/setup-kitty
-        exit 1
-    fi
-fi
+$DIR/installers/folders.sh
+$DIR/installers/oh-my-zsh.sh
+$DIR/installers/kitty.sh
+$DIR/installers/dotfiles.sh
+$DIR/installers/binaries.sh
+$DIR/installers/pkgx-symlinks.sh
+$DIR/installers/pkgx-force-download.sh
 
 ##################
 # Private stuff  #
@@ -107,218 +53,3 @@ ln -s $DIR/git/gitconfig-vuppi $HOME/.gitconfig-vuppi
 ln -s $DIR/git/gitignore $HOME/.gitignore
 $GUM style --padding "0 2" "Created symbolic link for Git config file..."
 
-##################
-# Needed folders #
-##################
-
-# Ensure that $HOME/bin exists
-mkdir -p $HOME/bin
-$GUM style --padding "0 2" "Created $HOME/bin folder..."
-
-# Ensure that $HOME/config exists
-mkdir -p $HOME/.config
-$GUM style --padding "0 2" "Created $HOME/.config folder..."
-
-######################
-# Software and tools #
-######################
-
-# Kitty
-rm -rf $HOME/.config/kitty
-ln -s $DIR/kitty $HOME/.config/kitty
-$GUM style --padding "0 2" "Created symbolic link for Kitty config file..."
-
-# zsh
-rm -rf $HOME/.zshrc
-rm -rf $HOME/.zprofile
-rm -rf $HOME/.p10k.zsh
-ln -s $DIR/zsh/zshrc $HOME/.zshrc
-ln -s $DIR/zsh/zprofile $HOME/.zprofile
-ln -s $DIR/zsh/p10k.zsh $HOME/.p10k.zsh
-$GUM style --padding "0 2" "Created symbolic link for zsh config file..."
-
-# Tmux
-rm -rf $HOME/.tmux.conf
-ln -s $DIR/tmux/tmux.conf $HOME/.tmux.conf
-$GUM style --padding "0 2" "Created symbolic link for Tmux config file..."
-
-# Emacs
-rm -rf $HOME/.emacs.d
-ln -s $DIR/emacs/emacs.d $HOME/.emacs.d
-$GUM style --padding "0 2" "Created symbolic link for Emacs config file..."
-
-# VIM
-rm -rf $HOME/.vimrc
-ln -s $DIR/vim/vimrc $HOME/.vimrc
-$GUM style --padding "0 2" "Created symbolic link for VIM config file..."
-
-# IdeaVIM
-rm -rf $HOME/.ideavimrc
-ln -s $DIR/vim/ideavimrc $HOME/.ideavimrc
-$GUM style --padding "0 2" "Created symbolic link for IdeaVIM config file..."
-
-# Neovim
-rm -rf $HOME/.config/nvim
-ln -s $DIR/nvim $HOME/.config/nvim
-$GUM style --padding "0 2" "Created symbolic link for Neovim config file..."
-
-# PHPactor
-rm -rf $HOME/.config/phpactor
-ln -s $DIR/phpactor $HOME/.config/phpactor
-$GUM style --padding "0 2" "Created symbolic link for PHPactor config file..."
-
-# Binaries
-rm -rf $HOME/bin/p
-ln -s $DIR/bin/project-switcher $HOME/bin/p
-$GUM style --padding "0 2" "Created symbolic link for project-switcher..."
-
-##########################
-# pkgx: https://pkgx.sh/ #
-##########################
-
-# Gum
-rm -rf $HOME/bin/gum
-ln -s $DIR/bin/pkgx/gum/gum $HOME/bin/gum
-$GUM style --padding "0 2" "Created symbolic link for gum..."
-
-# Ripgrep (rg): https://github.com/BurntSushi/ripgrep
-rm -rf $HOME/bin/rg
-ln -s $DIR/bin/pkgx/ripgrep/rg $HOME/bin/rg
-$GUM style --padding "0 2" "Created symbolic link for ripgrep..."
-
-# fzf: https://github.com/junegunn/fzf
-rm -rf $HOME/bin/fzf
-ln -s $DIR/bin/pkgx/fzf/fzf $HOME/bin/fzf
-$GUM style --padding "0 2" "Created symbolic link for fzf..."
-
-# bun: https://bun.sh/
-rm -rf $HOME/bin/bun
-rm -rf $HOME/bin/bunx
-ln -s $DIR/bin/pkgx/bun/bun $HOME/bin/bun
-ln -s $DIR/bin/pkgx/bun/bunx $HOME/bin/bunx
-$GUM style --padding "0 2" "Created symbolic link for bun..."
-
-# git
-rm -rf $HOME/bin/git
-rm -rf $HOME/bin/git-credential-osxkeychain
-rm -rf $HOME/bin/git-cvsserver
-rm -rf $HOME/bin/git-receive-pack
-rm -rf $HOME/bin/git-shell
-rm -rf $HOME/bin/git-upload-archive
-rm -rf $HOME/bin/git-upload-pack
-rm -rf $HOME/bin/scalar
-ln -s $DIR/bin/pkgx/git-scm/git $HOME/bin/git
-ln -s $DIR/bin/pkgx/git-scm/git-credential-osxkeychain $HOME/bin/git-credential-osxkeychain
-ln -s $DIR/bin/pkgx/git-scm/git-cvsserver $HOME/bin/git-cvsserver
-ln -s $DIR/bin/pkgx/git-scm/git-receive-pack $HOME/bin/git-receive-pack
-ln -s $DIR/bin/pkgx/git-scm/git-shell $HOME/bin/git-shell
-ln -s $DIR/bin/pkgx/git-scm/git-upload-archive $HOME/bin/git-upload-archive
-ln -s $DIR/bin/pkgx/git-scm/git-upload-pack $HOME/bin/git-upload-pack
-ln -s $DIR/bin/pkgx/git-scm/scalar $HOME/bin/scalar
-$GUM style --padding "0 2" "Created symbolic link for git..."
-
-# Python
-rm -rf $HOME/bin/python
-ln -s $DIR/bin/pkgx/python/python $HOME/bin/python
-$GUM style --padding "0 2" "Created symbolic link for python..."
-
-# Pip
-rm -rf $HOME/bin/pip
-ln -s $DIR/bin/pkgx/python/pip $HOME/bin/pip
-$GUM style --padding "0 2" "Created symbolic link for pip..."
-
-# Youtube-dl
-rm -rf $HOME/bin/youtube-dl
-ln -s $DIR/bin/pkgx/youtube-dl/youtube-dl $HOME/bin/youtube-dl
-$GUM style --padding "0 2" "Created symbolic link for youtube-dl..."
-
-# NeoVim
-rm -rf $HOME/bin/nvim
-ln -s $DIR/bin/pkgx/neovim/nvim $HOME/bin/nvim
-$GUM style --padding "0 2" "Created symbolic link for NeoVim..."
-
-# Node
-rm -rf $HOME/bin/node
-rm -rf $HOME/bin/npm
-rm -rf $HOME/bin/npx
-ln -s $DIR/bin/pkgx/nodejs/node $HOME/bin/node
-ln -s $DIR/bin/pkgx/nodejs/npm $HOME/bin/npm
-ln -s $DIR/bin/pkgx/nodejs/npx $HOME/bin/npx
-$GUM style --padding "0 2" "Created symbolic link for Node..."
-
-# PHP
-rm -rf $HOME/bin/pear
-rm -rf $HOME/bin/pecl
-rm -rf $HOME/bin/phar
-rm -rf $HOME/bin/php
-rm -rf $HOME/bin/php-cgi
-rm -rf $HOME/bin/php-config
-rm -rf $HOME/bin/phpdbg
-rm -rf $HOME/bin/phpize
-ln -s $DIR/bin/pkgx/php/pear $HOME/bin/pear
-ln -s $DIR/bin/pkgx/php/pecl $HOME/bin/pecl
-ln -s $DIR/bin/pkgx/php/phar $HOME/bin/phar
-ln -s $DIR/bin/pkgx/php/php $HOME/bin/php
-ln -s $DIR/bin/pkgx/php/php-cgi $HOME/bin/php-cgi
-ln -s $DIR/bin/pkgx/php/php-config $HOME/bin/php-config
-ln -s $DIR/bin/pkgx/php/phpdbg $HOME/bin/phpdbg
-ln -s $DIR/bin/pkgx/php/phpize $HOME/bin/phpize
-$GUM style --padding "0 2" "Created symbolic link for PHP..."
-
-# PHP / Composer
-rm -rf $HOME/bin/composer
-rm -rf $HOME/bin/composer.phar
-ln -s $DIR/bin/pkgx/composer/composer $HOME/bin/composer
-ln -s $DIR/bin/pkgx/composer/composer.phar $HOME/bin/composer.phar
-$GUM style --padding "0 2" "Created symbolic link for PHP / Composer..."
-
-# Mailpit
-rm -rf $HOME/bin/mailpit
-ln -s $DIR/bin/pkgx/mailpit/mailpit $HOME/bin/mailpit
-$GUM style --padding "0 2" "Created symbolic link for Mailpit..."
-
-# Tmux
-rm -rf $HOME/bin/tmux
-ln -s $DIR/bin/pkgx/tmux/tmux $HOME/bin/tmux
-$GUM style --padding "0 2" "Created symbolic link for Tmux..."
-
-# Force download of needed libraries
-# Just run the command and pkgx will do the rest
-
-if $GUM confirm "Do you want to force the download of pkgx binaries?" ; then
-    $GUM style --padding "0 2" "Downloading pkgx binaries, and printing version..."
-    {
-        $GUM style --foreground 212 "The installed version of Git is:";
-        ~/bin/git --version
-    } | $GUM style --border normal --padding "0 4" --border-foreground 212 --width 60
-
-    {
-        $GUM style --foreground 212 "The installed version of PHP is:";
-        ~/bin/php --version
-    } | $GUM style --border normal --padding "0 4" --border-foreground 212 --width 60
-
-    {
-        $GUM style --foreground 212 "The installed version of Composer is:";
-        ~/bin/composer --version
-    } | $GUM style --border normal --padding "0 4" --border-foreground 212 --width 60
-
-    {
-        $GUM style --foreground 212 "The installed version of Ripgrep is:";
-        ~/bin/rg --version
-    } | $GUM style --border normal --padding "0 4" --border-foreground 212 --width 60
-
-    {
-        $GUM style --foreground 212 "The installed version of fzf is:";
-        ~/bin/fzf --version
-    } | $GUM style --border normal --padding "0 4" --border-foreground 212 --width 60
-
-    {
-        $GUM style --foreground 212 "The installed version of node is:";
-        ~/bin/node --version
-    } | $GUM style --border normal --padding "0 4" --border-foreground 212 --width 60
-
-    {
-        $GUM style --foreground 212 "The installed version of npm is:";
-        ~/bin/npm --version
-    } | $GUM style --border normal --padding "0 4" --border-foreground 212 --width 60
-fi
