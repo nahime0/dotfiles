@@ -121,3 +121,12 @@ alias t="tmux new -As0"
 ########
 
 source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode
+
+###################################################################
+# Kitty specific fixes for SSH connections (e.g. tmux, vim, etc.) #
+# https://wiki.archlinux.org/title/Kitty#Terminal_issues_with_SSH #
+###################################################################
+
+if [[ "$TERM" == "xterm-kitty" ]]; then
+  alias ssh="kitty +kitten ssh"
+fi
