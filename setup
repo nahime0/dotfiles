@@ -248,6 +248,11 @@ ln -s $DIR/bin/pkgx/composer/composer $HOME/bin/composer
 ln -s $DIR/bin/pkgx/composer/composer.phar $HOME/bin/composer.phar
 echo "Symbolic link created for PHP / Composer..."
 
+# Mailpit
+rm -rf $HOME/bin/mailpit
+ln -s $DIR/bin/pkgx/mailpit/mailpit $HOME/bin/mailpit
+echo "Symbolic link created for Mailpit..."
+
 # Tmux
 rm -rf $HOME/bin/tmux
 ln -s $DIR/bin/pkgx/tmux/tmux $HOME/bin/tmux

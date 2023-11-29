@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Load directly the binary file, if it exists
+if [ -f "$HOME/.pkgx/github.com/axllent/mailpit/v*/bin/mailpit" ]; then
+  exec "$HOME/.pkgx/github.com/axllent/mailpit/v*/bin/mailpit" "$@"
+else # Otherwise, load the pkgx script
+  exec pkgx +github.com/axllent/mailpit -- mailpit "$@"
+fi
