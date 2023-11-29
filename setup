@@ -13,7 +13,6 @@
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 export GUM=$DIR/bin/pkgx/gum/gum
 
-$DIR/installers/fonts.sh
 $DIR/installers/xcode-command-line-tools.sh
 $DIR/installers/pkgx.sh
 
@@ -24,6 +23,7 @@ if ! $GUM confirm "Continue with the installation?" ; then
     exit 1
 fi
 
+$DIR/installers/fonts.sh
 $DIR/installers/folders.sh
 $DIR/installers/oh-my-zsh.sh
 $DIR/installers/kitty.sh
