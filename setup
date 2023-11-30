@@ -32,25 +32,10 @@ $DIR/installers/binaries.sh
 $DIR/installers/pkgx-symlinks.sh
 $DIR/installers/pkgx-force-download.sh
 
-if $GUM confirm "Do you want to run private stuff installer?" ; then
-    ##################
-    # Private stuff  #
-    ##################
-
-    # SSH config file
-    mkdir -p $HOME/.ssh/
-    rm -rf $HOME/.ssh/config
-    ln -s $DIR/ssh/config.conf $HOME/.ssh/config
-    $GUM style --padding "0 2" "Created symbolic link for SSH config file..."
-
-    # Git
-    rm -rf $HOME/.gitconfig
-    rm -rf $HOME/.gitconfig-netsons
-    rm -rf $HOME/.gitconfig-vuppi
-    rm -rf $HOME/.gitignore
-    ln -s $DIR/git/gitconfig $HOME/.gitconfig
-    ln -s $DIR/git/gitconfig-netsons $HOME/.gitconfig-netsons
-    ln -s $DIR/git/gitconfig-vuppi $HOME/.gitconfig-vuppi
-    ln -s $DIR/git/gitignore $HOME/.gitignore
-    $GUM style --padding "0 2" "Created symbolic link for Git config file..."
+##################################################################
+# If the private dotfiles repo exists, then run the setup script #
+##################################################################
+if [ -f $DIR/dotfiles-private/setup ] ; then
+    $GUM style --padding "0 2" "Setting up private dotfiles..."
+    $DIR/dotfiles-private/setup
 fi
