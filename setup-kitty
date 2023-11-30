@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-# Launch the default kitty installer - updater (https://sw.kovidgoyal.net/kitty/binary/)
-# Use this script to install or update Kitty terminal emulator
-
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
