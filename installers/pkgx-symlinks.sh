@@ -55,6 +55,11 @@ rm -rf $HOME/bin/pip
 ln -s $DIR/bin/pkgx/python/pip $HOME/bin/pip
 $GUM style --padding "0 2" "Created symbolic link for pip..."
 
+# pipx
+rm -rf $HOME/bin/pipx
+ln -s $DIR/bin/pkgx/python/pipx $HOME/bin/pipx
+$GUM style --padding "0 2" "Created symbolic link for pipx..."
+
 # Youtube-dl
 rm -rf $HOME/bin/youtube-dl
 ln -s $DIR/bin/pkgx/youtube-dl/youtube-dl $HOME/bin/youtube-dl

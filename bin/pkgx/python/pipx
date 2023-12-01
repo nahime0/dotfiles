@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec pkgx +pypa.github.io/pipx -- pipx "$@"
