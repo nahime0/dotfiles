@@ -35,7 +35,14 @@ return {
         --   vim.lsp.buf.inlay_hint(bufnr, true)
         -- end
       end,
-      capabilities = capabilities
+      capabilities = capabilities,
+      settings = {
+        intelephense = {
+          files = {
+            exclude = { '**/_laravel_idea/**' }, -- Don't index Laravel Idea IDE helper files
+          }
+        }
+      }
     })
 
     require('lspconfig').phpactor.setup({
