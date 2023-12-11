@@ -1,3 +1,14 @@
+function split(str, sep)
+    local sep, res = sep or '%s', {' '}
+    string.gsub(str, '[^'..sep..']+', function(x) res[#res+1] = x end)
+    return res
+end
+
+local handle = io.popen("sort -R ~/.quotes.txt | head -1 | tr -d '\n'")
+local quote = handle:read("*a")
+quoteText = split(quote, "|")
+handle:close()
+
 return {
   'glepnir/dashboard-nvim',
   opts = {
@@ -37,9 +48,7 @@ return {
         { icon = '  ', desc = 'Recent files', key = 'Space + h', action = 'Telescope oldfiles' },
         { icon = '  ', desc = 'Find Word', key = 'Space + g', action = 'Telescope live_grep' },
       },
-      footer = {
-        '',
-      }
+      footer = quoteText
     },
     hide = {
       statusline = false,
