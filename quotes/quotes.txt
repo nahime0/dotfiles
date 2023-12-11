@@ -1,0 +1,8 @@
+Programming is like sex. One mistake and you have to support it for the rest of your life| |- Michael Sinz
+There are only two kinds of languages: the ones people complain about and the ones nobody uses| |- Bjarne Stroustrup
+There are two ways to write error-free programs; only the third one works| |- Alan J. Perlis
+It’s not a bug – it’s an undocumented feature| |- Anonymous
+Walking on water and developing software from a specification are easy if both are frozen| |- Edward V Berard
+The best thing about a boolean is even if you are wrong, you are only off by a bit| |- Anonymous
+If debugging is the process of removing bugs, then programming must be the process of putting them in| |- Edsger Dijkstra
+There are 10 types of people in the world: those who understand binary and those who don’t| |- Anonymous
