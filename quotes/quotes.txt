@@ -6,3 +6,16 @@ Walking on water and developing software from a specification are easy if both a
 The best thing about a boolean is even if you are wrong, you are only off by a bit| |- Anonymous
 If debugging is the process of removing bugs, then programming must be the process of putting them in| |- Edsger Dijkstra
 There are 10 types of people in the world: those who understand binary and those who don’t| |- Anonymous
+Without requirements or design, programming is the art of adding bugs to an empty text file| |– Louis Srygley
+Before software can be reusable it first has to be usable| |– Ralph Johnson
+There are two major products that come out of Berkeley: LSD and UNIX. We don’t believe this to be a coincidence| |– Jeremy S. Anderson
+A computer lets you make more mistakes faster than any other invention in human history, with the possible exceptions of handguns and tequila.| |– Mitch Ratcliffe
+The trouble with programmers is that you can never tell what a programmer is doing until it’s too late| |– Seymour Cray
+The computer was born to solve problems that did not exist before| |– Bill Gates
+Software sucks because users demand it to| |– Nathan Myhrvold
+Software and cathedrals are much the same – first we build them, then we pray| |– Anonymous
+It’s a curious thing about our industry: not only do we not learn from our mistakes, we also don’t learn from our successes| |– Keith Braithwaite
+There are only two kinds of programming languages: those people always bitch about and those nobody uses| |– Bjarne Stroustrup
+In order to understand recursion, one must first understand recursion| |– Anonymous
+Programming is like kicking yourself in the face, sooner or later your nose will bleed| |– Kyle Woodbury
+Copy and paste is a design error| |– David Parnas
