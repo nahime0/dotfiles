@@ -47,3 +47,8 @@ $GUM style --padding "0 2" "Created symbolic link for Neovim config file..."
 rm -rf $HOME/.config/phpactor
 ln -s $DIR/phpactor $HOME/.config/phpactor
 $GUM style --padding "0 2" "Created symbolic link for PHPactor config file..."
+
+# Micro
+rm -rf $HOME/.config/micro
+ln -s $DIR/micro $HOME/.config/micro
+$GUM style --padding "0 2" "Created symbolic link for Micro config file..."
