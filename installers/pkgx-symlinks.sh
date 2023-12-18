@@ -115,6 +115,11 @@ rm -rf $HOME/bin/tmux
 ln -s $DIR/bin/pkgx/tmux/tmux $HOME/bin/tmux
 $GUM style --padding "0 2" "Created symbolic link for Tmux..."
 
+# Micro
+rm -rf $HOME/bin/micro
+ln -s $DIR/bin/pkgx/micro/micro $HOME/bin/micro
+$GUM style --padding "0 2" "Created symbolic link for Micro..."
+
 # Quotes
 rm -rf $HOME/.quotes.txt
 ln -s $DIR/quotes/quotes.txt $HOME/.quotes.txt
