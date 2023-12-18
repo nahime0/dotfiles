@@ -1,5 +1,7 @@
 .DS_Store
 .idea/*
+micro/backups
+micro/buffers
 tmux/tmux/plugins
 !tmux/tmux/plugins/tpm
 dotfiles-private
