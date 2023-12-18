@@ -39,6 +39,7 @@ folder to store personal configuration (i.e. git, ssh and so on).
 - ripgrep (pkgx shim)
 - tmux (pkgx shim)
 - youtube-dl (pkgx shim)
+- micro (pkgx shim)
 - Ranger (via pipx)
 
 # Credits
