@@ -105,6 +105,11 @@ return {
       },
     })
 
+    -- Elixir
+    require('lspconfig').elixirls.setup({
+      capabilities = capabilities
+    })
+
     -- JSON
     require('lspconfig').jsonls.setup({
       capabilities = capabilities,
