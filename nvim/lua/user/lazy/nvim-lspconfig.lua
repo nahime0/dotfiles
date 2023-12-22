@@ -93,7 +93,14 @@ return {
     })
 
     -- Tailwind CSS
-    require('lspconfig').tailwindcss.setup({ capabilities = capabilities })
+    require('lspconfig').tailwindcss.setup({
+      capabilities = capabilities,
+      init_options = {
+        userLanguages = {
+          heex = 'html',
+        }
+      },
+    })
 
     -- JSON
     require('lspconfig').jsonls.setup({
