@@ -93,11 +93,14 @@ return {
     })
 
     -- Tailwind CSS
+    -- userLanguaes are custom languages for tailwind. To the nvim buffer type is associated
+    -- one of the tailwindcss lsp supported languages.
+    -- See here: https://github.com/tailwindlabs/tailwindcss-intellisense/blob/master/packages/tailwindcss-language-service/src/util/languages.ts
     require('lspconfig').tailwindcss.setup({
       capabilities = capabilities,
       init_options = {
         userLanguages = {
-          heex = 'html',
+          heex = 'html', -- Phoenix Framework support (https://www.phoenixframework.org/)
         }
       },
     })
