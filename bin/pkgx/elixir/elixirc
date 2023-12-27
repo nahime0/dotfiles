@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Load directly the binary file, if it exists
+if [ -f "$HOME/.pkgx/elixir-lang.org/v*/bin/elixirc" ]; then
+  exec "$HOME/.pkgx/elixir-lang.org/v*/bin/elixirc" "$@"
+else # Otherwise, load the pkgx script
+  exec pkgx +elixir-lang.org -- elixirc "$@"
+fi

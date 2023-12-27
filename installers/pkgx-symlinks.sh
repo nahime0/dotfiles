@@ -120,6 +120,38 @@ rm -rf $HOME/bin/micro
 ln -s $DIR/bin/pkgx/micro/micro $HOME/bin/micro
 $GUM style --padding "0 2" "Created symbolic link for Micro..."
 
+# Erlang
+rm -rf $HOME/bin/ct_run
+rm -rf $HOME/bin/dialyzer
+rm -rf $HOME/bin/epmd
+rm -rf $HOME/bin/erl
+rm -rf $HOME/bin/erlc
+rm -rf $HOME/bin/escript
+rm -rf $HOME/bin/run_erl
+rm -rf $HOME/bin/to_erl
+rm -rf $HOME/bin/typer
+ln -s $DIR/bin/pkgx/erlang/ct_run $HOME/bin/ct_run
+ln -s $DIR/bin/pkgx/erlang/dialyzer $HOME/bin/dialyzer
+ln -s $DIR/bin/pkgx/erlang/epmd $HOME/bin/epmd
+ln -s $DIR/bin/pkgx/erlang/erl $HOME/bin/erl
+ln -s $DIR/bin/pkgx/erlang/erlc $HOME/bin/erlc
+ln -s $DIR/bin/pkgx/erlang/escript $HOME/bin/escript
+ln -s $DIR/bin/pkgx/erlang/run_erl $HOME/bin/run_erl
+ln -s $DIR/bin/pkgx/erlang/to_erl $HOME/bin/to_erl
+ln -s $DIR/bin/pkgx/erlang/typer $HOME/bin/typer
+$GUM style --padding "0 2" "Created symbolic link for Erlang..."
+
+# Elixir
+rm -rf $HOME/bin/elixir
+rm -rf $HOME/bin/elixirc
+rm -rf $HOME/bin/iex
+rm -rf $HOME/bin/mix
+ln -s $DIR/bin/pkgx/elixir/elixir $HOME/bin/elixir
+ln -s $DIR/bin/pkgx/elixir/elixirc $HOME/bin/elixirc
+ln -s $DIR/bin/pkgx/elixir/iex $HOME/bin/iex
+ln -s $DIR/bin/pkgx/elixir/mix $HOME/bin/mix
+$GUM style --padding "0 2" "Created symbolic link for Elixir..."
+
 # Quotes
 rm -rf $HOME/.quotes.txt
 ln -s $DIR/quotes/quotes.txt $HOME/.quotes.txt
