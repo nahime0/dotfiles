@@ -1,5 +1,7 @@
 "" Source your .vimrc
-source ~/.vimrc
+" source ~/.vimrc
+
+imap kj <Esc>
 
 "" -- Suggested options --
 " Show a few lines of context around the cursor. Note that this makes the
@@ -10,8 +12,8 @@ set scrolloff=5
 set incsearch
 
 " Set relative numbering
-set relativenumber
-set number
+" set relativenumber
+" set number
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
