@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Load directly the binary file, if it exists
+if [ -f "$HOME/.pkgx/go.dev/v*/bin/gofmt" ]; then
+  exec "$HOME/.pkgx/go.dev/v*/bin/gofmt" "$@"
+else # Otherwise, load the pkgx script
+  exec pkgx +go.dev -- gofmt "$@"
+fi

@@ -152,6 +152,18 @@ ln -s $DIR/bin/pkgx/elixir/iex $HOME/bin/iex
 ln -s $DIR/bin/pkgx/elixir/mix $HOME/bin/mix
 $GUM style --padding "0 2" "Created symbolic link for Elixir..."
 
+# Go
+rm -rf $HOME/bin/go
+rm -rf $HOME/bin/gofmt
+ln -s $DIR/bin/pkgx/go/go $HOME/bin/go
+ln -s $DIR/bin/pkgx/go/gofmt $HOME/bin/gofmt
+$GUM style --padding "0 2" "Created symbolic link for Go..."
+
+# Goreleaser
+rm -rf $HOME/bin/goreleaser
+ln -s $DIR/bin/pkgx/go/goreleaser $HOME/bin/goreleaser
+$GUM style --padding "0 2" "Created symbolic link for Goreleaser..."
+
 # Quotes
 rm -rf $HOME/.quotes.txt
 ln -s $DIR/quotes/quotes.txt $HOME/.quotes.txt
