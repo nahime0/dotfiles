@@ -26,6 +26,14 @@ return {
         ['app/Models/*.php'] = {
           type = 'model',
         },
+        ['database/factories/*Factory.php'] = {
+          type = 'factory',
+          alternate = 'app/Models/{}.php',
+        },
+        ['database/seeders/*Seeder.php'] = {
+          type = 'seeder',
+          alternate = 'app/Models/{}.php',
+        },
         ['app/Http/Controllers/*.php'] = {
           type = 'controller',
         },
