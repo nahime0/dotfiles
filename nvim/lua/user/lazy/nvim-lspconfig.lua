@@ -110,6 +110,20 @@ return {
       capabilities = capabilities
     })
 
+    -- Go
+    require('lspconfig').gopls.setup({
+      capabilities = capabilities,
+      -- cmd = { 'gopls', 'serve' },
+      settings = {
+        gopls = {
+          analyses = {
+            unusedparams = true,
+          },
+          staticcheck = true,
+        },
+      },
+    })
+
     -- JSON
     require('lspconfig').jsonls.setup({
       capabilities = capabilities,
