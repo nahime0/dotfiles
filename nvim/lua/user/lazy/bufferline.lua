@@ -43,12 +43,12 @@ return {
       custom_areas = {
         left = function()
           return {
-            { text = ' ' },
+            { text = '' },
           }
         end,
         right = function()
           return {
-            { text = '    ', fg = '#8fff6d' },
+            { text = '    ', fg = '#8b5cf6' },
           }
         end,
       },
