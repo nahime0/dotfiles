@@ -48,7 +48,7 @@ return {
         end,
         right = function()
           return {
-            { text = '    ', fg = '#8b5cf6' },
+            { text = '   nahime ', fg = '#6366f1' },
           }
         end,
       },
