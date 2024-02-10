@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Load directly the binary file, if it exists
-if [ -f "$HOME/.pkgx/git-scm.org/v*/bin/git" ]; then
-  exec "$HOME/.pkgx/git-scm.org/v*/bin/git" "$@"
+if [ -f "$HOME/.pkgx/git-scm.org/v*/libexec/git" ]; then
+  exec "$HOME/.pkgx/git-scm.org/v*/libexec/git" "$@"
 else # Otherwise, load the pkgx script
   exec pkgx +git-scm.org -- git "$@"
 fi
