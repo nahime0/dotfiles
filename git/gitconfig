@@ -1,0 +1,18 @@
+[include]
+    path = ~/.gitidentity
+[init]
+    defaultBranch = main
+[commit]
+    gpgsign = true
+[gpg]
+    format = ssh
+[core]
+	autocrlf = input
+	excludesFile = ~/.gitignore
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[alias]
+    st = status --short --branch
