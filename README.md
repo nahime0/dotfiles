@@ -18,7 +18,23 @@ The installer in this repository will check for the existance of a file setup
 in the folder `dotfiles-private`.
 
 If the file is found, it will be launched. You can use the `dotfiles-private`
-folder to store personal configuration (i.e. git, ssh and so on).
+folder to store personal configuration (i.e. ssh and so on).
+
+# Git
+
+The idenity for git commits will be included from the `~/.gitidentity` file.
+The file should include the `[user]` section of the git configuration file.
+
+For example:
+
+```gitconfig
+[user]
+    name = My name
+    email = my@email.com
+    signingKey = ~/.ssh/id_rsa
+```
+
+You can create the `~/.gitidentity` file using the dotfiles-private folder described above.
 
 # What software and libraries ecc. will be installed?
 
