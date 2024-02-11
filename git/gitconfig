@@ -7,12 +7,12 @@
 [gpg]
     format = ssh
 [core]
-	autocrlf = input
-	excludesFile = ~/.gitignore
+    autocrlf = input
+    excludesFile = ~/.gitignore
 [filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
 [alias]
     st = status --short --branch
