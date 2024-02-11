@@ -7,6 +7,7 @@
 [gpg]
     format = ssh
 [core]
+    editor = nvim
     autocrlf = input
     excludesFile = ~/.gitignore
 [filter "lfs"]
@@ -15,4 +16,18 @@
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
 [alias]
-    st = status --short --branch
+    a = add
+    aa = add --all
+    bd = branch -d
+    c = commit -m
+    ca = commit --amend
+    cb = checkout -b
+    co = checkout
+    d = diff
+    dd = difftool -t nvimdiff -y
+    last = log -1 HEAD --stat
+    ll = log --oneline
+    p = push
+    pa = push --tags
+    s = status -sb
+    se = !git rev-list --all | xargs git grep -F
