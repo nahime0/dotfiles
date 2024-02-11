@@ -4,6 +4,13 @@
 # Configuration files (dotfiles) #
 ##################################
 
+# Git
+rm -rf $HOME/.gitconfig
+rm -rf $HOME/.gitignore
+ln -s $DIR/git/gitconfig $HOME/.gitconfig
+ln -s $DIR/git/gitignore $HOME/.gitignore
+$GUM style --padding "0 2" "Created symbolic link for Git config file..."
+
 # Kitty
 rm -rf $HOME/.config/kitty
 ln -s $DIR/kitty $HOME/.config/kitty
