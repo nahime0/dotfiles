@@ -46,7 +46,11 @@ fi
 
 $DIR/installers/folders.sh
 $DIR/installers/oh-my-zsh.sh
-$DIR/installers/kitty.sh
+
+if isMacOS; then
+    $DIR/installers/kitty.sh
+fi
+
 $DIR/installers/dotfiles.sh
 $DIR/installers/binaries.sh
 $DIR/installers/pkgx-symlinks.sh
