@@ -30,6 +30,13 @@ if isMacOS; then
 fi
 $DIR/installers/pkgx.sh
 
+
+if isLinux || isWSL; then
+    $GUM style --padding "0 2" "Installing make tools and zsh shell"
+    sudo apt install g++ gcc make zsh
+    chsh -s $(which zsh)
+fi
+
 $GUM style --border normal --padding "0 4" --border-foreground 212 "pkgx and other needed dependencies are installed."
 
 if ! $GUM confirm "Continue with the installation?" ; then
