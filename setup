@@ -27,7 +27,7 @@ export GUM=$DIR/bin/pkgx/gum/gum
 source $DIR/lib/oses.sh
 source $DIR/lib/shell.sh
 
-if isZsh; then
+if ! isZsh; then
     echo ""
     echo "You need to be in ZSH to launch this script."
     echo "Install ZSH, then change shell:"
@@ -52,7 +52,7 @@ $DIR/installers/pkgx.sh
 
 
 if isLinux || isWSL; then
-    $GUM style --padding "0 2" "Installing make tools and zsh shell"
+    $GUM style --padding "0 2" "Installing make tools"
     sudo apt update
     sudo apt install g++ gcc make
 fi
