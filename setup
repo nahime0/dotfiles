@@ -35,7 +35,7 @@ if isZsh; then
     echo ">  chsh -s \$(which zsh)"
     echo ""
     echo "You need to re-login afterwards."
-    exit
+    exit 1
 fi
 
 if isOther; then
