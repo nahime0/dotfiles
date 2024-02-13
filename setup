@@ -73,7 +73,7 @@ fi
 ################
 # Install pkgx #
 ################
-$DIR/installers/pkgx.sh
+$DIR/installers/00-install-pkgx.sh
 
 ################################################################################
 #                                                                              #
@@ -88,11 +88,11 @@ if ! $GUM confirm "Continue with the installation?" ; then
     exit 1
 fi
 
-$DIR/installers/folders.sh
-$DIR/installers/oh-my-zsh.sh
-$DIR/installers/dotfiles.sh
-$DIR/installers/binaries.sh
-$DIR/installers/pkgx-symlinks.sh
+$DIR/installers/01-create-folders.sh
+$DIR/installers/02-install-oh-my-zsh.sh
+$DIR/installers/03-symlink-dotfiles.sh
+$DIR/installers/04-symlink-binaries.sh
+$DIR/installers/05-symlink-pkgx-shims.sh
 
 ##################################################################
 # If the private dotfiles repo exists, then run the setup script #
