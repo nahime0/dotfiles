@@ -94,11 +94,6 @@ $DIR/installers/dotfiles.sh
 $DIR/installers/binaries.sh
 $DIR/installers/pkgx-symlinks.sh
 
-############################
-# Other software and tools #
-############################
-$DIR/installers/ranger.sh
-
 ##################################################################
 # If the private dotfiles repo exists, then run the setup script #
 ##################################################################
