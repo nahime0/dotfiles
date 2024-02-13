@@ -2,38 +2,18 @@
 
 case "$(uname -sr)" in
     Darwin*)
-        OS='macOS'
+        export OS='macos'
         ;;
     Linux*Microsoft*)
-        OS='WSL'
+        export OS='wsl'
         ;;
     Linux*)
-        OS='Linux'
+        export OS='linux'
         ;;
     # CYGWIN*|MINGW*|MINGW32*|MSYS*)
     #     OS='Windows'
     #     ;;
     *)
-        OS='Other'
+        export OS='other'
         ;;
 esac
-
-function isMacOS() {
-    [ "$OS" = "macOS" ]
-}
-
-function isWSL() {
-    [ "$OS" = "WSL" ]
-}
-
-function isLinux() {
-    [ "$OS" = "Linux" ]
-}
-
-function isWindows() {
-    [ "$OS" = "Windows" ]
-}
-
-function isOther() {
-    [ "$OS" = "Other" ]
-}

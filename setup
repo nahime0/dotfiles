@@ -10,23 +10,23 @@
 # needed software and tools.                                                   #
 ################################################################################
 
-##############################
-# Export PATH for common bin #
-##############################
-
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 export GUM=$DIR/bin/pkgx/gum/gum
 
 ######################################################
 # Import lib/oses.sh                                 #
 # Import lib/shell.sh                                #
-# which contains the functions for detecting the OS  #
+#                                                    #
+# they contains the functions for detecting the OS   #
 # and the current shell                              #
 ######################################################
 
 source $DIR/lib/oses.sh
 source $DIR/lib/shell.sh
 
+#####################################
+# Check if the current shell is ZSH #
+#####################################
 if ! isZsh; then
     echo ""
     echo "You need to be in ZSH to launch this script."
@@ -38,55 +38,65 @@ if ! isZsh; then
     exit 1
 fi
 
-if isOther; then
+##############################################
+# Check if the operating system is supported #
+##############################################
+if [ $OS = "other" ]; then
     echo ""
     echo "This script is only for macOS and Linux systems."
     echo ""
     exit 1
 fi
 
-if isMacOS; then
+##############################################
+# Only on MacOS, install xcode command line  #
+# and Homebrew                               #
+##############################################
+if [ $OS = "macos" ]; then
     $DIR/installers/xcode-command-line-tools.sh
+    $DIR/installers/homebrew.sh
+    $DIR/installers/fonts.sh
+    $DIR/installers/kitty.sh
 fi
-$DIR/installers/pkgx.sh
 
-
-if isLinux || isWSL; then
-    $GUM style --padding "0 2" "Installing make tools"
+##############################################
+# Only on Linux, install make tools          #
+##############################################
+if [[ $OS = "linux" || $OS = "wsl" ]]; then
+    echo ""
+    echo "Installing make tools..."
+    echo ""
     sudo apt update
     sudo apt install g++ gcc make
 fi
 
-$GUM style --border normal --padding "0 4" --border-foreground 212 "pkgx and other needed dependencies are installed."
+################
+# Install pkgx #
+################
+$DIR/installers/pkgx.sh
+
+################################################################################
+#                                                                              #
+#         GUM is available, we can now start the installation process.         #
+#                                                                              #
+################################################################################
+
+$GUM style --border normal --padding "0 4" --border-foreground 212 "All dependencies are installed."
 
 if ! $GUM confirm "Continue with the installation?" ; then
     $GUM style --padding "0 2" "Installation aborted."
     exit 1
 fi
 
-if isMacOS; then
-    $DIR/installers/fonts.sh
-else
-    $GUM style --padding "0 2" "Skipping fonts installation for non-macOS systems. Install the fonts manually."
-    $GUM input --placeholder="Press any key to continue..."
-fi
-
 $DIR/installers/folders.sh
 $DIR/installers/oh-my-zsh.sh
-
-if isMacOS; then
-    $DIR/installers/kitty.sh
-fi
-
 $DIR/installers/dotfiles.sh
 $DIR/installers/binaries.sh
 $DIR/installers/pkgx-symlinks.sh
-$DIR/installers/pkgx-force-download.sh
 
 ############################
 # Other software and tools #
 ############################
-
 $DIR/installers/ranger.sh
 
 ##################################################################
