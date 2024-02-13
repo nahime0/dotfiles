@@ -53,10 +53,10 @@ fi
 # and Homebrew                               #
 ##############################################
 if [ $OS = "macos" ]; then
-    $DIR/installers/xcode-command-line-tools.sh
-    $DIR/installers/homebrew.sh
-    $DIR/installers/fonts.sh
-    $DIR/installers/kitty.sh
+    $DIR/installers/macos/xcode-command-line-tools.sh
+    $DIR/installers/macos/homebrew.sh
+    $DIR/installers/macos/fonts.sh
+    $DIR/installers/macos/kitty.sh
 fi
 
 ##############################################
