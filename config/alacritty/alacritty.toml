@@ -1,6 +1,3 @@
-[env]
-TERM = "xterm-256color"
-
 [window]
 decorations = "Transparent"
 
@@ -13,10 +10,11 @@ x = 10
 y = 30
 
 [font]
-size = 16
+size = 16.5
 
 [font.offset]
-y = 10
+y = 15
+x = 1
 
 [font.normal]
 family = "ComicShannsMono Nerd Font Mono"
