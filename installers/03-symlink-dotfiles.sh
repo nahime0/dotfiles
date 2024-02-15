@@ -16,6 +16,11 @@ rm -rf $HOME/.config/kitty
 ln -s $DIR/config/kitty $HOME/.config/kitty
 $GUM style --padding "0 2" "Created symbolic link for Kitty config file..."
 
+# Alacritty
+rm -rf $HOME/.config/alacritty
+ln -s $DIR/config/alacritty $HOME/.config/alacritty
+$GUM style --padding "0 2" "Created symbolic link for Alacritty config file..."
+
 # zsh
 rm -rf $HOME/.zshrc
 rm -rf $HOME/.zprofile
