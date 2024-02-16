@@ -1,13 +1,13 @@
 [window]
-decorations = "Transparent"
+# decorations = "Buttonless"
 
 [window.dimensions]
 columns = 120
-lines = 40
+lines = 30
 
 [window.padding]
 x = 10
-y = 30
+y = 10
 
 [font]
 size = 16.5
