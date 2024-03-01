@@ -13,7 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 
 require("lazy").setup({
-  { import = 'user.lazy.tokyonight' }, -- Include the theme
+  { import = 'user.lazy.onedarkpro' }, -- Include the theme
+  -- { import = 'user.lazy.tokyonight' }, -- Include the theme
   { import = 'user.lazy.vim-commentary' }, -- Comment stuff out (use gcc to comment out a line)
   { import = 'user.lazy.vim-surround' }, -- Easily add, change and delete surroundings in pairs (e.g. cs"' to change surrounding " from double quotes to single quotes)
   { import = 'user.lazy.vim-eunuch' }, -- vim enunch - command like :Rename and :SudoWrite
