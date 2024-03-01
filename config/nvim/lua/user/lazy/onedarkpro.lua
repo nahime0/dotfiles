@@ -10,8 +10,11 @@ return {
       FloatermBorder = {
         bg = "#292c34",
         fg = "#ABABAB"
+      },
+      Identifier = {
+        fg = "${white}"
       }
-    },
+    }
   },
   config = function (plugin, opts)
     require('onedarkpro').setup(opts)

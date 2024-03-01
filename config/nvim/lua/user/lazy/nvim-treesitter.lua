@@ -71,5 +71,9 @@ return {
     -- commentstrings
     require('ts_context_commentstring').setup({})
     vim.g.skip_ts_context_commentstring_module = true
+
+    -- Force @variable.php to be highlighted as an Identifier
+    -- Workaround to avoid all red variables in PHP using one-dark-pro
+    vim.api.nvim_set_hl(0, "@variable.php", { link = "Identifier" })
   end,
 }
