@@ -34,11 +34,11 @@ return {
     },
   },
   opts = {
-    close_if_last_window = true,
+    close_if_last_window = false,
     hide_root_node = true,
     sources = {
       "filesystem",
-      "buffers",
+      -- "buffers",
       -- "git_status",
       -- "document_symbols",
     },
@@ -77,7 +77,7 @@ return {
       -- follow_current_file = {
       --   enabled = true,
       -- },
-      group_empty_dirs = false
+      group_empty_dirs = true
     },
   },
 }
