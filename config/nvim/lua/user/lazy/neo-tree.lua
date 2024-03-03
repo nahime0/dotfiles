@@ -43,7 +43,7 @@ return {
       -- "document_symbols",
     },
     source_selector = {
-      winbar = true,
+      winbar = false,
       statusline = false,
       -- separator = { left = "", right= "" },
       -- show_separator_on_edge = true,
@@ -74,9 +74,9 @@ return {
           ".git",
         },
       },
-      -- follow_current_file = {
-      --   enabled = true,
-      -- },
+      follow_current_file = {
+        enabled = true,
+      },
       group_empty_dirs = true
     },
   },
