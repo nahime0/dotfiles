@@ -9,6 +9,14 @@ return {
   opts = {
     popup = {
       border = 'rounded',
+      relative = 'editor',
+      position = {
+        row = "50%",
+        col = "50%",
+      },
+      size = {
+        width = "60",
+      },
     },
     cmdline = {
       prompt = ' ',
