@@ -49,6 +49,7 @@ require("lazy").setup({
   { import = 'user.lazy.vim-test' }, -- VIM test
   { import = 'user.lazy.barbecue' }, -- Winbar with LSP support (Breadcrumbs)
   { import = 'user.lazy.copilot' }, -- Support for GitHub copilot
+  { import = 'user.lazy.fine-cmdline'}, -- Fine cmdline
 },
   {
     checker = {

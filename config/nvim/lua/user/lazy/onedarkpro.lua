@@ -6,10 +6,16 @@ return {
     -- Common configuration
 
     -- Custon highlight
+    -- For a list of default colors:
+    -- https://github.com/olimorris/onedarkpro.nvim/blob/main/lua/onedarkpro/themes/onedark_vivid.lua
     highlights = {
+      FloatBorder = {
+        bg = "${bg}",
+        fg = "${purple}"
+      },
       FloatermBorder = {
-        bg = "#292c34",
-        fg = "#ABABAB"
+        bg = "${bg}",
+        fg = "${blue}"
       },
       Identifier = {
         fg = "${white}"
