@@ -9,7 +9,7 @@
 [core]
     editor = nvim
     autocrlf = input
-    excludesFile = ~/.gitignore
+	excludesfile = /Users/nahime/.gitignore
 [filter "lfs"]
     process = git-lfs filter-process
     required = true
@@ -29,5 +29,8 @@
     ll = log --oneline
     p = push
     pa = push --tags
+    pu = pull --rebase
     s = status -sb
     se = !git rev-list --all | xargs git grep -F
+    sta = stash
+    stap = stash pop
