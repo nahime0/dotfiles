@@ -70,10 +70,20 @@ if [[ $OS = "linux" || $OS = "wsl" ]]; then
     sudo apt install g++ gcc make
 fi
 
+####################
+# Install Homebrew #
+####################
+
+$DIR/installers/00-install-homebrew.sh
+
 ################
 # Install pkgx #
 ################
 $DIR/installers/00-install-pkgx.sh
+
+#########################
+# Install brew software #
+#########################
 
 ################################################################################
 #                                                                              #
@@ -93,7 +103,7 @@ $DIR/installers/02-install-oh-my-zsh.sh
 $DIR/installers/03-symlink-dotfiles.sh
 $DIR/installers/04-symlink-binaries.sh
 $DIR/installers/05-symlink-pkgx-shims.sh
-$DIR/installers/06-clone-tmux-tpm-sh
+$DIR/installers/06-clone-tmux-tpm.sh
 
 ##################################################################
 # If the private dotfiles repo exists, then run the setup script #
