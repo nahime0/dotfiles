@@ -6,6 +6,7 @@ return {
     'williamboman/mason-lspconfig.nvim',
     'b0o/schemastore.nvim',
     'nvimtools/none-ls.nvim',
+    'nvimtools/none-ls-extras.nvim',
     'jay-babu/mason-null-ls.nvim',
   },
   config = function()
@@ -137,22 +138,26 @@ return {
 
     -- null-ls
     local null_ls = require('null-ls')
+    local eslint_d_diagnostic = require('none-ls.diagnostics.eslint_d')
+    local eslint_d_formatting = require('none-ls.formatting.eslint_d')
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
     null_ls.setup({
       temp_dir = '/tmp',
       sources = {
-        null_ls.builtins.diagnostics.eslint_d.with({
-          condition = function(utils)
-            return utils.root_has_file({ '.eslintrc.js' })
-          end,
-        }),
-        -- null_ls.builtins.diagnostics.phpstan, -- TODO: Only if config file
-        null_ls.builtins.diagnostics.trail_space.with({ disabled_filetypes = { 'NvimTree' } }),
-        null_ls.builtins.formatting.eslint_d.with({
+        -- eslint_d
+        eslint_d_diagnostic.with({
           condition = function(utils)
             return utils.root_has_file({ '.eslintrc.js', '.eslintrc.json' })
           end,
         }),
+        eslint_d_formatting.with({
+          condition = function(utils)
+            return utils.root_has_file({ '.eslintrc.js', '.eslintrc.json' })
+          end,
+        }),
+
+        -- null_ls.builtins.diagnostics.phpstan, -- TODO: Only if config file
+        null_ls.builtins.diagnostics.trail_space.with({ disabled_filetypes = { 'NvimTree' } }),
         null_ls.builtins.formatting.pint.with({
           condition = function(utils)
             return utils.root_has_file({ 'vendor/bin/pint' })
