@@ -48,13 +48,11 @@ if [ $OS = "other" ]; then
     exit 1
 fi
 
-##############################################
-# Only on MacOS, install xcode command line  #
-# and Homebrew                               #
-##############################################
+##########################################
+# Only on MacOS, install fonts and kitty #
+# and Homebrew                           #
+##########################################
 if [ $OS = "macos" ]; then
-    $DIR/installers/macos/xcode-command-line-tools.sh
-    $DIR/installers/macos/homebrew.sh
     $DIR/installers/macos/fonts.sh
     $DIR/installers/macos/kitty.sh
 fi
