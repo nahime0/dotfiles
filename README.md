@@ -6,6 +6,18 @@ This repository contains my dotfiles and some scripts to install them.
 
 Just run the setup script to install all the needed symlinks
 
+On MacOS, install the xcode command line tools first:
+
+```bash
+xcode-select --install
+```
+
+Then run the setup script:
+
+```bash
+./setup.sh
+```
+
 # Warnings
 
 This setup will delete configuration files and replace them with a symlink to
