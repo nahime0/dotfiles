@@ -4,6 +4,11 @@
 # Configuration files (dotfiles) #
 ##################################
 
+# Hammerspoon
+rm -rf $HOME/.hammerspoon
+ln -s $DIR/config/hammerspoon $HOME/.hammerspoon
+$GUM style --padding "0 2" "Created symbolic link for Hammerspoon config file..."
+
 # Git
 rm -rf $HOME/.gitconfig
 rm -rf $HOME/.gitignore
