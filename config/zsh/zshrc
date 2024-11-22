@@ -146,12 +146,6 @@ alias gitbackup='git add -A && git commit -m "backup: $(date +"%Y-%m-%d %H:%M:%S
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-########
-# pkgx #
-########
-
-source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode
-
 ###################################################################
 # Kitty specific fixes for SSH connections (e.g. tmux, vim, etc.) #
 # https://wiki.archlinux.org/title/Kitty#Terminal_issues_with_SSH #
