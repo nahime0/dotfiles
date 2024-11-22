@@ -60,6 +60,11 @@ rm -rf $HOME/.config/nvim
 ln -s $DIR/config/nvim $HOME/.config/nvim
 gum style --padding "0 2" "Created symbolic link for Neovim config file..."
 
+# Cursor
+rm -rf $HOME/Library/Application\ Support/Cursor/User/settings.json
+ln -s $DIR/config/cursor/settings.json $HOME/Library/Application\ Support/Cursor/User/settings.json
+gum style --padding "0 2" "Created symbolic link for Cursor config file..."
+
 # PHPactor
 rm -rf $HOME/.config/phpactor
 ln -s $DIR/config/phpactor $HOME/.config/phpactor

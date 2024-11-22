@@ -1,0 +1,28 @@
+{
+    "window.commandCenter": true,
+    "vim.neovimUseConfigFile": true,
+    "vim.normalModeKeyBindings": [],
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "k",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        }
+    ],
+    "editor.fontFamily": "'ComicShannsMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontSize": 15,
+    "workbench.colorTheme": "Visual Studio Dark",
+    "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+    "workbench.preferredLightColorTheme": "Catppuccin Latte",
+    "window.autoDetectColorScheme": true,
+    "terminal.integrated.fontSize": 15,
+    "jetbrainsKeymap.promptV3Features": false,
+    "files.autoSave": "onFocusChange",
+    "LaravelExtraIntellisense.modelVariables": {
+        "user": "App\\Models\\User"
+    },
+}
