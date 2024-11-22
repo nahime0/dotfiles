@@ -11,7 +11,6 @@
 ################################################################################
 
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-export GUM=$DIR/bin/pkgx/gum/gum
 
 ######################################################
 # Import lib/oses.sh                                 #
@@ -74,14 +73,15 @@ fi
 
 $DIR/installers/00-install-homebrew.sh
 
-################
-# Install pkgx #
-################
-$DIR/installers/00-install-pkgx.sh
-
 #########################
 # Install brew software #
 #########################
+
+brew install gum git tmux \
+    micro \
+    neovim ripgrep fzf \
+    yt-dlp youtube-dl \
+    mailpit
 
 ################################################################################
 #                                                                              #
@@ -89,10 +89,10 @@ $DIR/installers/00-install-pkgx.sh
 #                                                                              #
 ################################################################################
 
-$GUM style --border normal --padding "0 4" --border-foreground 212 "All dependencies are installed."
+gum style --border normal --padding "0 4" --border-foreground 212 "All dependencies are installed."
 
-if ! $GUM confirm "Continue with the installation?" ; then
-    $GUM style --padding "0 2" "Installation aborted."
+if ! gum confirm "Continue with the installation?" ; then
+    gum style --padding "0 2" "Installation aborted."
     exit 1
 fi
 
@@ -100,13 +100,12 @@ $DIR/installers/01-create-folders.sh
 $DIR/installers/02-install-oh-my-zsh.sh
 $DIR/installers/03-symlink-dotfiles.sh
 $DIR/installers/04-symlink-binaries.sh
-$DIR/installers/05-symlink-pkgx-shims.sh
-$DIR/installers/06-clone-tmux-tpm.sh
+$DIR/installers/05-clone-tmux-tpm.sh
 
 ##################################################################
 # If the private dotfiles repo exists, then run the setup script #
 ##################################################################
 if [ -f $DIR/dotfiles-private/setup ] ; then
-    $GUM style --padding "0 2" "Setting up private dotfiles..."
+    gum style --padding "0 2" "Setting up private dotfiles..."
     $DIR/dotfiles-private/setup
 fi

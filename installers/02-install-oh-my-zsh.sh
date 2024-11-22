@@ -5,9 +5,9 @@
 #######################################
 
 if [ ! -d $HOME/.oh-my-zsh ]; then
-    $GUM style --padding "0 2" "Installing oh-my-zsh..."
-    $GUM style --padding "0 2" "Re run this script after the installation is complete."
-    $GUM style --padding "0 2" "Press a key to continue..."
+    gum style --padding "0 2" "Installing oh-my-zsh..."
+    gum style --padding "0 2" "Re run this script after the installation is complete."
+    gum style --padding "0 2" "Press a key to continue..."
     read -k 1
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     exit 1
