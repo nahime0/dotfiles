@@ -81,7 +81,8 @@ brew install gum git tmux \
     micro \
     neovim ripgrep fzf \
     yt-dlp youtube-dl \
-    mailpit
+    mailpit \
+    autojump # Shell utilities
 
 ################################################################################
 #                                                                              #
