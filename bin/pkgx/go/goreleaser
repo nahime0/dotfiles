@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Load directly the binary file, if it exists
-if [ -f "$HOME/.pkgx/goreleaser.com/v*/bin/goreleaser" ]; then
-  exec "$HOME/.pkgx/goreleaser.com/v*/bin/goreleaser" "$@"
-else # Otherwise, load the pkgx script
-  exec pkgx +goreleaser.com -- goreleaser "$@"
-fi

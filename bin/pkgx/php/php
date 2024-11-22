@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Load directly the binary file, if it exists
-if [ -f "$HOME/.pkgx/php.net/v8.2.13/bin/php" ]; then
-  exec "$HOME/.pkgx/php.net/v8.2.13/bin/php" "$@"
-else # Otherwise, load the pkgx script
-  exec pkgx +php.net@8.2.13 -- php "$@"
-fi

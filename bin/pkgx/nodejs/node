@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Load directly the binary file, if it exists
-if [ -f "$HOME/.pkgx/nodejs.org/v*/bin/node" ]; then
-  exec "$HOME/.pkgx/nodejs.org/v*/bin/node" "$@"
-else # Otherwise, load the pkgx script
-  exec pkgx +nodejs.org -- node "$@"
-fi

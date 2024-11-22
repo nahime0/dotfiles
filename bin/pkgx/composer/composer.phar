@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Load directly the binary file, if it exists
-if [ -f "$HOME/.pkgx/getcomposer.org/v*/bin/composer.phar" ]; then
-  exec "$HOME/.pkgx/getcomposer.org/v*/bin/composer.phar" "$@"
-else # Otherwise, load the pkgx script
-  exec pkgx +getcomposer.org -- composer.phar "$@"
-fi

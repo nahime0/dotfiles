@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec pkgx +youtube-dl.org -- youtube-dl "$@"

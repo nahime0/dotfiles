@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Load directly the binary file, if it exists
-if [ -f "$HOME/.pkgx/neovim.io/v*/bin/nvim" ]; then
-  exec "$HOME/.pkgx/neovim.io/v*/bin/nvim" "$@"
-else # Otherwise, load the pkgx script
-  exec pkgx +neovim.io -- nvim "$@"
-fi

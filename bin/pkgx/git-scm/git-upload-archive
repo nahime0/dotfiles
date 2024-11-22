@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Load directly the binary file, if it exists
-if [ -f "$HOME/.pkgx/git-scm.org/v*/bin/git-upload-archive" ]; then
-  exec "$HOME/.pkgx/git-scm.org/v*/bin/git-upload-archive" "$@"
-else # Otherwise, load the pkgx script
-  exec pkgx +git-scm.org -- git-upload-archive "$@"
-fi

@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Load directly the binary file, if it exists
-if [ -f "$HOME/.pkgx/github.com/junegunn/fzf/v*/bin/fzf" ]; then
-  exec "$HOME/.pkgx/github.com/junegunn/fzf/v*/bin/fzf" "$@"
-else # Otherwise, load the pkgx script
-  exec pkgx +github.com/junegunn/fzf -- fzf "$@"
-fi

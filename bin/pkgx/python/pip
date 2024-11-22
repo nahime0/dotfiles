@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Load directly the binary file, if it exists
-if [ -f "$HOME/.pkgx/pip.pypa.io/v*/bin/pip" ]; then
-  exec "$HOME/.pkgx/pip.pypa.io/v*/bin/pip" "$@"
-else # Otherwise, load the pkgx script
-  exec pkgx +pip.pypa.io -- pip "$@"
-fi

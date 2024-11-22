@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec pkgx +php.net@8.2.13 -- php-config "$@"

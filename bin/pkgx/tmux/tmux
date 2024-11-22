@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Load directly the binary file, if it exists
-if [ -f "$HOME/.pkgx/github.com/tmux/tmux/v*/bin/tmux" ]; then
-  exec "$HOME/.pkgx/github.com/tmux/tmux/v*/bin/tmux" "$@"
-else # Otherwise, load the pkgx script
-  exec pkgx +github.com/tmux/tmux -- tmux "$@"
-fi
