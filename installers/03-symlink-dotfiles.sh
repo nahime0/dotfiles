@@ -62,7 +62,9 @@ gum style --padding "0 2" "Created symbolic link for Neovim config file..."
 
 # Cursor
 rm -rf $HOME/Library/Application\ Support/Cursor/User/settings.json
+rm -rf $HOME/Library/Application\ Support/Cursor/User/keybindings.json
 ln -s $DIR/config/cursor/settings.json $HOME/Library/Application\ Support/Cursor/User/settings.json
+ln -s $DIR/config/cursor/keybindings.json $HOME/Library/Application\ Support/Cursor/User/keybindings.json
 gum style --padding "0 2" "Created symbolic link for Cursor config file..."
 
 # PHPactor

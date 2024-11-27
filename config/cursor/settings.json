@@ -14,7 +14,8 @@
         }
     ],
     "editor.fontFamily": "'ComicShannsMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
-    "editor.fontSize": 15,
+    "editor.fontSize": 16,
+    "editor.lineHeight": 1.7,
     "workbench.colorTheme": "Visual Studio Dark",
     "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
     "workbench.preferredLightColorTheme": "Catppuccin Latte",
@@ -25,4 +26,16 @@
     "LaravelExtraIntellisense.modelVariables": {
         "user": "App\\Models\\User"
     },
+    "LaravelExtraIntellisense.modelsPaths": [
+        "app/Models"
+    ],
+    "intelephense.environment.documentRoot": "public/index.php",
+    "intelephense.environment.includePaths": [
+        "./vendor/_laravel_idea"
+    ],
+    "php.validate.enable": true,
+    "php.suggest.basic": true,
+    "phpTools.suppressPremiumFeatures": true,
+    "editor.minimap.enabled": true,
+    "git.confirmSync": false,
 }

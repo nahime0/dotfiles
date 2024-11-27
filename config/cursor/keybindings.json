@@ -1,0 +1,22 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "s",
+        "command": "-workbench.action.files.save",
+        "when": "notebookEditorFocused && !inputFocus && !notebookOutputFocused"
+    },
+    {
+        "key": "ctrl+cmd+i",
+        "command": "inlineChat.start",
+        "when": "inlineChatHasProvider && !editorReadonly"
+    },
+    {
+        "key": "ctrl+cmd+i",
+        "command": "-workbench.action.chat.open"
+    },
+    {
+        "key": "ctrl+d",
+        "command": "-workbench.action.debug.run",
+        "when": "!inDebugMode && !terminalFocus"
+    }
+]
