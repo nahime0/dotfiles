@@ -1,1 +1,57 @@
-[]
+[
+    {
+        "key": "ctrl+d",
+        "command": "-workbench.action.debug.run",
+        "when": "!inDebugMode && !terminalFocus"
+    },
+    {
+        "key": "cmd+l",
+        "command": "workbench.panel.chat",
+        "when": "workbench.panel.chat.view.copilot.active"
+    },
+    {
+        "key": "ctrl+cmd+i",
+        "command": "-workbench.panel.chat",
+        "when": "workbench.panel.chat.view.copilot.active"
+    },
+    {
+        "key": "cmd+i",
+        "command": "workbench.action.chat.openEditSession",
+        "when": "chatEditingParticipantRegistered && chatIsEnabled && view != 'workbench.panel.chat.view.edits'"
+    },
+    {
+        "key": "shift+cmd+i",
+        "command": "-workbench.action.chat.openEditSession",
+        "when": "chatEditingParticipantRegistered && chatIsEnabled && view != 'workbench.panel.chat.view.edits'"
+    },
+    {
+        "key": "cmd+i",
+        "command": "workbench.panel.chatEditing",
+        "when": "workbench.panel.chat.view.edits.active"
+    },
+    {
+        "key": "shift+cmd+i",
+        "command": "-workbench.panel.chatEditing",
+        "when": "workbench.panel.chat.view.edits.active"
+    },
+    {
+        "key": "cmd+k",
+        "command": "inlineChat.startWithCurrentLine",
+        "when": "editorFocus && github.copilot.chat.editor.enableLineTrigger && inlineChatHasProvider && !editorReadonly && !inlineChatVisible"
+    },
+    {
+        "key": "cmd+i",
+        "command": "-inlineChat.startWithCurrentLine",
+        "when": "editorFocus && github.copilot.chat.editor.enableLineTrigger && inlineChatHasProvider && !editorReadonly && !inlineChatVisible"
+    },
+    {
+        "key": "cmd+k",
+        "command": "inlineChat.start",
+        "when": "editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly && !editorSimpleInput"
+    },
+    {
+        "key": "cmd+i",
+        "command": "-inlineChat.start",
+        "when": "editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly && !editorSimpleInput"
+    }
+]
