@@ -67,6 +67,13 @@ ln -s $DIR/config/cursor/settings.json $HOME/Library/Application\ Support/Cursor
 ln -s $DIR/config/cursor/keybindings.json $HOME/Library/Application\ Support/Cursor/User/keybindings.json
 gum style --padding "0 2" "Created symbolic link for Cursor config file..."
 
+# Visual Studio Code
+rm -rf $HOME/Library/Application\ Support/Code/User/settings.json
+rm -rf $HOME/Library/Application\ Support/Code/User/keybindings.json
+ln -s $DIR/config/code/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
+ln -s $DIR/config/code/keybindings.json $HOME/Library/Application\ Support/Code/User/keybindings.json
+gum style --padding "0 2" "Created symbolic link for Visual Studio Code config file..."
+
 # PHPactor
 rm -rf $HOME/.config/phpactor
 ln -s $DIR/config/phpactor $HOME/.config/phpactor

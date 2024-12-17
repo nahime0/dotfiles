@@ -1,0 +1,47 @@
+{
+    "window.commandCenter": true,
+    "vim.neovimUseConfigFile": true,
+    "vim.normalModeKeyBindings": [],
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "k",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        }
+    ],
+    "editor.fontFamily": "'JetBrainsMono Nerd Font Mono', 'ComicShannsMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontSize": 14.5,
+    "editor.lineHeight": 1.7,
+    "workbench.colorTheme": "Visual Studio Dark",
+    "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+    "workbench.preferredLightColorTheme": "Catppuccin Latte",
+    "window.autoDetectColorScheme": true,
+    "terminal.integrated.fontSize": 15,
+    "jetbrainsKeymap.promptV3Features": false,
+    "files.autoSave": "onFocusChange",
+    "LaravelExtraIntellisense.modelVariables": {
+        "user": "App\\Models\\User"
+    },
+    "LaravelExtraIntellisense.modelsPaths": [
+        "app/Models"
+    ],
+    "intelephense.environment.documentRoot": "public/index.php",
+    "intelephense.environment.includePaths": [
+        "./vendor/_laravel_idea"
+    ],
+    "php.validate.enable": true,
+    "php.suggest.basic": true,
+    "phpTools.suppressPremiumFeatures": true,
+    "editor.minimap.enabled": true,
+    "git.confirmSync": false,
+    "workbench.tree.indent": 15,
+    "workbench.iconTheme": "vs-minimal",
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.limit.enabled": true,
+    "workbench.editor.limit.value": 20,
+    "workbench.preferredHighContrastColorTheme": "Default Dark Modern",
+}
