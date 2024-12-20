@@ -80,9 +80,10 @@ $DIR/installers/00-install-homebrew.sh
 brew install gum git tmux \
     micro \
     neovim ripgrep fzf \
-    yt-dlp youtube-dl \
+    yt-dlp \
     mailpit \
-    autojump # Shell utilities
+    autojump \
+    python
 
 ################################################################################
 #                                                                              #
