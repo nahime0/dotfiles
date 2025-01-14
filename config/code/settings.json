@@ -13,9 +13,9 @@
             ]
         }
     ],
-    "editor.fontFamily": "'JetBrainsMono Nerd Font Mono', 'ComicShannsMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
-    "editor.fontSize": 14.5,
-    "editor.lineHeight": 1.7,
+    "editor.fontFamily": "'Monaspace Radon', 'JetBrainsMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontSize": 15,
+    "editor.lineHeight": 1.8,
     "workbench.colorTheme": "Visual Studio Dark",
     "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
     "workbench.preferredLightColorTheme": "Catppuccin Latte",
@@ -38,10 +38,21 @@
     "phpTools.suppressPremiumFeatures": true,
     "editor.minimap.enabled": true,
     "git.confirmSync": false,
-    "workbench.tree.indent": 15,
-    "workbench.iconTheme": "vs-minimal",
+    "workbench.tree.indent": 20,
     "workbench.editor.enablePreview": false,
     "workbench.editor.limit.enabled": true,
     "workbench.editor.limit.value": 20,
     "workbench.preferredHighContrastColorTheme": "Default Dark Modern",
+    "[php]": {
+        "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    },
+    "git.autofetch": true,
+    "workbench.sideBar.location": "right",
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.lineNumbers": "relative",
+    "laravel-pint.enable": true,
+    "editor.formatOnSave": true,
+    "editor.fontLigatures": "'calt', 'liga', 'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08', 'ss09'",
+    "workbench.list.openMode": "doubleClick",
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
 }
