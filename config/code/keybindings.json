@@ -53,5 +53,15 @@
         "key": "cmd+i",
         "command": "-inlineChat.start",
         "when": "editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly && !editorSimpleInput"
+    },
+    {
+        "key": "ctrl+cmd+i",
+        "command": "workbench.action.chat.open",
+        "when": "chatPanelParticipantRegistered || chatSetupInstalled"
+    },
+    {
+        "key": "ctrl+cmd+i",
+        "command": "-workbench.action.chat.open",
+        "when": "chatPanelParticipantRegistered || chatSetupInstalled"
     }
 ]
