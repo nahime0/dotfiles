@@ -85,6 +85,12 @@ brew install gum git tmux \
     autojump \
     python
 
+######################
+# Install brew casks #
+######################
+
+brew install --cask ghostty
+
 ################################################################################
 #                                                                              #
 #         GUM is available, we can now start the installation process.         #
