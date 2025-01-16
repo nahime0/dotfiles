@@ -1,0 +1,8 @@
+font-size = 15
+adjust-cell-height = "20%"
+macos-titlebar-style = "transparent"
+theme = "catppuccin-mocha"
+window-padding-color = "extend"
+window-padding-x = 10
+window-padding-y = 0
+window-padding-balance = true
