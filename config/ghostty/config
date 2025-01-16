@@ -1,4 +1,5 @@
 font-size = 15
+font-thicken = true
 adjust-cell-height = "20%"
 macos-titlebar-style = "transparent"
 theme = "catppuccin-mocha"
