@@ -1,4 +1,4 @@
-# Dotfiles
+# Dotfiles 
 
 This repository contains my dotfiles and some scripts to install them.
 
