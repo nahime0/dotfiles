@@ -6,15 +6,9 @@ export PATH="$HOME/bin":"$HOME/.composer/vendor/bin":$PATH
 # Herd #
 ########
 
-# Herd bin directory.
-export PATH="/Users/vuppi/Library/Application Support/Herd/bin/":$PATH
-
-# Herd injected PHP X.X configuration.
-export HERD_PHP_74_INI_SCAN_DIR="/Users/vuppi/Library/Application Support/Herd/config/php/74/"
-export HERD_PHP_80_INI_SCAN_DIR="/Users/vuppi/Library/Application Support/Herd/config/php/80/"
-export HERD_PHP_81_INI_SCAN_DIR="/Users/vuppi/Library/Application Support/Herd/config/php/81/"
-export HERD_PHP_82_INI_SCAN_DIR="/Users/vuppi/Library/Application Support/Herd/config/php/82/"
-export HERD_PHP_83_INI_SCAN_DIR="/Users/vuppi/Library/Application Support/Herd/config/php/83/"
-
 # Push toolbox App at the end of the PATH
 export PATH="$PATH:/Users/vuppi/Library/Application Support/JetBrains/Toolbox/scripts"
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :

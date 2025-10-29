@@ -85,7 +85,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   autojump
-  git
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -129,6 +128,7 @@ alias get-video="yt-dlp -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]
 alias t="tmux new -As0"
 alias co="composer"
 alias a="php artisan"
+alias warp='open "warp://action/new_tab?path=$(pwd)"'
 
 ###############
 # Git aliases #
@@ -140,11 +140,20 @@ alias gc="git c"
 alias gd="git d"
 alias gp="git p"
 alias gpu="git pu"
-alias gs="git s"
+alias gis="git s"
 alias gsta="git stash"
 alias gstap="git stash pop"
 alias gsps="git stash && git pull --rebase && git stash pop"
 alias gitbackup='git add -A && git commit -m "backup: $(date +"%Y-%m-%d %H:%M:%S")"'
+alias c='claude --dangerously-skip-permissions'
+alias pstorm='phpstorm'
+
+##########################
+# MacOS specific aliases #
+##########################
+
+alias dock-small-spacer="defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"small-spacer-tile\";}'; killall Dock"
+alias dock-spacer="defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"spacer-tile\";}'; killall Dock"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -154,36 +163,50 @@ alias gitbackup='git add -A && git commit -m "backup: $(date +"%Y-%m-%d %H:%M:%S
 # https://wiki.archlinux.org/title/Kitty#Terminal_issues_with_SSH #
 ###################################################################
 
-if [[ "$TERM" == "xterm-kitty" ]]; then
+# if [[ "$TERM" == "xterm-kitty" ]]; then
   # alias ssh="kitty +kitten ssh"
-  alias ssh="TERM=xterm-256color ssh"
-fi
+  # alias ssh="TERM=xterm-256color ssh"
+# fi
 
-###############################
-# HERD INJECTED CONFIGURATION #
-###############################
+#######################
+# Better SSH sessions #
+#######################
 
-# Herd injected NVM configuration
-export NVM_DIR="/Users/nahime/Library/Application Support/Herd/config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+alias ssh="TERM=xterm-256color ssh"
 
-[[ -f "/Applications/Herd.app/Contents/Resources/config/shell/zshrc.zsh" ]] && builtin source "/Applications/Herd.app/Contents/Resources/config/shell/zshrc.zsh"
+# Java
+export JAVA_HOME=$(/usr/libexec/java_home -v 20)
+export PATH=$JAVA_HOME/bin:$PATH
+
+# Android
+export ANDROID_HOME=/Users/nahime/Library/Android/sdk
+export PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
+
+# Added by Windsurf
+export PATH="/Users/nahime/.codeium/windsurf/bin:$PATH"
+
+# Path for .local bin
+export PATH="$HOME/.local/bin:$PATH"
+
+
+# Herd injected PHP 8.4 configuration.
+export HERD_PHP_84_INI_SCAN_DIR="/Users/nahime/Library/Application Support/Herd/config/php/84/"
+
 
 # Herd injected PHP binary.
 export PATH="/Users/nahime/Library/Application Support/Herd/bin/":$PATH
-
-
-# Herd injected PHP 8.2 configuration.
-export HERD_PHP_82_INI_SCAN_DIR="/Users/nahime/Library/Application Support/Herd/config/php/82/"
-
-
-# Herd injected PHP 7.4 configuration.
-export HERD_PHP_74_INI_SCAN_DIR="/Users/nahime/Library/Application Support/Herd/config/php/74/"
 
 
 # Herd injected PHP 8.3 configuration.
 export HERD_PHP_83_INI_SCAN_DIR="/Users/nahime/Library/Application Support/Herd/config/php/83/"
 
 
-# Herd injected PHP 8.4 configuration.
-export HERD_PHP_84_INI_SCAN_DIR="/Users/nahime/Library/Application Support/Herd/config/php/84/"
+# Herd injected PHP 8.2 configuration.
+export HERD_PHP_82_INI_SCAN_DIR="/Users/nahime/Library/Application Support/Herd/config/php/82/"
+
+
+# Herd injected NVM configuration
+export NVM_DIR="/Users/nahime/Library/Application Support/Herd/config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+[[ -f "/Applications/Herd.app/Contents/Resources/config/shell/zshrc.zsh" ]] && builtin source "/Applications/Herd.app/Contents/Resources/config/shell/zshrc.zsh"
