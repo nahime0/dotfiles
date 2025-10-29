@@ -175,8 +175,8 @@ alias dock-spacer="defaults write com.apple.dock persistent-apps -array-add '{\"
 alias ssh="TERM=xterm-256color ssh"
 
 # Java
-export JAVA_HOME=$(/usr/libexec/java_home -v 20)
-export PATH=$JAVA_HOME/bin:$PATH
+# export JAVA_HOME=$(/usr/libexec/java_home -v 20)
+# export PATH=$JAVA_HOME/bin:$PATH
 
 # Android
 export ANDROID_HOME=/Users/nahime/Library/Android/sdk
