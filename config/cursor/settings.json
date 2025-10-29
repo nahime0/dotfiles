@@ -1,6 +1,6 @@
 {
     "window.commandCenter": true,
-    "vim.neovimUseConfigFile": true,
+    "vim.neovimUseConfigFile": false,
     "vim.normalModeKeyBindings": [],
     "vim.insertModeKeyBindings": [
         {
@@ -13,13 +13,31 @@
             ]
         }
     ],
-    "editor.fontFamily": "'ComicShannsMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "u"
+            ],
+            "commands": [
+                "undo"
+            ]
+        },
+        {
+            "before": [
+                "<C-r>"
+            ],
+            "commands": [
+                "redo"
+            ]
+        }
+    ],
+    "editor.fontLigatures": "'calt', 'liga', 'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08', 'ss09'",
+    "window.newWindowDimensions": "inherit",
     "editor.fontSize": 16,
-    "editor.lineHeight": 1.7,
+    "editor.lineHeight": 1.8,
+    "editor.smoothScrolling": true,
     "workbench.colorTheme": "Visual Studio Dark",
-    "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
     "workbench.preferredLightColorTheme": "Catppuccin Latte",
-    "window.autoDetectColorScheme": true,
     "terminal.integrated.fontSize": 15,
     "jetbrainsKeymap.promptV3Features": false,
     "files.autoSave": "onFocusChange",
@@ -36,6 +54,40 @@
     "php.validate.enable": true,
     "php.suggest.basic": true,
     "phpTools.suppressPremiumFeatures": true,
-    "editor.minimap.enabled": true,
     "git.confirmSync": false,
+    "workbench.tree.indent": 20,
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.limit.enabled": true,
+    "workbench.editor.limit.value": 20,
+    "workbench.sideBar.location": "left",
+    "cursor.cpp.disabledLanguages": [
+        "plaintext",
+        "markdown",
+        "scminput"
+    ],
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "editor.lineNumbers": "relative",
+    "laravel-pint.enable": true,
+    "editor.formatOnSave": true,
+    "workbench.list.openMode": "doubleClick",
+    "workbench.activityBar.orientation": "vertical",
+    "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font Mono', Menlo, Monaco, monospace",
+    "files.dialog.defaultPath": "/Users/nahime/Developer",
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredDarkColorTheme": "Catppuccin Macchiato",
+    "explorer.autoReveal": false,
+    "workbench.iconTheme": "catppuccin-latte",
+    "editor.guides.indentation": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.fontFamily": "'ComicShannsMono Nerd Font Mono', 'JetBrainsMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
+    "database-client.autoSync": true,
+    "cursor.composer.shouldAllowCustomModes": true,
+    "kotlin.languageServer.enabled": false,
+    "kotlin.debugAdapter.enabled": false,
+    "Laravel.phpEnvironment": "herd"
 }
