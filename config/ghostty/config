@@ -2,6 +2,7 @@ font-size = 15
 font-thicken = true
 adjust-cell-height = "20%"
 macos-titlebar-style = "transparent"
+macos-option-as-alt = true
 theme = "catppuccin-mocha"
 window-padding-color = "extend"
 window-padding-x = 10
