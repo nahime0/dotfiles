@@ -21,6 +21,11 @@ rm -rf $HOME/.config/kitty
 ln -s $DIR/config/kitty $HOME/.config/kitty
 gum style --padding "0 2" "Created symbolic link for Kitty config file..."
 
+# Ghostty
+rm -rf $HOME/.config/ghostty
+ln -s $DIR/config/ghostty $HOME/.config/ghostty
+gum style --padding "0 2" "Created symbolic link for Ghostty config file..."
+
 # Alacritty
 rm -rf $HOME/.config/alacritty
 ln -s $DIR/config/alacritty $HOME/.config/alacritty
@@ -40,19 +45,9 @@ rm -rf $HOME/.tmux.conf
 ln -s $DIR/config/tmux/tmux.conf $HOME/.tmux.conf
 gum style --padding "0 2" "Created symbolic link for Tmux config file..."
 
-# Emacs
-rm -rf $HOME/.emacs.d
-ln -s $DIR/config/emacs/emacs.d $HOME/.emacs.d
-gum style --padding "0 2" "Created symbolic link for Emacs config file..."
-
-# VIM
-rm -rf $HOME/.vimrc
-ln -s $DIR/config/vim/vimrc $HOME/.vimrc
-gum style --padding "0 2" "Created symbolic link for VIM config file..."
-
 # IdeaVIM
 rm -rf $HOME/.ideavimrc
-ln -s $DIR/config/vim/ideavimrc $HOME/.ideavimrc
+ln -s $DIR/config/ideavim/ideavimrc $HOME/.ideavimrc
 gum style --padding "0 2" "Created symbolic link for IdeaVIM config file..."
 
 # Neovim
