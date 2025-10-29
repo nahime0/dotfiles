@@ -34,3 +34,5 @@
     se = !git rev-list --all | xargs git grep -F
     sta = stash
     stap = stash pop
+[gpg "ssh"]
+	program = ssh-keygen
