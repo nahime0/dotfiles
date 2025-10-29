@@ -13,14 +13,16 @@
             ]
         }
     ],
-    "editor.fontFamily": "'Monaspace Neon', 'JetBrainsMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
-    "editor.fontLigatures": "'calt', 'liga', 'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08', 'ss09'",
+    "editor.fontFamily": "'ComicShannsMono Nerd Font Mono', 'JetBrainsMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
+    // "editor.fontLigatures": "'calt', 'liga', 'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08', 'ss09'",
     "window.newWindowDimensions": "inherit",
-    "editor.fontSize": 15,
+    "editor.fontSize": 16,
     "editor.lineHeight": 1.8,
+    "editor.smoothScrolling": true,
     "workbench.colorTheme": "Visual Studio Dark",
-    "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+    "workbench.preferredDarkColorTheme": "Nord",
     "workbench.preferredLightColorTheme": "Catppuccin Latte",
+    "workbench.preferredHighContrastColorTheme": "Default Dark Modern",
     "window.autoDetectColorScheme": true,
     "terminal.integrated.fontSize": 15,
     "jetbrainsKeymap.promptV3Features": false,
@@ -44,16 +46,36 @@
     "workbench.editor.enablePreview": false,
     "workbench.editor.limit.enabled": true,
     "workbench.editor.limit.value": 20,
-    "workbench.preferredHighContrastColorTheme": "Default Dark Modern",
     "[php]": {
         "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
     },
     "git.autofetch": true,
-    "workbench.sideBar.location": "right",
-    "workbench.iconTheme": "material-icon-theme",
+    "workbench.sideBar.location": "left",
     "editor.lineNumbers": "relative",
     "laravel-pint.enable": true,
     "editor.formatOnSave": true,
     "workbench.list.openMode": "doubleClick",
-    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+    "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font Mono', Menlo, Monaco, monospace",
+    "files.dialog.defaultPath": "/Users/nahime/Developer",
+    "chat.agent.enabled": true,
+    "explorer.autoReveal": false,
+    "editor.guides.indentation": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "workbench.iconTheme": "catppuccin-latte",
+    "roo-cline.allowedCommands": [
+        "npm test",
+        "npm install",
+        "tsc",
+        "git log",
+        "git diff",
+        "git show"
+    ],
+    "Devdb.colorTheme": "dark",
+    "database-client.autoSync": true,
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "yaml.schemas": {
+        "file:///Users/nahime/.vscode/extensions/atlassian.atlascode-4.0.4/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    },
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:gpt-4.1"
 }
