@@ -74,7 +74,7 @@
     "database-client.autoSync": true,
     "github.copilot.nextEditSuggestions.enabled": true,
     "yaml.schemas": {
-        "file:///Users/nahime/.vscode/extensions/atlassian.atlascode-4.0.4/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+        "file:///Users/nahime/.vscode/extensions/atlassian.atlascode-4.0.6/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
     },
     "gitlens.ai.model": "vscode",
     "gitlens.ai.vscode.model": "copilot:gpt-4.1"
