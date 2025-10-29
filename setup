@@ -92,7 +92,8 @@ brew install gum git tmux \
 # Install brew casks #
 ######################
 
-# brew install --cask ghostty
+# Install ghostty for macOS without OpenGL support
+brew install --cask ghostty
 
 ################################################################################
 #                                                                              #
