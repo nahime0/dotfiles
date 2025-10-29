@@ -77,6 +77,9 @@ $DIR/installers/00-install-homebrew.sh
 # Install brew software #
 #########################
 
+# Add Homebrew to PATH
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 brew install gum git tmux \
     micro \
     neovim ripgrep fzf \
@@ -89,10 +92,7 @@ brew install gum git tmux \
 # Install brew casks #
 ######################
 
-# Add Homebrew to PATH
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-brew install --cask ghostty
+# brew install --cask ghostty
 
 ################################################################################
 #                                                                              #
