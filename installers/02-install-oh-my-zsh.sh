@@ -17,5 +17,5 @@ fi
 # Install powerlevel10k theme #
 ###############################
 if [ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]; then
-    $DIR/bin/pkgx/git-scm/git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
 fi
