@@ -4,6 +4,8 @@
 # Kitty #
 #########
 
+# @todo Add update flag
+
 if [ ! -d /Applications/kitty.app ]; then
     echo "Kitty not found. Installing..."
 
