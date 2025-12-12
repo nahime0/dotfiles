@@ -86,7 +86,8 @@ brew install gum git tmux \
     yt-dlp \
     mailpit \
     autojump \
-    python
+    python \
+    go
 
 ######################
 # Install brew casks #

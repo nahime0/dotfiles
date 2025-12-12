@@ -16,12 +16,29 @@ return {
         height = 0.8,
       },
     })
-    require('mason-lspconfig').setup({ automatic_installation = true })
+    require('mason-lspconfig').setup({
+      ensure_installed = {
+        'intelephense',
+        'phpactor',
+        'html',
+        'vue_ls',
+        'tailwindcss',
+        'elixirls',
+        'gopls',
+        'jsonls',
+      },
+    })
 
     local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-    -- PHP
-    require('lspconfig').intelephense.setup({
+    -- Global LSP config with capabilities
+    vim.lsp.config('*', {
+      capabilities = capabilities,
+    })
+
+    -- Server-specific configurations
+    vim.lsp.config('intelephense', {
+      capabilities = capabilities,
       commands = {
         IntelephenseIndex = {
           function()
@@ -29,111 +46,59 @@ return {
           end,
         },
       },
-      on_attach = function(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-        -- if client.server_capabilities.inlayHintProvider then
-        --   vim.lsp.buf.inlay_hint(bufnr, true)
-        -- end
-      end,
-      capabilities = capabilities,
-      settings = {
-        intelephense = {
-          files = {
-            exclude = { '**/_laravel_idea/**' }, -- Don't index Laravel Idea IDE helper files
-          }
-        }
-      }
     })
 
-    require('lspconfig').phpactor.setup({
-      capabilities = capabilities,
-      on_attach = function(client, bufnr)
-        client.server_capabilities.completionProvider = false
-        client.server_capabilities.hoverProvider = false
-        client.server_capabilities.implementationProvider = false
-        client.server_capabilities.referencesProvider = false
-        client.server_capabilities.renameProvider = false
-        client.server_capabilities.selectionRangeProvider = false
-        client.server_capabilities.signatureHelpProvider = false
-        client.server_capabilities.typeDefinitionProvider = false
-        client.server_capabilities.workspaceSymbolProvider = false
-        client.server_capabilities.definitionProvider = false
-        client.server_capabilities.documentHighlightProvider = false
-        client.server_capabilities.documentSymbolProvider = false
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-      end,
-      init_options = {
-        ["language_server_phpstan.enabled"] = false,
-        ["language_server_psalm.enabled"] = false,
-      },
-      handlers = {
-        ['textDocument/publishDiagnostics'] = function() end
-      }
-    })
-
-    -- HTML
-    require('lspconfig').html.setup({
-      capabilities = capabilities,
-    })
-
-    -- Vue, JavaScript, TypeScript
-    require('lspconfig').volar.setup({
-      on_attach = function(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-        -- if client.server_capabilities.inlayHintProvider then
-        --   vim.lsp.buf.inlay_hint(bufnr, true)
-        -- end
-      end,
-      capabilities = capabilities,
-      -- Enable "Take Over Mode" where volar will provide all JS/TS LSP services
-      -- This drastically improves the responsiveness of diagnostic updates on change
-      filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-    })
-
-    -- Tailwind CSS
-    -- userLanguaes are custom languages for tailwind. To the nvim buffer type is associated
-    -- one of the tailwindcss lsp supported languages.
-    -- See here: https://github.com/tailwindlabs/tailwindcss-intellisense/blob/master/packages/tailwindcss-language-service/src/util/languages.ts
-
-    require('lspconfig').tailwindcss.setup({
-      capabilities = capabilities,
-      init_options = {
-        userLanguages = {
-          heex = 'html', -- Phoenix Framework support (https://www.phoenixframework.org/)
-        }
-      },
-    })
-
-    -- Elixir
-    require('lspconfig').elixirls.setup({
-      capabilities = capabilities
-    })
-
-    -- Go
-    require('lspconfig').gopls.setup({
-      capabilities = capabilities,
-      -- cmd = { 'gopls', 'serve' },
-      settings = {
-        gopls = {
-          analyses = {
-            unusedparams = true,
-          },
-          staticcheck = true,
-        },
-      },
-    })
-
-    -- JSON
-    require('lspconfig').jsonls.setup({
+    vim.lsp.config('jsonls', {
       capabilities = capabilities,
       settings = {
         json = {
           schemas = require('schemastore').json.schemas(),
         },
       },
+    })
+
+    -- LspAttach autocmd for on_attach logic
+    vim.api.nvim_create_autocmd('LspAttach', {
+      callback = function(ev)
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if not client then return end
+
+        -- Disable formatting for specific servers
+        if client.name == 'intelephense' or client.name == 'vue_ls' then
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end
+
+        -- Disable most capabilities for phpactor (use intelephense instead)
+        if client.name == 'phpactor' then
+          client.server_capabilities.completionProvider = false
+          client.server_capabilities.hoverProvider = false
+          client.server_capabilities.implementationProvider = false
+          client.server_capabilities.referencesProvider = false
+          client.server_capabilities.renameProvider = false
+          client.server_capabilities.selectionRangeProvider = false
+          client.server_capabilities.signatureHelpProvider = false
+          client.server_capabilities.typeDefinitionProvider = false
+          client.server_capabilities.workspaceSymbolProvider = false
+          client.server_capabilities.definitionProvider = false
+          client.server_capabilities.documentHighlightProvider = false
+          client.server_capabilities.documentSymbolProvider = false
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end
+      end,
+    })
+
+    -- Enable all LSP servers
+    vim.lsp.enable({
+      'intelephense',
+      'phpactor',
+      'html',
+      'vue_ls',
+      'tailwindcss',
+      'elixirls',
+      'gopls',
+      'jsonls',
     })
 
     -- null-ls
