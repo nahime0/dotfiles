@@ -19,8 +19,8 @@
     "editor.fontSize": 16,
     "editor.lineHeight": 1.8,
     "editor.smoothScrolling": true,
-    "workbench.colorTheme": "Visual Studio Dark",
-    "workbench.preferredDarkColorTheme": "Nord",
+    "workbench.colorTheme": "Catppuccin Macchiato",
+    "workbench.preferredDarkColorTheme": "Catppuccin Macchiato",
     "workbench.preferredLightColorTheme": "Catppuccin Latte",
     "workbench.preferredHighContrastColorTheme": "Default Dark Modern",
     "window.autoDetectColorScheme": true,
@@ -50,7 +50,6 @@
         "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
     },
     "git.autofetch": true,
-    "workbench.sideBar.location": "left",
     "editor.lineNumbers": "relative",
     "laravel-pint.enable": true,
     "editor.formatOnSave": true,
@@ -70,12 +69,25 @@
         "git diff",
         "git show"
     ],
-    "Devdb.colorTheme": "dark",
     "database-client.autoSync": true,
     "github.copilot.nextEditSuggestions.enabled": true,
     "yaml.schemas": {
-        "file:///Users/nahime/.vscode/extensions/atlassian.atlascode-4.0.6/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+        "file:///Users/nahime/.vscode/extensions/atlassian.atlascode-4.0.14/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
     },
     "gitlens.ai.model": "vscode",
-    "gitlens.ai.vscode.model": "copilot:gpt-4.1"
+    "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+    "claudeCode.preferredLocation": "panel",
+    "Devdb.phpExecutablePath": "/Users/nahime/Library/Application Support/Herd/bin/php",
+    "Devdb.enableMcpServer": false,
+    "atlascode.rovodev.showEntitlementNotifications": false,
+    "atlascode.jira.lastCreateSiteAndProject": {
+        "siteId": "7fe0520e-5d95-4802-80ad-e4ce519ce077",
+        "projectKey": "WS"
+    },
+    "Laravel.phpEnvironment": "herd",
+    "atlascode.rovodev.enabled": false,
+    "settingsSync.ignoredExtensions": [],
+    "redhat.telemetry.enabled": false,
+    "claudeCode.selectedModel": "default",
+    "diffEditor.renderSideBySide": true
 }
