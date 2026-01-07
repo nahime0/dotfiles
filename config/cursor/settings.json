@@ -38,7 +38,7 @@
     "editor.smoothScrolling": true,
     "workbench.colorTheme": "Visual Studio Dark",
     "workbench.preferredLightColorTheme": "Catppuccin Latte",
-    "terminal.integrated.fontSize": 15,
+    "terminal.integrated.fontSize": 16,
     "jetbrainsKeymap.promptV3Features": false,
     "files.autoSave": "onFocusChange",
     "LaravelExtraIntellisense.modelVariables": {
@@ -76,7 +76,7 @@
     "editor.formatOnSave": true,
     "workbench.list.openMode": "doubleClick",
     "workbench.activityBar.orientation": "vertical",
-    "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font Mono', Menlo, Monaco, monospace",
+    "terminal.integrated.fontFamily": "'ComicShannsMono Nerd Font Mono', 'JetBrainsMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
     "files.dialog.defaultPath": "/Users/nahime/Developer",
     "window.autoDetectColorScheme": true,
     "workbench.preferredDarkColorTheme": "Catppuccin Macchiato",
@@ -89,5 +89,13 @@
     "cursor.composer.shouldAllowCustomModes": true,
     "kotlin.languageServer.enabled": false,
     "kotlin.debugAdapter.enabled": false,
-    "Laravel.phpEnvironment": "herd"
+    "Laravel.phpEnvironment": "herd",
+    "terminal.integrated.lineHeight": 1.2,
+    "gitlens.ai.model": "gitkraken",
+    "gitlens.ai.gitkraken.model": "gemini:gemini-2.0-flash",
+    "[php]": {
+        "editor.defaultFormatter": "open-southeners.laravel-pint"
+    },
+    "claudeCode.selectedModel": "default",
+    "claudeCode.preferredLocation": "sidebar"
 }

@@ -50,14 +50,14 @@
         "when": "workbench.scm.active"
     },
     {
-        "key": "ctrl+shift+g",
-        "command": "-workbench.view.scm",
-        "when": "workbench.scm.active"
-    },
-    {
         "key": "cmd+0",
         "command": "workbench.view.scm",
         "when": "workbench.scm.active && !gitlens:disabled && config.gitlens.keymap == 'chorded'"
+    },
+    {
+        "key": "ctrl+shift+g",
+        "command": "-workbench.view.scm",
+        "when": "workbench.scm.active"
     },
     {
         "key": "ctrl+shift+g",
@@ -76,16 +76,6 @@
     {
         "key": "ctrl+r",
         "command": "-workbench.action.openRecent"
-    },
-    {
-        "key": "alt+tab",
-        "command": "editor.action.acceptCursorTabSuggestion",
-        "when": "cpp.shouldAcceptTab"
-    },
-    {
-        "key": "tab",
-        "command": "-editor.action.acceptCursorTabSuggestion",
-        "when": "cpp.shouldAcceptTab"
     },
     {
         "key": "cmd+i",
