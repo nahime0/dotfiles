@@ -123,12 +123,15 @@ export EDITOR="nvim"
 
 alias ssh-add-all="ssh-add --apple-use-keychain --apple-load-keychain"
 # alias get-music="youtube-dl -o \"%(playlist_index)s-%(title)s.%(ext)s\" -x --audio-format mp3 --audio-quality 0 --embed-thumbnail --add-metadata --metadata-from-title \"%(artist)s - %(title)s\""
-alias get-music="yt-dlp -o \"%(playlist_index)s-%(title)s.%(ext)s\" -x --audio-format mp3 --audio-quality 0 --embed-thumbnail --add-metadata --metadata-from-title \"%(artist)s - %(title)s\""
+# alias get-music="yt-dlp -o \"%(playlist_index)s-%(title)s.%(ext)s\" -x --audio-format mp3 --audio-quality 0 --embed-thumbnail --add-metadata --metadata-from-title \"%(artist)s - %(title)s\""
+alias get-music="yt-dlp -o '%(playlist_index)02d - %(title)s.%(ext)s' -x --audio-format mp3 --audio-quality 0 --embed-thumbnail --add-metadata --parse-metadata ':%(meta_comment)s' --parse-metadata ':%(meta_synopsis)s' --parse-metadata ':%(meta_description)s' --parse-metadata 'playlist_index:%(track_number)s'"
 alias get-video="yt-dlp -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\""
 alias t="tmux new -As0"
 alias co="composer"
 alias a="php artisan"
 alias warp='open "warp://action/new_tab?path=$(pwd)"'
+alias which-php="jq -r '.require.php // .config.platform.php // empty' composer.json | grep -oE '[0-9]+\.[0-9]+'"
+alias switch-php='php_ver=$(which-php) && [ -n "$php_ver" ] && herd use $php_ver'
 
 ###############
 # Git aliases #
@@ -210,3 +213,9 @@ export NVM_DIR="/Users/nahime/Library/Application Support/Herd/config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 [[ -f "/Applications/Herd.app/Contents/Resources/config/shell/zshrc.zsh" ]] && builtin source "/Applications/Herd.app/Contents/Resources/config/shell/zshrc.zsh"
+# Added by Antigravity
+export PATH="/Users/nahime/.antigravity/antigravity/bin:$PATH"
+
+
+# Herd injected PHP 8.1 configuration.
+export HERD_PHP_81_INI_SCAN_DIR="/Users/nahime/Library/Application Support/Herd/config/php/81/"
