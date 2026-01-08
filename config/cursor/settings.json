@@ -81,7 +81,7 @@
     "window.autoDetectColorScheme": true,
     "workbench.preferredDarkColorTheme": "Catppuccin Macchiato",
     "explorer.autoReveal": false,
-    "workbench.iconTheme": "catppuccin-latte",
+    "workbench.iconTheme": "catppuccin-macchiato",
     "editor.guides.indentation": false,
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.fontFamily": "'ComicShannsMono Nerd Font Mono', 'JetBrainsMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
