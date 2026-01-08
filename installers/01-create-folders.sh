@@ -4,10 +4,14 @@
 # Needed folders #
 ##################
 
+# Import shell helpers
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source $SCRIPT_DIR/../lib/shell.sh
+
 # Ensure that $HOME/bin exists
 mkdir -p $HOME/bin
-gum style --padding "0 2" "Created $HOME/bin folder..."
+log_message "Created $HOME/bin folder..."
 
 # Ensure that $HOME/config exists
 mkdir -p $HOME/.config
-gum style --padding "0 2" "Created $HOME/.config folder..."
+log_message "Created $HOME/.config folder..."

@@ -8,6 +8,10 @@
 #                                                                              #
 # Then this script will take care of installing the needed fonts, and the      #
 # needed software and tools.                                                   #
+#                                                                              #
+# Usage:                                                                       #
+#   ./setup              - Interactive mode: select operations to execute     #
+#   ./setup --all        - Execute all operations                              #
 ################################################################################
 
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -47,54 +51,196 @@ if [ $OS = "other" ]; then
     exit 1
 fi
 
+##############################################
+# Parse command line arguments                #
+##############################################
+INSTALL_ALL=false
+if [[ "$1" == "--all" ]]; then
+    INSTALL_ALL=true
+fi
+
+##############################################
+# Interactive operation selection             #
+##############################################
+SELECTED_OPERATIONS=""
+if [ "$INSTALL_ALL" = false ]; then
+    # First check if we can install gum or if it's available
+    GUM_AVAILABLE=false
+    if command -v gum &> /dev/null; then
+        GUM_AVAILABLE=true
+    else
+        # Try to add Homebrew to PATH if it exists
+        if [ -d /opt/homebrew ]; then
+            eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null
+        elif [ -d /home/linuxbrew/.linuxbrew ]; then
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" 2>/dev/null
+        fi
+        
+        if command -v brew &> /dev/null && command -v gum &> /dev/null; then
+            GUM_AVAILABLE=true
+        fi
+    fi
+    
+    OPERATIONS=(
+        "Install Homebrew"
+        "Install macOS fonts and kitty"
+        "Install Linux make tools"
+        "Install brew packages (gum, git, tmux, etc.)"
+        "Install brew casks (ghostty)"
+        "Create folders"
+        "Install oh-my-zsh"
+        "Symlink dotfiles"
+        "Symlink binaries"
+        "Clone tmux TPM"
+    )
+    
+    if [ "$GUM_AVAILABLE" = true ]; then
+        log_header "Select operations to execute (use Space to select, Enter to confirm):"
+        SELECTED_OPERATIONS=$(gum choose --no-limit "${OPERATIONS[@]}")
+    else
+        echo "Select operations to execute (enter numbers separated by spaces):"
+        echo ""
+        for i in "${!OPERATIONS[@]}"; do
+            echo "$((i+1)). ${OPERATIONS[$i]}"
+        done
+        echo ""
+        read -p "Enter selection (e.g., 1 3 5): " selection
+        for num in $selection; do
+            if [ "$num" -ge 1 ] && [ "$num" -le "${#OPERATIONS[@]}" ]; then
+                idx=$((num-1))
+                if [ -n "$SELECTED_OPERATIONS" ]; then
+                    SELECTED_OPERATIONS="$SELECTED_OPERATIONS"$'\n'"${OPERATIONS[$idx]}"
+                else
+                    SELECTED_OPERATIONS="${OPERATIONS[$idx]}"
+                fi
+            fi
+        done
+    fi
+    
+    if [ -z "$SELECTED_OPERATIONS" ]; then
+        log_message "No operations selected. Installation aborted."
+        exit 1
+    fi
+    
+    echo ""
+    if [ "$GUM_AVAILABLE" = true ]; then
+        gum style --border normal --padding "0 4" --border-foreground 212 "Selected operations:" "$SELECTED_OPERATIONS"
+    else
+        echo "Selected operations:"
+        echo "$SELECTED_OPERATIONS" | sed 's/^/  - /'
+    fi
+    echo ""
+    
+    if ! confirm_prompt "Continue with the selected operations?" ; then
+        log_message "Installation aborted."
+        exit 1
+    fi
+fi
+
+##############################################
+# Helper function to check if operation      #
+# should be executed                          #
+##############################################
+should_execute() {
+    local operation_name=$1
+    if [ "$INSTALL_ALL" = true ]; then
+        return 0
+    else
+        # Check if operation is in selected list (handle newlines)
+        if echo "$SELECTED_OPERATIONS" | grep -Fq "$operation_name"; then
+            return 0
+        else
+            return 1
+        fi
+    fi
+}
+
+##########################################
+# Install Homebrew (required for later)  #
+##########################################
+if should_execute "Install Homebrew"; then
+    $DIR/installers/00-install-homebrew.sh
+fi
+
 ##########################################
 # Only on MacOS, install fonts and kitty #
-# and Homebrew                           #
 ##########################################
-if [ $OS = "macos" ]; then
-    $DIR/installers/macos/fonts.sh
-    $DIR/installers/macos/kitty.sh
+if should_execute "Install macOS fonts and kitty"; then
+    if [ $OS = "macos" ]; then
+        $DIR/installers/macos/fonts.sh
+        $DIR/installers/macos/kitty.sh
+    fi
 fi
 
 ##############################################
 # Only on Linux, install make tools          #
 ##############################################
-if [[ $OS = "linux" || $OS = "wsl" ]]; then
-    echo ""
-    echo "Installing make tools..."
-    echo ""
-    sudo apt update
-    sudo apt install g++ gcc make
+if should_execute "Install Linux make tools"; then
+    if [[ $OS = "linux" || $OS = "wsl" ]]; then
+        echo ""
+        echo "Installing make tools..."
+        echo ""
+        sudo apt update
+        sudo apt install g++ gcc make
+    fi
 fi
 
-####################
-# Install Homebrew #
-####################
-
-$DIR/installers/00-install-homebrew.sh
+##########################################
+# Install gum first (needed for prompts) #
+##########################################
+if ! command -v gum &> /dev/null; then
+    # Add Homebrew to PATH if it exists
+    if [ -d /opt/homebrew ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null
+    elif [ -d /home/linuxbrew/.linuxbrew ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" 2>/dev/null
+    fi
+    
+    if command -v brew &> /dev/null && should_execute "Install brew packages (gum, git, tmux, etc.)"; then
+        echo "Installing gum (required for interactive prompts)..."
+        brew install gum
+    fi
+fi
 
 #########################
 # Install brew software #
 #########################
-
-# Add Homebrew to PATH
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-brew install gum git tmux \
-    micro \
-    neovim ripgrep fzf \
-    yt-dlp \
-    mailpit \
-    autojump \
-    python \
-    go
+if should_execute "Install brew packages (gum, git, tmux, etc.)"; then
+    # Add Homebrew to PATH
+    if [ -d /opt/homebrew ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null
+    elif [ -d /home/linuxbrew/.linuxbrew ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" 2>/dev/null
+    fi
+    
+    if command -v brew &> /dev/null; then
+        brew install gum git tmux \
+            micro \
+            neovim ripgrep fzf \
+            yt-dlp \
+            mailpit \
+            autojump \
+            python \
+            go
+    fi
+fi
 
 ######################
 # Install brew casks #
 ######################
-
-# Install ghostty for macOS without OpenGL support
-brew install --cask ghostty
+if should_execute "Install brew casks (ghostty)"; then
+    # Add Homebrew to PATH
+    if [ -d /opt/homebrew ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null
+    elif [ -d /home/linuxbrew/.linuxbrew ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" 2>/dev/null
+    fi
+    
+    if command -v brew &> /dev/null; then
+        # Install ghostty for macOS without OpenGL support
+        brew install --cask ghostty
+    fi
+fi
 
 ################################################################################
 #                                                                              #
@@ -102,23 +248,56 @@ brew install --cask ghostty
 #                                                                              #
 ################################################################################
 
-gum style --border normal --padding "0 4" --border-foreground 212 "All dependencies are installed."
-
-if ! gum confirm "Continue with the installation?" ; then
-    gum style --padding "0 2" "Installation aborted."
-    exit 1
+if [ "$INSTALL_ALL" = true ]; then
+    log_header "All dependencies are installed."
+    
+    if ! confirm_prompt "Continue with the installation?" ; then
+        log_message "Installation aborted."
+        exit 1
+    fi
 fi
 
-$DIR/installers/01-create-folders.sh
-$DIR/installers/02-install-oh-my-zsh.sh
-$DIR/installers/03-symlink-dotfiles.sh
-$DIR/installers/04-symlink-binaries.sh
-$DIR/installers/05-clone-tmux-tpm.sh
+##########################################
+# Create folders                          #
+##########################################
+if should_execute "Create folders"; then
+    $DIR/installers/01-create-folders.sh
+fi
+
+##########################################
+# Install oh-my-zsh                       #
+##########################################
+if should_execute "Install oh-my-zsh"; then
+    $DIR/installers/02-install-oh-my-zsh.sh
+fi
+
+##########################################
+# Symlink dotfiles                        #
+##########################################
+if should_execute "Symlink dotfiles"; then
+    $DIR/installers/03-symlink-dotfiles.sh
+fi
+
+##########################################
+# Symlink binaries                        #
+##########################################
+if should_execute "Symlink binaries"; then
+    $DIR/installers/04-symlink-binaries.sh
+fi
+
+##########################################
+# Clone tmux TPM                          #
+##########################################
+if should_execute "Clone tmux TPM"; then
+    $DIR/installers/05-clone-tmux-tpm.sh
+fi
 
 ##################################################################
 # If the private dotfiles repo exists, then run the setup script #
 ##################################################################
 if [ -f $DIR/dotfiles-private/setup ] ; then
-    gum style --padding "0 2" "Setting up private dotfiles..."
+    log_message "Setting up private dotfiles..."
     $DIR/dotfiles-private/setup
 fi
+
+log_header "Installation completed!"

@@ -4,11 +4,14 @@
 # Install oh-my-zsh, if not installed #
 #######################################
 
+# Import shell helpers
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source $SCRIPT_DIR/../lib/shell.sh
+
 if [ ! -d $HOME/.oh-my-zsh ]; then
-    gum style --padding "0 2" "Installing oh-my-zsh..."
-    gum style --padding "0 2" "Re run this script after the installation is complete."
-    gum style --padding "0 2" "Press a key to continue..."
-    read -k 1
+    log_message "Installing oh-my-zsh..."
+    log_message "Re run this script after the installation is complete."
+    wait_for_key
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     exit 1
 fi
