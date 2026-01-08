@@ -8,6 +8,18 @@
 SCRIPT_DIR="${0:A:h}"
 source $SCRIPT_DIR/../lib/shell.sh
 
+# Function to check if element is in array
+# Usage: in_array "element" array
+in_array() {
+    local needle="$1"
+    shift
+    local element
+    for element in "$@"; do
+        [[ "$element" == "$needle" ]] && return 0
+    done
+    return 1
+}
+
 # Function to sync extensions for an editor
 # Usage: sync_extensions <editor_cmd> <extensions_file> <editor_name>
 sync_extensions() {
@@ -28,47 +40,47 @@ sync_extensions() {
     log_message "Syncing $editor_name extensions..."
     
     # Get currently installed extensions (lowercase for comparison)
-    local installed=()
-    while IFS= read -r ext; do
-        installed+=("${ext:l}")
-    done < <($editor_cmd --list-extensions 2>/dev/null)
+    local -a installed
+    installed=("${(@f)$($editor_cmd --list-extensions 2>/dev/null | tr '[:upper:]' '[:lower:]')}")
     
     # Get desired extensions from file (lowercase for comparison)
-    local desired=()
-    while IFS= read -r ext || [ -n "$ext" ]; do
-        if [ -n "$ext" ]; then
-            desired+=("${ext:l}")
-        fi
-    done < "$extensions_file"
+    local -a desired
+    desired=("${(@f)$(cat "$extensions_file" | tr '[:upper:]' '[:lower:]' | grep -v '^$')}")
     
     # Install missing extensions
-    local to_install=()
+    local -a to_install
     for ext in "${desired[@]}"; do
-        if [[ ! " ${installed[*]} " =~ " ${ext} " ]]; then
+        if ! in_array "$ext" "${installed[@]}"; then
             to_install+=("$ext")
         fi
     done
     
     if [ ${#to_install[@]} -gt 0 ]; then
-        log_message "Installing ${#to_install[@]} extensions..."
+        log_message "Installing ${#to_install[@]} extension(s)..."
         for ext in "${to_install[@]}"; do
+            log_message "  + $ext"
             $editor_cmd --install-extension "$ext" --force 2>/dev/null
         done
+    else
+        log_message "No extensions to install."
     fi
     
     # Remove extra extensions
-    local to_remove=()
+    local -a to_remove
     for ext in "${installed[@]}"; do
-        if [[ ! " ${desired[*]} " =~ " ${ext} " ]]; then
+        if [ -n "$ext" ] && ! in_array "$ext" "${desired[@]}"; then
             to_remove+=("$ext")
         fi
     done
     
     if [ ${#to_remove[@]} -gt 0 ]; then
-        log_message "Removing ${#to_remove[@]} extensions..."
+        log_message "Removing ${#to_remove[@]} extension(s)..."
         for ext in "${to_remove[@]}"; do
+            log_message "  - $ext"
             $editor_cmd --uninstall-extension "$ext" 2>/dev/null
         done
+    else
+        log_message "No extensions to remove."
     fi
     
     log_message "$editor_name extensions synced."
