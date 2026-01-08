@@ -93,6 +93,7 @@ if [ "$INSTALL_ALL" = false ]; then
         "Symlink binaries"
         "Clone tmux TPM"
         "Sync editor extensions (Cursor/VS Code)"
+        "Setup private dotfiles"
     )
     
     if [ "$GUM_AVAILABLE" = true ]; then
@@ -303,9 +304,13 @@ fi
 ##################################################################
 # If the private dotfiles repo exists, then run the setup script #
 ##################################################################
-if [ -f $DIR/dotfiles-private/setup ] ; then
-    log_message "Setting up private dotfiles..."
-    $DIR/dotfiles-private/setup
+if should_execute "Setup private dotfiles"; then
+    if [ -f $DIR/dotfiles-private/setup ] ; then
+        log_message "Setting up private dotfiles..."
+        $DIR/dotfiles-private/setup
+    else
+        log_message "Private dotfiles setup not found. Skipping."
+    fi
 fi
 
 log_header "Installation completed!"
