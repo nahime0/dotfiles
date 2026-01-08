@@ -56,6 +56,7 @@ ln -s $DIR/config/nvim $HOME/.config/nvim
 gum style --padding "0 2" "Created symbolic link for Neovim config file..."
 
 # Cursor
+mkdir -p $HOME/Library/Application\ Support/Cursor/User
 rm -rf $HOME/Library/Application\ Support/Cursor/User/settings.json
 rm -rf $HOME/Library/Application\ Support/Cursor/User/keybindings.json
 ln -s $DIR/config/cursor/settings.json $HOME/Library/Application\ Support/Cursor/User/settings.json
@@ -63,6 +64,7 @@ ln -s $DIR/config/cursor/keybindings.json $HOME/Library/Application\ Support/Cur
 gum style --padding "0 2" "Created symbolic link for Cursor config file..."
 
 # Visual Studio Code
+mkdir -p $HOME/Library/Application\ Support/Code/User
 rm -rf $HOME/Library/Application\ Support/Code/User/settings.json
 rm -rf $HOME/Library/Application\ Support/Code/User/keybindings.json
 ln -s $DIR/config/code/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
