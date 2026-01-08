@@ -1,0 +1,28 @@
+#!/usr/bin/env zsh
+
+##############################
+# Export editor extensions   #
+##############################
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+CONFIG_DIR="$SCRIPT_DIR/../config"
+
+# Export Cursor extensions
+if command -v cursor &> /dev/null; then
+    echo "Exporting Cursor extensions..."
+    cursor --list-extensions > "$CONFIG_DIR/cursor/extensions.txt"
+    echo "Saved to $CONFIG_DIR/cursor/extensions.txt"
+else
+    echo "Cursor CLI not found."
+fi
+
+# Export VS Code extensions
+if command -v code &> /dev/null; then
+    echo "Exporting VS Code extensions..."
+    code --list-extensions > "$CONFIG_DIR/code/extensions.txt"
+    echo "Saved to $CONFIG_DIR/code/extensions.txt"
+else
+    echo "VS Code CLI not found."
+fi
+
+echo "Done!"

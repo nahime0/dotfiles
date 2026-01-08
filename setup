@@ -92,6 +92,7 @@ if [ "$INSTALL_ALL" = false ]; then
         "Symlink dotfiles"
         "Symlink binaries"
         "Clone tmux TPM"
+        "Install editor extensions (Cursor/VS Code)"
     )
     
     if [ "$GUM_AVAILABLE" = true ]; then
@@ -290,6 +291,13 @@ fi
 ##########################################
 if should_execute "Clone tmux TPM"; then
     $DIR/installers/05-clone-tmux-tpm.sh
+fi
+
+##########################################
+# Install editor extensions               #
+##########################################
+if should_execute "Install editor extensions (Cursor/VS Code)"; then
+    $DIR/installers/06-install-editor-extensions.sh
 fi
 
 ##################################################################
