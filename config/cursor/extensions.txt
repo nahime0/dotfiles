@@ -1,5 +1,7 @@
 adrianwilczynski.alpine-js-intellisense
 anthropic.claude-code
+anysphere.remote-containers
+anysphere.remote-ssh
 arcticicestudio.nord-visual-studio-code
 astro-build.astro-vscode
 bmewburn.vscode-intelephense-client
