@@ -1,13 +1,3 @@
-function isZsh() {
-    case $SHELL in
-        */zsh)
-            return true
-            ;;
-        *)
-            return false
-    esac
-}
-
 # Log a message using gum if available, otherwise echo
 function log_message() {
     local message="$1"

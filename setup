@@ -14,23 +14,10 @@
 #   ./setup --all        - Execute all operations                              #
 ################################################################################
 
-export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
-######################################################
-# Import lib/oses.sh                                 #
-# Import lib/shell.sh                                #
-#                                                    #
-# they contains the functions for detecting the OS   #
-# and the current shell                              #
-######################################################
-
-source $DIR/lib/oses.sh
-source $DIR/lib/shell.sh
-
 #####################################
 # Check if the current shell is ZSH #
 #####################################
-if ! isZsh; then
+if [ -z "$ZSH_VERSION" ]; then
     echo ""
     echo "You need to be in ZSH to launch this script."
     echo "Install ZSH, then change shell:"
@@ -40,6 +27,19 @@ if ! isZsh; then
     echo "You need to re-login afterwards."
     exit 1
 fi
+
+export DIR="${0:A:h}"
+
+######################################################
+# Import lib/oses.sh                                 #
+# Import lib/shell.sh                                #
+#                                                    #
+# they contains the functions for detecting the OS   #
+# and the current shell                              #
+######################################################
+
+source $DIR/lib/oses.sh
+source $DIR/lib/shell.sh
 
 ##############################################
 # Check if the operating system is supported #

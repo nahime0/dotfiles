@@ -5,7 +5,7 @@
 #######################################
 
 # Import shell helpers
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+SCRIPT_DIR="${0:A:h}"
 source $SCRIPT_DIR/../lib/shell.sh
 
 if [ ! -d $HOME/.oh-my-zsh ]; then
