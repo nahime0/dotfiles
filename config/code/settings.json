@@ -60,7 +60,7 @@
     "explorer.autoReveal": false,
     "editor.guides.indentation": false,
     "diffEditor.ignoreTrimWhitespace": false,
-    "workbench.iconTheme": "catppuccin-macchiato",
+    "workbench.iconTheme": "catppuccin-latte",
     "roo-cline.allowedCommands": [
         "npm test",
         "npm install",
