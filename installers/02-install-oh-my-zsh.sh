@@ -10,10 +10,9 @@ source $SCRIPT_DIR/../lib/shell.sh
 
 if [ ! -d $HOME/.oh-my-zsh ]; then
     log_message "Installing oh-my-zsh..."
-    log_message "Re run this script after the installation is complete."
+    log_message "Exit with CTRL+D when the omz prompt is ready to return to the installer."
     wait_for_key
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    exit 1
 fi
 
 ###############################
