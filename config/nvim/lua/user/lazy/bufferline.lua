@@ -36,7 +36,7 @@ return {
         delay = 0,
         reveal = { "close" },
       },
-      separator_style = 'thin', -- "slant" | "thin" | "thick" | { 'any', 'any' },
+      separator_style = 'slant', -- "slant" | "thin" | "thick" | { 'any', 'any' },
       modified_icon = '',
       show_buffer_close_icons = false,
       show_close_icon = false,

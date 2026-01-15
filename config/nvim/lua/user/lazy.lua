@@ -13,8 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 
 require("lazy").setup({
-  -- { import = 'user.lazy.nord' }, -- Include the theme
-  { import = 'user.lazy.catppuccin' }, -- Include the theme
+  { import = 'user.lazy.nord' }, -- Include the theme
+  -- { import = 'user.lazy.catppuccin' }, -- Include the theme
   -- { import = 'user.lazy.onedarkpro' }, -- Include the theme
   -- { import = 'user.lazy.tokyonight' }, -- Include the theme
   -- { import = 'user.lazy.auto-dark-mode'}, -- Auto dark mode
@@ -63,6 +63,6 @@ require("lazy").setup({
       notify = false,
     },
     install = {
-      colorscheme = { "tokyonight", "habamax" },
+      colorscheme = { "nord", "tokyonight", "habamax" },
     },
   })

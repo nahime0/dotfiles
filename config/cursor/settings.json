@@ -79,7 +79,7 @@
     "terminal.integrated.fontFamily": "'ComicShannsMono Nerd Font Mono', 'JetBrainsMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
     "files.dialog.defaultPath": "/Users/nahime/Developer",
     "window.autoDetectColorScheme": true,
-    "workbench.preferredDarkColorTheme": "Catppuccin Macchiato",
+    "workbench.preferredDarkColorTheme": "Nord",
     "explorer.autoReveal": false,
     "workbench.iconTheme": "catppuccin-latte",
     "editor.guides.indentation": false,

@@ -55,7 +55,7 @@ return {
     },
     default_component_configs = {
       indent = {
-        padding = 0,
+        padding = 2, -- Padding a sinistra degli elementi
       },
       name = {
         use_git_status_colors = false,
