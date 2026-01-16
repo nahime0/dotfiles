@@ -211,7 +211,9 @@ if should_execute "Install brew packages (gum, git, tmux, etc.)"; then
             mailpit \
             autojump \
             python \
-            go
+            go \
+            ffmpeg \
+            ansible
     fi
 fi
 
