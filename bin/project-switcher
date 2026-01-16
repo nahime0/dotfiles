@@ -2,11 +2,25 @@
 
 # Credit to ThePrimeagen
 
+# Paths to search for projects
+SEARCH_PATHS=(
+    ~/Developer
+    /Volumes/Crucio/Developer
+)
+
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    items=`find ~/Developer -maxdepth 2 -mindepth 1 -type d`
-    selected=`echo "$items" | fzf`
+    items=""
+    for path in "${SEARCH_PATHS[@]}"; do
+        if [[ -d "$path" ]]; then
+            found=$(find "$path" -maxdepth 2 -mindepth 1 -type d 2>/dev/null)
+            if [[ -n "$found" ]]; then
+                items+="$found"$'\n'
+            fi
+        fi
+    done
+    selected=$(echo "$items" | grep -v '^$' | fzf)
 fi
 
 if [[ $selected == '' ]]; then
