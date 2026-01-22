@@ -36,8 +36,7 @@
     "editor.fontSize": 16,
     "editor.lineHeight": 1.8,
     "editor.smoothScrolling": true,
-    "workbench.colorTheme": "Visual Studio Dark",
-    "workbench.preferredLightColorTheme": "Catppuccin Latte",
+    "workbench.colorTheme": "Nord",
     "terminal.integrated.fontSize": 16,
     "jetbrainsKeymap.promptV3Features": false,
     "files.autoSave": "onFocusChange",
@@ -97,5 +96,6 @@
         "editor.defaultFormatter": "open-southeners.laravel-pint"
     },
     "claudeCode.selectedModel": "default",
-    "claudeCode.preferredLocation": "sidebar"
+    "claudeCode.preferredLocation": "sidebar",
+    "workbench.preferredLightColorTheme": "Nord Light"
 }

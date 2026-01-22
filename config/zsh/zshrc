@@ -149,7 +149,7 @@ alias gstap="git stash pop"
 alias gsps="git stash && git pull --rebase && git stash pop"
 alias gitbackup='git add -A && git commit -m "backup: $(date +"%Y-%m-%d %H:%M:%S")"'
 alias c='claude --dangerously-skip-permissions'
-alias pstorm='phpstorm'
+alias phpstorm='open -a "PhpStorm" .'
 
 ##########################
 # MacOS specific aliases #
