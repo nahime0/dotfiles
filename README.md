@@ -70,6 +70,20 @@ You can create the `~/.gitidentity` file using the dotfiles-private folder descr
 - micro (pkgx shim)
 - Ranger (via pipx)
 
+# Neovim Keybindings
+
+| Keybinding | Funzione |
+|------------|----------|
+| `<leader>f` | Neotree (file browser) |
+| `<leader>n` | Neotree reveal toggle |
+| `<leader>o` | Telescope find_files |
+| `<leader>O` | Telescope find_files (tutti i file) |
+| `<leader>e` | Telescope oldfiles (file recenti) |
+| `<leader>b` | Telescope buffers |
+| `<leader>g` | Telescope live grep |
+| `<leader>s` | Telescope LSP document symbols |
+| `Tab` | Copilot accept |
+
 # Credits
 A lot of the `nvim` and `tmux` configuration has been influenced by
 jessarcher: https://github.com/jessarcher/dotfiles

@@ -3,7 +3,7 @@ return {
   cmd = 'Neotree',
   keys = {
     { '<leader>n', '<cmd>Neotree reveal toggle<cr>' },
-    { '<M-f>', '<cmd>Neotree<cr>' },
+    { '<leader>f', '<cmd>Neotree<cr>' },
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
