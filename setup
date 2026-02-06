@@ -209,11 +209,14 @@ if should_execute "Install brew packages (gum, git, tmux, etc.)"; then
             neovim ripgrep fzf \
             yt-dlp \
             mailpit \
-            autojump \
             python \
             go \
             ffmpeg \
-            ansible
+            ansible \
+            yazi eza bat fd zoxide \
+            lazygit lazydocker \
+            tldr btop dust procs sd \
+            httpie doggo gping broot
     fi
 fi
 
