@@ -53,32 +53,88 @@ You can create the `~/.gitidentity` file using the dotfiles-private folder descr
 - ComicShanns font
 - oh-my-zsh
 - Kitty
-- pkgx
-- bun (pkgx shim)
-- composer (pkgx shim)
-- fzf (pkgx shim)
-- git (pkgx shim)
-- gum (pkgx shim)
-- mailpit (pkgx shim)
-- Neovim (pkgx shim)
-- node & npm (pkgx shim)
-- php (pkgx shim)
-- python, pip & pipx (pkgx shim)
-- ripgrep (pkgx shim)
-- tmux (pkgx shim)
-- youtube-dl (pkgx shim)
-- micro (pkgx shim)
-- Ranger (via pipx)
+- Neovim
+- tmux
+
+# CLI Tools
+
+Modern CLI tools installed via Homebrew.
+
+## File manager
+
+| Tool | Description | Usage |
+|------|-------------|-------|
+| `yazi` | Blazing fast TUI file manager written in Rust, with image/PDF preview and vim keybindings | `yazi` |
+| `broot` | Interactive tree navigation, great for exploring large projects | `br` |
+
+## Modern replacements for classic tools
+
+| Tool | Replaces | Description | Alias |
+|------|----------|-------------|-------|
+| `eza` | `ls` | Colors, icons, tree view | `ls`, `ll`, `lt` |
+| `bat` | `cat` | Syntax highlighting, git integration | `cat` |
+| `fd` | `find` | Much faster and more intuitive | `find` |
+| `ripgrep` | `grep` | Extremely fast, respects .gitignore | `grep` (command: `rg`) |
+| `zoxide` | `cd` | Learns your most used directories | `z folder_name` |
+| `dust` | `du` | Disk space usage visualization | `du` |
+| `procs` | `ps` | Readable, colorful output | `ps` |
+| `sd` | `sed` | Intuitive find & replace | `sd 'old' 'new' file.txt` |
+
+## Productivity
+
+| Tool | Description | Usage |
+|------|-------------|-------|
+| `fzf` | Universal fuzzy finder, integrates with everything | `CTRL+R` (history), `CTRL+T` (files) |
+| `tmux` | Terminal multiplexer | `tmux` |
+| `lazygit` | TUI for git | `lazygit` |
+| `lazyworktree` | TUI for git worktrees | `lazyworktree` |
+| `lazydocker` | TUI for Docker | `lazydocker` |
+| `tldr` | Simplified man pages with practical examples | `tldr command_name` |
+| `btop` | Beautiful system monitor (replaces htop) | `btop` |
+
+## Networking & utilities
+
+| Tool | Replaces | Description | Usage |
+|------|----------|-------------|-------|
+| `httpie` | `curl` | Readable HTTP client for APIs | `http GET https://api.example.com` |
+| `doggo` | `dig` | Modern DNS lookup | `doggo` |
+| `gping` | `ping` | Ping with real-time graph | `gping` |
+
+## Configured aliases
+
+```bash
+# Modern replacements
+alias ls="eza --icons"
+alias ll="eza -la --icons"
+alias lt="eza --tree --icons"
+alias cat="bat"
+alias find="fd"
+alias grep="rg"
+alias du="dust"
+alias ps="procs"
+alias ping="gping"
+alias dig="doggo"
+
+# Zoxide (replaces cd)
+eval "$(zoxide init zsh)"
+
+# fzf
+source <(fzf --zsh)
+```
+
+## Top 5 essentials
+
+If you could only pick 5: **fzf**, **zoxide**, **eza**, **ripgrep**, **lazygit**. They completely change the way you use the terminal.
 
 # Neovim Keybindings
 
-| Keybinding | Funzione |
-|------------|----------|
+| Keybinding | Action |
+|------------|--------|
 | `<leader>f` | Neotree (file browser) |
 | `<leader>n` | Neotree reveal toggle |
 | `<leader>o` | Telescope find_files |
-| `<leader>O` | Telescope find_files (tutti i file) |
-| `<leader>e` | Telescope oldfiles (file recenti) |
+| `<leader>O` | Telescope find_files (all files) |
+| `<leader>e` | Telescope oldfiles (recent files) |
 | `<leader>b` | Telescope buffers |
 | `<leader>g` | Telescope live grep |
 | `<leader>s` | Telescope LSP document symbols |

@@ -234,6 +234,10 @@ if should_execute "Install brew casks (ghostty)"; then
     if command -v brew &> /dev/null; then
         # Install ghostty for macOS without OpenGL support
         brew install --cask ghostty
+
+        # Install lazyworktree (TUI for git worktrees)
+        brew tap chmouel/lazyworktree https://github.com/chmouel/lazyworktree
+        brew install --cask lazyworktree
     fi
 fi
 
