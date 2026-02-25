@@ -126,6 +126,7 @@ alias get-music="yt-dlp -o '%(playlist_index)02d - %(title)s.%(ext)s' -x --audio
 alias get-video="yt-dlp -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\""
 alias get-video-and-subs="yt-dlp --write-subs --write-auto-subs --sub-langs \"en,it\" --convert-subs srt -o \"%(title)s.%(ext)s\""
 alias t="tmux new -As0"
+alias zj="zellij attach || zellij"
 alias co="composer"
 alias a="php artisan"
 alias warp='open "warp://action/new_tab?path=$(pwd)"'

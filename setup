@@ -204,7 +204,7 @@ if should_execute "Install brew packages (gum, git, tmux, etc.)"; then
     fi
     
     if command -v brew &> /dev/null; then
-        brew install gum git tmux \
+        brew install gum git tmux zellij \
             micro \
             neovim ripgrep fzf \
             yt-dlp \
