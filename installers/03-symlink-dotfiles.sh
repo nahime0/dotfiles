@@ -84,3 +84,8 @@ log_message "Created symbolic link for PHPactor config file..."
 rm -rf $HOME/.config/micro
 ln -s $DIR/config/micro $HOME/.config/micro
 log_message "Created symbolic link for Micro config file..."
+
+# Zellij
+rm -rf $HOME/.config/zellij
+ln -s $DIR/config/zellij $HOME/.config/zellij
+log_message "Created symbolic link for Zellij config file..."
