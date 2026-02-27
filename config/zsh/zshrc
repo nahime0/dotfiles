@@ -12,7 +12,7 @@ export PATH=$HOME/.brew/bin:/opt/homebrew/bin:$PATH
 
 # Use Homebrew Ruby
 
-export PATH=/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:$PATH
+export PATH=/opt/homebrew/lib/ruby/gems/4.0.0/bin:/opt/homebrew/opt/ruby/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -126,7 +126,7 @@ alias get-music="yt-dlp -o '%(playlist_index)02d - %(title)s.%(ext)s' -x --audio
 alias get-video="yt-dlp -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\""
 alias get-video-and-subs="yt-dlp --write-subs --write-auto-subs --sub-langs \"en,it\" --convert-subs srt -o \"%(title)s.%(ext)s\""
 alias t="tmux new -As0"
-alias zj="zellij attach || zellij"
+alias zj="zellij attach -c"
 alias co="composer"
 alias a="php artisan"
 alias warp='open "warp://action/new_tab?path=$(pwd)"'
@@ -187,6 +187,18 @@ alias dock-spacer="defaults write com.apple.dock persistent-apps -array-add '{\"
 ##########
 
 eval "$(zoxide init zsh)"
+
+##########
+# Zellij #
+##########
+
+if [[ -n "$ZELLIJ" ]]; then
+    _zellij_tab_name() {
+        zellij action rename-tab "${PWD##*/}"
+    }
+    chpwd_functions+=(_zellij_tab_name)
+    _zellij_tab_name
+fi
 
 
 #######################
