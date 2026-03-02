@@ -192,13 +192,13 @@ eval "$(zoxide init zsh)"
 # Zellij #
 ##########
 
-if [[ -n "$ZELLIJ" ]]; then
-    _zellij_tab_name() {
-        zellij action rename-tab "${PWD##*/}"
-    }
-    chpwd_functions+=(_zellij_tab_name)
-    _zellij_tab_name
-fi
+# if [[ -n "$ZELLIJ" ]]; then
+#     _zellij_tab_name() {
+#         zellij action rename-tab "${PWD##*/}"
+#     }
+#     chpwd_functions+=(_zellij_tab_name)
+#     _zellij_tab_name
+# fi
 
 
 #######################
