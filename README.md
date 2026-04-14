@@ -87,6 +87,7 @@ Modern CLI tools installed via Homebrew.
 | `fzf` | Universal fuzzy finder, integrates with everything | `CTRL+R` (history), `CTRL+T` (files) |
 | `tmux` | Terminal multiplexer | `tmux` |
 | `lazygit` | TUI for git | `lazygit` |
+| `difftastic` | Structural diff viewer with syntax awareness | `difft` |
 | `lazyworktree` | TUI for git worktrees | `lazyworktree` |
 | `lazydocker` | TUI for Docker | `lazydocker` |
 | `tldr` | Simplified man pages with practical examples | `tldr command_name` |

@@ -214,7 +214,7 @@ if should_execute "Install brew packages (gum, git, tmux, etc.)"; then
             ffmpeg \
             ansible \
             yazi eza bat fd zoxide \
-            lazygit lazydocker \
+            lazygit lazydocker difftastic \
             tldr btop dust procs sd \
             httpie doggo gping broot
     fi
