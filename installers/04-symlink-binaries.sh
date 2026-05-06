@@ -12,6 +12,10 @@ rm -rf $HOME/bin/p
 ln -s $DIR/bin/project-switcher $HOME/bin/p
 log_message "Created symbolic link for project-switcher..."
 
+rm -rf $HOME/bin/zj
+ln -s $DIR/bin/zellij-switcher $HOME/bin/zj
+log_message "Created symbolic link for zellij-switcher as zj..."
+
 rm -rf $HOME/bin/export-extensions
 ln -s $DIR/bin/export-extensions $HOME/bin/export-extensions
 log_message "Created symbolic link for export-extensions..."
