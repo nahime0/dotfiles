@@ -8,7 +8,7 @@ fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export PATH=$HOME/.brew/bin:/opt/homebrew/bin:$PATH
+export PATH=$HOME/go/bin:$HOME/.brew/bin:/opt/homebrew/bin:$PATH
 
 # Use Homebrew Ruby
 
@@ -131,6 +131,7 @@ alias a="php artisan"
 alias warp='open "warp://action/new_tab?path=$(pwd)"'
 alias which-php="jq -r '.require.php // .config.platform.php // empty' composer.json | grep -oE '[0-9]+\.[0-9]+'"
 alias switch-php='php_ver=$(which-php) && [ -n "$php_ver" ] && herd use $php_ver'
+alias zed="/Applications/Zed.app/Contents/MacOS/cli"
 
 ###############
 # Git aliases #
@@ -147,8 +148,20 @@ alias gsta="git stash"
 alias gstap="git stash pop"
 alias gsps="git stash && git pull --rebase && git stash pop"
 alias gitbackup='git add -A && git commit -m "backup: $(date +"%Y-%m-%d %H:%M:%S")"'
-alias c='claude --dangerously-skip-permissions'
 alias phpstorm='open -a "PhpStorm" .'
+
+#####################
+# AI Agents aliases #
+#####################
+
+alias yolo.claude='claude --dangerously-skip-permissions'
+alias yolo.codex='codex --dangerously-bypass-approvals-and-sandbox'
+alias yolo.kimi='kimi --yolo'
+alias yolo.grok='grok --permission-mode bypassPermissions'
+
+#################
+# Other aliases #
+#################
 
 alias ls="eza --icons"
 alias ll="eza -la --icons"
@@ -263,3 +276,29 @@ if [ -z "$TMUX" ]; then
   fi
 fi
 export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
+
+# bun completions
+[ -s "$ZSH/completions/_bun" ] && source "$ZSH/completions/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# opencode
+export PATH="$HOME/.opencode/bin:$PATH"
+
+# Shell helpers for:
+# - ggg
+# - ggw
+command -v ggw >/dev/null && eval "$(ggw shell-init zsh)"
+command -v ggg >/dev/null && eval "$(ggg shell-init zsh)"
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+# <<< grok installer <<<
+
+# MiniMax (mavis)
+export PATH="$HOME/.mavis/bin:$PATH"
+
+# kilo
+export PATH="$HOME/.kilo/bin:$PATH"
