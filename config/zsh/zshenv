@@ -1,0 +1,4 @@
+[ -s "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# Expose brew path so mosh server can be found when connecting
+[ -d /opt/homebrew/bin ] && export PATH="/opt/homebrew/bin:$PATH"

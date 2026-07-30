@@ -36,12 +36,19 @@ ln -s $DIR/config/alacritty $HOME/.config/alacritty
 log_message "Created symbolic link for Alacritty config file..."
 
 # zsh
+rm -rf $HOME/.zshenv
 rm -rf $HOME/.zshrc
 rm -rf $HOME/.zprofile
 rm -rf $HOME/.p10k.zsh
+rm -rf $HOME/.p10k-overrides.zsh
+mkdir -p $HOME/.zsh
+rm -rf $HOME/.zsh/p10k.zsh
+rm -rf $HOME/.zsh/p10k-overrides.zsh
+ln -s $DIR/config/zsh/zshenv $HOME/.zshenv
 ln -s $DIR/config/zsh/zshrc $HOME/.zshrc
 ln -s $DIR/config/zsh/zprofile $HOME/.zprofile
-ln -s $DIR/config/zsh/p10k.zsh $HOME/.p10k.zsh
+ln -s $DIR/config/zsh/p10k.zsh $HOME/.zsh/p10k.zsh
+ln -s $DIR/config/zsh/p10k-overrides.zsh $HOME/.zsh/p10k-overrides.zsh
 log_message "Created symbolic link for zsh config file..."
 
 # Tmux

@@ -168,8 +168,9 @@ alias dig="doggo"
 alias dock-small-spacer="defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"small-spacer-tile\";}'; killall Dock"
 alias dock-spacer="defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"spacer-tile\";}'; killall Dock"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# To customize prompt, run `p10k configure` or edit ~/.zsh/p10k.zsh.
+[[ ! -f ~/.zsh/p10k.zsh ]] || source ~/.zsh/p10k.zsh
+[[ ! -f ~/.zsh/p10k-overrides.zsh ]] || source ~/.zsh/p10k-overrides.zsh
 
 ###################################################################
 # Kitty specific fixes for SSH connections (e.g. tmux, vim, etc.) #
