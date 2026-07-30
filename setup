@@ -99,7 +99,7 @@ if [ "$INSTALL_ALL" = false ]; then
         "Install macOS fonts and kitty"
         "Install Linux make tools"
         "Install brew packages (gum, git, tmux, etc.)"
-        "Install brew casks (ghostty)"
+        "Install brew casks (ghostty, AeroSpace)"
         "Create folders"
         "Install oh-my-zsh"
         "Symlink dotfiles"
@@ -223,7 +223,7 @@ fi
 ######################
 # Install brew casks #
 ######################
-if should_execute "Install brew casks (ghostty)"; then
+if should_execute "Install brew casks (ghostty, AeroSpace)"; then
     # Add Homebrew to PATH
     if [ -d /opt/homebrew ]; then
         eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null
@@ -234,6 +234,15 @@ if should_execute "Install brew casks (ghostty)"; then
     if command -v brew &> /dev/null; then
         # Install ghostty for macOS without OpenGL support
         brew install --cask ghostty
+
+        if [ "$OS" = "macos" ]; then
+            # Install AeroSpace
+            brew install --cask nikitabobko/tap/aerospace
+
+            # Optional: install JankyBorders
+            # brew tap felixkratz/formulae
+            # brew install borders
+        fi
 
         # Install lazyworktree (TUI for git worktrees)
         brew tap chmouel/lazyworktree https://github.com/chmouel/lazyworktree

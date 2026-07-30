@@ -96,3 +96,8 @@ log_message "Created symbolic link for Micro config file..."
 rm -rf $HOME/.config/zellij
 ln -s $DIR/config/zellij $HOME/.config/zellij
 log_message "Created symbolic link for Zellij config file..."
+
+# AeroSpace
+rm -rf $HOME/.config/aerospace
+ln -s $DIR/config/aerospace $HOME/.config/aerospace
+log_message "Created symbolic link for AeroSpace config file..."
