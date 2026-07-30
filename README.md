@@ -84,7 +84,7 @@ Modern CLI tools installed via Homebrew.
 
 | Tool | Description | Usage |
 |------|-------------|-------|
-| `fzf` | Universal fuzzy finder, integrates with everything | `CTRL+R` (history), `CTRL+T` (files) |
+| `fzf` | Universal fuzzy finder, integrates with everything | see [keymap](docs/keymap.md#fzf) |
 | `tmux` | Terminal multiplexer | `tmux` |
 | `lazygit` | TUI for git | `lazygit` |
 | `difftastic` | Structural diff viewer with syntax awareness | `difft` |
@@ -100,6 +100,12 @@ Modern CLI tools installed via Homebrew.
 | `httpie` | `curl` | Readable HTTP client for APIs | `http GET https://api.example.com` |
 | `doggo` | `dig` | Modern DNS lookup | `doggo` |
 | `gping` | `ping` | Ping with real-time graph | `gping` |
+
+## Web browsing
+
+| Tool | Description | Usage |
+|------|-------------|-------|
+| `carbonyl` | Optional reference: Chromium-based web browser that runs inside the terminal | `carbonyl https://example.com` |
 
 ## Configured aliases
 
@@ -127,19 +133,10 @@ source <(fzf --zsh)
 
 If you could only pick 5: **fzf**, **zoxide**, **eza**, **ripgrep**, **lazygit**. They completely change the way you use the terminal.
 
-# Neovim Keybindings
+# Keybindings
 
-| Keybinding | Action |
-|------------|--------|
-| `<leader>f` | Neotree (file browser) |
-| `<leader>n` | Neotree reveal toggle |
-| `<leader>o` | Telescope find_files |
-| `<leader>O` | Telescope find_files (all files) |
-| `<leader>e` | Telescope oldfiles (recent files) |
-| `<leader>b` | Telescope buffers |
-| `<leader>g` | Telescope live grep |
-| `<leader>s` | Telescope LSP document symbols |
-| `Tab` | Copilot accept |
+All configured keybindings (AeroSpace, Neovim, fzf) are documented in
+[docs/keymap.md](docs/keymap.md).
 
 # Credits
 A lot of the `nvim` and `tmux` configuration has been influenced by
