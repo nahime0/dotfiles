@@ -281,7 +281,9 @@ web_client {
 // Choose the theme that is specified in the themes section.
 // Default: default
 // 
-// theme "dracula"
+theme "nord-light"
+theme_dark "nord"
+theme_light "nord-light"
  
 // Choose the base input mode of zellij.
 // Default: normal
@@ -309,7 +311,8 @@ web_client {
  
 // The folder in which Zellij will look for themes
 // (Requires restart)
-// 
+// Not set on purpose: Zellij already loads themes from <config dir>/themes.
+//
 // theme_dir "/tmp"
  
 // Toggle enabling the mouse mode.
