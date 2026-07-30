@@ -42,8 +42,8 @@ keybinds clear-defaults=true {
         bind "]" { BreakPaneRight; SwitchToMode "normal"; }
         bind "b" { BreakPane; SwitchToMode "normal"; }
         bind "h" { GoToPreviousTab; }
-        bind "j" { GoToNextTab; }
-        bind "k" { GoToPreviousTab; }
+        bind "j" { MoveTab "right"; }
+        bind "k" { MoveTab "left"; }
         bind "l" { GoToNextTab; }
         bind "n" { NewTab; SwitchToMode "normal"; }
         bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
@@ -129,6 +129,14 @@ keybinds clear-defaults=true {
             LaunchOrFocusPlugin "session-manager" {
                 floating true
                 move_to_focused_tab true
+            }
+            SwitchToMode "normal"
+        }
+        bind "z" {
+            Run "zj" {
+                floating true
+                close_on_exit true
+                name "project switcher"
             }
             SwitchToMode "normal"
         }
