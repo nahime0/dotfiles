@@ -19,3 +19,7 @@ log_message "Created symbolic link for zellij-switcher as zj..."
 rm -rf $HOME/bin/export-extensions
 ln -s $DIR/bin/export-extensions $HOME/bin/export-extensions
 log_message "Created symbolic link for export-extensions..."
+
+rm -rf $HOME/bin/ray
+ln -s $DIR/bin/ray $HOME/bin/ray
+log_message "Created symbolic link for ray scripts directory..."
