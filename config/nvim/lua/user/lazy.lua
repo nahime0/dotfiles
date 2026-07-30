@@ -36,6 +36,8 @@ require("lazy").setup({
   { import = 'user.lazy.bufdelete' }, -- Use bufdelete to delete buffers but keep the split open
   { import = 'user.lazy.treesj' }, -- Split and join arrays (and others) in multiple lines (e.g. gS to split, gJ to join)
   { import = 'user.lazy.vim-pasta' }, -- Use vim pasta to automatically fix indentation when pasting
+  { import = 'user.lazy.agentlog' }, -- Temporary local agentlog.nvim development
+  { import = 'user.lazy.codecompanion' }, -- AI chat and agents inside Neovim
   { import = 'user.lazy.telescope' }, -- Fuzzy finder
   { import = 'user.lazy.neo-tree' }, -- Side tree
   { import = 'user.lazy.lualine' }, -- Lualine status bar
