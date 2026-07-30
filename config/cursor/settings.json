@@ -97,5 +97,7 @@
     },
     "claudeCode.selectedModel": "default",
     "claudeCode.preferredLocation": "sidebar",
-    "workbench.preferredLightColorTheme": "Nord Light"
+    "workbench.preferredLightColorTheme": "Nord Light",
+    "editor.accessibilitySupport": "off",
+    "vim.disableExtension": true
 }
