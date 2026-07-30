@@ -4,6 +4,24 @@
 -- Plugins
 -- require('user/plugins')
 
+-- Match the macOS appearance before plugins render their first frame. The
+-- auto-dark-mode plugin keeps the theme synchronized after startup.
+if vim.fn.has('macunix') == 1 then
+  local macos_appearance = vim.fn.system({
+    'defaults',
+    'read',
+    '-g',
+    'AppleInterfaceStyle',
+  })
+
+  if macos_appearance:match('Dark') then
+    vim.o.background = 'dark'
+  else
+    vim.o.background = 'light'
+    vim.cmd.colorscheme('nord-light')
+  end
+end
+
 -- User settings
 require('user/options')
 require('user/keys')

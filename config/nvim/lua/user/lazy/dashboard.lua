@@ -9,6 +9,34 @@ local quote = handle:read("*a")
 quoteText = split(quote, "|")
 handle:close()
 
+local function set_dashboard_highlights()
+  local colors
+
+  if vim.o.background == 'light' then
+    colors = {
+      DashboardHeader = '#4B6C8C',
+      DashboardDesc = '#3B4252',
+      DashboardIcon = '#865B7F',
+      DashboardKey = '#3B5E85',
+      DashboardShortCut = '#3B5E85',
+      DashboardFooter = '#4C566A',
+    }
+  else
+    colors = {
+      DashboardHeader = '#81A1C1',
+      DashboardDesc = '#D8DEE9',
+      DashboardIcon = '#B48EAD',
+      DashboardKey = '#81A1C1',
+      DashboardShortCut = '#81A1C1',
+      DashboardFooter = '#88C0D0',
+    }
+  end
+
+  for group, foreground in pairs(colors) do
+    vim.api.nvim_set_hl(0, group, { fg = foreground })
+  end
+end
+
 return {
   'glepnir/dashboard-nvim',
   opts = {
@@ -66,10 +94,11 @@ return {
     }
   },
   init = function()
-    vim.api.nvim_set_hl(0, 'DashboardHeader', { fg = '#6272a4' })
-    vim.api.nvim_set_hl(0, 'DashboardDesc', { fg = '#f8f8f2' })
-    vim.api.nvim_set_hl(0, 'DashboardIcon', { fg = '#bd93f9' })
-    vim.api.nvim_set_hl(0, 'DashboardKey', { fg = '#6272a4' })
-    vim.api.nvim_set_hl(0, 'DashboardFooter', { fg = '#6272a4' })
+    set_dashboard_highlights()
+
+    vim.api.nvim_create_autocmd('ColorScheme', {
+      group = vim.api.nvim_create_augroup('user_dashboard_colors', { clear = true }),
+      callback = set_dashboard_highlights,
+    })
   end,
 }

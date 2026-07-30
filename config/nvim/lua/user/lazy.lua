@@ -13,11 +13,12 @@ vim.opt.rtp:prepend(lazypath)
 
 
 require("lazy").setup({
-  { import = 'user.lazy.nord' }, -- Include the theme
+  { import = 'user.lazy.nord' }, -- Include the dark theme
+  { import = 'user.lazy.nord-light' }, -- Include the light theme
   -- { import = 'user.lazy.catppuccin' }, -- Include the theme
   -- { import = 'user.lazy.onedarkpro' }, -- Include the theme
   -- { import = 'user.lazy.tokyonight' }, -- Include the theme
-  -- { import = 'user.lazy.auto-dark-mode'}, -- Auto dark mode
+  { import = 'user.lazy.auto-dark-mode'}, -- Follow the macOS appearance
   { import = 'user.lazy.vim-commentary' }, -- Comment stuff out (use gcc to comment out a line)
   { import = 'user.lazy.vim-surround' }, -- Easily add, change and delete surroundings in pairs (e.g. cs"' to change surrounding " from double quotes to single quotes)
   { import = 'user.lazy.vim-eunuch' }, -- vim enunch - command like :Rename and :SudoWrite
@@ -63,6 +64,6 @@ require("lazy").setup({
       notify = false,
     },
     install = {
-      colorscheme = { "nord", "tokyonight", "habamax" },
+      colorscheme = { "nord-light", "nord", "tokyonight", "habamax" },
     },
   })
