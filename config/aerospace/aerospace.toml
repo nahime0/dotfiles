@@ -1,14 +1,14 @@
 # AeroSpace — https://nikitabobko.github.io/AeroSpace/guide
-# i3-like tiling window manager per macOS
+# i3-like tiling window manager for macOS
 
 config-version = 2
 
 start-at-login = true
 
-# JankyBorders disattivato temporaneamente
+# JankyBorders temporarily disabled
 after-startup-command = []
 
-# Normalizzazione dell'albero delle finestre
+# Window tree normalization
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
@@ -16,13 +16,13 @@ accordion-padding = 30
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
 
-# Sposta il mouse sul monitor che prende il focus
+# Move the mouse to the monitor taking focus
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 [key-mapping]
 preset = 'qwerty'
 
-# Spazi tra le finestre e dai bordi dello schermo
+# Gaps between windows and from the screen edges
 [gaps]
 inner.horizontal = 8
 inner.vertical   = 8
@@ -31,12 +31,12 @@ outer.right      = 8
 outer.top        = 8
 outer.bottom     = 8
 
-# ── Layer principale ──────────────────────────────
-# Modificatori: focus/workspace/layout = cmd-ctrl · sposta finestra = alt-ctrl
+# ── Main layer ────────────────────────────────────
+# Modifiers: focus/workspace/layout = cmd-ctrl · move window = alt-ctrl
 [mode.main.binding]
 # Layout
-cmd-ctrl-slash = 'layout tiles horizontal vertical'     # alterna tiling orizz/vert
-cmd-ctrl-comma = 'layout accordion horizontal vertical' # layout a fisarmonica
+cmd-ctrl-slash = 'layout tiles horizontal vertical'     # toggle horizontal/vertical tiling
+cmd-ctrl-comma = 'layout accordion horizontal vertical' # accordion layout
 
 # Focus (vim hjkl)
 cmd-ctrl-h = 'focus left'
@@ -44,13 +44,13 @@ cmd-ctrl-j = 'focus down'
 cmd-ctrl-k = 'focus up'
 cmd-ctrl-l = 'focus right'
 
-# Sposta la finestra
+# Move the window
 alt-ctrl-h = 'move left'
 alt-ctrl-j = 'move down'
 alt-ctrl-k = 'move up'
 alt-ctrl-l = 'move right'
 
-# Ridimensiona
+# Resize
 cmd-ctrl-minus = 'resize smart -50'
 cmd-ctrl-equal = 'resize smart +50'
 
@@ -66,7 +66,7 @@ cmd-ctrl-7 = 'workspace 7'
 cmd-ctrl-8 = 'workspace 8'
 cmd-ctrl-9 = 'workspace 9'
 
-# Sposta la finestra su un workspace
+# Move the window to a workspace
 alt-ctrl-0 = 'move-node-to-workspace 0'
 alt-ctrl-1 = 'move-node-to-workspace 1'
 alt-ctrl-2 = 'move-node-to-workspace 2'
@@ -78,32 +78,32 @@ alt-ctrl-7 = 'move-node-to-workspace 7'
 alt-ctrl-8 = 'move-node-to-workspace 8'
 alt-ctrl-9 = 'move-node-to-workspace 9'
 
-# Naviga tra workspace / monitor
+# Navigate between workspaces / monitors
 cmd-ctrl-tab = 'workspace-back-and-forth'
 alt-ctrl-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # Fullscreen
 alt-ctrl-f = 'fullscreen'
 
-# Entra in service mode
+# Enter service mode
 alt-ctrl-semicolon = 'mode service'
 
 # ── Service mode (⌥⌃;) ────────────────────────────
 [mode.service.binding]
-esc = ['reload-config', 'mode main']          # ricarica config
-r = ['flatten-workspace-tree', 'mode main']   # resetta il layout
+esc = ['reload-config', 'mode main']          # reload config
+r = ['flatten-workspace-tree', 'mode main']   # reset the layout
 f = ['layout floating tiling', 'mode main']   # floating/tiling
 backspace = ['close-all-windows-but-current', 'mode main']
 
-# Unisci finestre in un contenitore
+# Join windows into a container
 alt-ctrl-h = ['join-with left', 'mode main']
 alt-ctrl-j = ['join-with down', 'mode main']
 alt-ctrl-k = ['join-with up', 'mode main']
 alt-ctrl-l = ['join-with right', 'mode main']
 
-# ── App che non si prestano al tiling → floating ──
+# ── Apps that do not tile well → floating ─────────
 [[on-window-detected]]
-if.app-id = 'com.apple.systempreferences'   # Impostazioni di Sistema
+if.app-id = 'com.apple.systempreferences'   # System Settings
 run = 'layout floating'
 
 [[on-window-detected]]
