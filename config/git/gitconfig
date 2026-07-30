@@ -36,3 +36,5 @@
     stap = stash pop
 [gpg "ssh"]
 	program = ssh-keygen
+[diff]
+    external = difft

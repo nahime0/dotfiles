@@ -1,2 +1,5 @@
 .DS_Store
 .phpactor.json
+.folderinfo
+
+**/.claude/settings.local.json
