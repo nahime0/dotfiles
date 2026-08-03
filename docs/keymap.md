@@ -103,7 +103,8 @@ Leader key: `Space`.
 | `<leader>b` | Telescope buffers |
 | `<leader>g` | Telescope live grep |
 | `<leader>s` | Telescope LSP document symbols |
-| `Tab` | Copilot accept |
+| `Alt+Enter` | Copilot accept (insert mode) |
+| `Tab` | Completion menu: next item (nvim-cmp) |
 
 ## Vimium
 
