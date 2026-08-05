@@ -10,6 +10,7 @@ Keybindings configured across the tools in this repository.
   - [Workspaces](#workspaces)
   - [Monitors](#monitors)
   - [Service mode](#service-mode)
+- [Zellij](#zellij)
 - [Neovim](#neovim)
 - [Vimium](#vimium)
   - [Page navigation](#page-navigation)
@@ -90,6 +91,24 @@ Enter service mode with `⌥⌃ ;`. Every action returns to the main mode.
 | `⌥⌃ J` | Join with the window below |
 | `⌥⌃ K` | Join with the window above |
 | `⌥⌃ L` | Join with the window on the right |
+
+## Zellij
+
+`Ctrl-h/j/k/l` navigates seamlessly between Neovim splits and Zellij panes. At the outer horizontal edge, `Ctrl-h/l` continues to the previous or next Zellij tab.
+
+| Keybinding | Action |
+|------------|--------|
+| `Ctrl-h/j/k/l` | Navigate left/down/up/right through Neovim and Zellij |
+| `Ctrl-q c` | Open a new tab |
+| `Ctrl-q n/p` | Go to the next/previous tab |
+| `Ctrl-q %` | Open a pane on the right |
+| `Ctrl-q "` | Open a pane below |
+| `Ctrl-q z` | Toggle focused pane fullscreen |
+| `Ctrl-q [` | Enter scroll mode |
+| `Ctrl-q d` | Detach from the session |
+| `Ctrl-p m`, then `h/j/k/l` | Move the focused pane |
+| `Ctrl-t h/l` | Go to the previous/next tab |
+| `Ctrl-t k/j` | Move the current tab left/right |
 
 ## Neovim
 
