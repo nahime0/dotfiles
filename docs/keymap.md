@@ -107,6 +107,7 @@ Enter service mode with `⌥⌃ ;`. Every action returns to the main mode.
 | `Ctrl-q [` | Enter scroll mode |
 | `Ctrl-q d` | Detach from the session |
 | `Ctrl-p m`, then `h/j/k/l` | Move the focused pane |
+| `Ctrl-t a` | Open the note for the current tab |
 | `Ctrl-t h/l` | Go to the previous/next tab |
 | `Ctrl-t k/j` | Move the current tab left/right |
 

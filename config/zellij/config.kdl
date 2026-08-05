@@ -41,6 +41,7 @@ keybinds clear-defaults=true {
         bind "9" { GoToTab 9; SwitchToMode "normal"; }
         bind "[" { BreakPaneLeft; SwitchToMode "normal"; }
         bind "]" { BreakPaneRight; SwitchToMode "normal"; }
+        bind "a" { LaunchOrFocusPlugin "tab-notes" { floating true; move_to_focused_tab true; }; SwitchToMode "normal"; }
         bind "b" { BreakPane; SwitchToMode "normal"; }
         bind "h" { GoToPreviousTab; }
         bind "j" { MoveTab "right"; }
@@ -297,6 +298,17 @@ plugins {
     status-bar location="zellij:status-bar"
     strider location="zellij:strider"
     tab-bar location="zellij:tab-bar"
+    // Pinned release URL: Zellij caches remote plugins by URL.
+    tab-notes location="https://github.com/illegalstudio/zellij-tab-notes/releases/download/v0.1.0/tab-notes.wasm" {
+        role "modal"
+        notes_dir "/Users/nahime/.local/share/zellij-tab-notes"
+        icon "📝"
+    }
+    tab-notes-watcher location="https://github.com/illegalstudio/zellij-tab-notes/releases/download/v0.1.0/tab-notes.wasm" {
+        role "watcher"
+        notes_dir "/Users/nahime/.local/share/zellij-tab-notes"
+        icon "📝"
+    }
     welcome-screen location="zellij:session-manager" {
         welcome_screen true
     }
@@ -306,6 +318,7 @@ plugins {
 // eg. "file:/path/to/my-plugin.wasm"
 // eg. "https://example.com/my-plugin.wasm"
 load_plugins {
+    tab-notes-watcher
 }
 web_client {
     font "monospace"
