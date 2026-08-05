@@ -299,12 +299,12 @@ plugins {
     strider location="zellij:strider"
     tab-bar location="zellij:tab-bar"
     // Pinned release URL: Zellij caches remote plugins by URL.
-    tab-notes location="https://github.com/illegalstudio/zellij-tab-notes/releases/download/v0.1.0/tab-notes.wasm" {
+    tab-notes location="https://github.com/illegalstudio/zellij-tab-notes/releases/download/v0.1.1/tab-notes.wasm" {
         role "modal"
         notes_dir "/Users/nahime/.local/share/zellij-tab-notes"
         icon "📝"
     }
-    tab-notes-watcher location="https://github.com/illegalstudio/zellij-tab-notes/releases/download/v0.1.0/tab-notes.wasm" {
+    tab-notes-watcher location="https://github.com/illegalstudio/zellij-tab-notes/releases/download/v0.1.1/tab-notes.wasm" {
         role "watcher"
         notes_dir "/Users/nahime/.local/share/zellij-tab-notes"
         icon "📝"
