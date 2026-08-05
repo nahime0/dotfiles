@@ -7,7 +7,7 @@ themes {
         text_unselected {
             base 46 52 64
             background 216 222 233
-            emphasis_0 216 222 233
+            emphasis_0 151 89 67
             emphasis_1 12 116 130
             emphasis_2 87 113 64
             emphasis_3 134 91 127
@@ -15,7 +15,7 @@ themes {
         text_selected {
             base 46 52 64
             background 216 222 233
-            emphasis_0 216 222 233
+            emphasis_0 151 89 67
             emphasis_1 12 116 130
             emphasis_2 87 113 64
             emphasis_3 134 91 127
