@@ -54,7 +54,7 @@ alt-ctrl-l = 'move right'
 cmd-ctrl-minus = 'resize smart -50'
 cmd-ctrl-equal = 'resize smart +50'
 
-# Workspaces 0-9 and top letter row (except Q)
+# Workspaces 0-9, top letter row (except Q), and bottom letter row
 cmd-ctrl-0 = 'workspace 0'
 cmd-ctrl-1 = 'workspace 1'
 cmd-ctrl-2 = 'workspace 2'
@@ -74,6 +74,13 @@ cmd-ctrl-u = 'workspace U'
 cmd-ctrl-i = 'workspace I'
 cmd-ctrl-o = 'workspace O'
 cmd-ctrl-p = 'workspace P'
+cmd-ctrl-z = 'workspace Z'
+cmd-ctrl-x = 'workspace X'
+cmd-ctrl-c = 'workspace C'
+cmd-ctrl-v = 'workspace V'
+cmd-ctrl-b = 'workspace B'
+cmd-ctrl-n = 'workspace N'
+cmd-ctrl-m = 'workspace M'
 
 # Move the window to a workspace
 alt-ctrl-0 = 'move-node-to-workspace 0'
@@ -95,6 +102,13 @@ alt-ctrl-u = 'move-node-to-workspace U'
 alt-ctrl-i = 'move-node-to-workspace I'
 alt-ctrl-o = 'move-node-to-workspace O'
 alt-ctrl-p = 'move-node-to-workspace P'
+alt-ctrl-z = 'move-node-to-workspace Z'
+alt-ctrl-x = 'move-node-to-workspace X'
+alt-ctrl-c = 'move-node-to-workspace C'
+alt-ctrl-v = 'move-node-to-workspace V'
+alt-ctrl-b = 'move-node-to-workspace B'
+alt-ctrl-n = 'move-node-to-workspace N'
+alt-ctrl-m = 'move-node-to-workspace M'
 
 # Navigate between workspaces / monitors
 cmd-ctrl-tab = 'workspace-back-and-forth'

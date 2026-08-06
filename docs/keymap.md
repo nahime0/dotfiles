@@ -69,6 +69,8 @@ Vim-style `hjkl` navigation.
 | `⌥⌃ 0-9` | Move window to workspace 0-9 |
 | `⌘⌃ W/E/R/T/Y/U/I/O/P` | Switch to the corresponding letter workspace |
 | `⌥⌃ W/E/R/T/Y/U/I/O/P` | Move window to the corresponding letter workspace |
+| `⌘⌃ Z/X/C/V/B/N/M` | Switch to the corresponding letter workspace |
+| `⌥⌃ Z/X/C/V/B/N/M` | Move window to the corresponding letter workspace |
 | `⌘⌃ Tab` | Toggle between the last two workspaces |
 
 ### Monitors
