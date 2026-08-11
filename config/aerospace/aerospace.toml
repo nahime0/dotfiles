@@ -166,3 +166,8 @@ run = 'layout floating'
 if.app-id = 'com.google.Chrome'
 if.window-title-regex-substring = '^Bitwarden$' # Bitwarden extension pop-out
 run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'ai.perplexity.comet'
+if.window-title-regex-substring = '^Bitwarden$' # Bitwarden extension pop-out
+run = 'layout floating'
