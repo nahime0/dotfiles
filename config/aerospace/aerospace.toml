@@ -151,6 +151,10 @@ if.app-id = 'com.apple.ActivityMonitor'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'com.apple.Music'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'com.belightsoft.GetBackup-setapp' # Get Backup Pro
 run = 'layout floating'
 
