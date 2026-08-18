@@ -159,6 +159,10 @@ if.app-id = 'com.belightsoft.GetBackup-setapp' # Get Backup Pro
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'com.anysphere.sand'            # Grok Bot
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'com.superduper.superwhisper'   # Superwhisper
 run = 'layout floating'
 
