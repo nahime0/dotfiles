@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -eu
+
+buffer_name=${1:?"missing tmux scrollback buffer"}
+scrollback_file=$(mktemp "${TMPDIR:-/tmp}/tmux-scrollback.XXXXXX")
+
+cleanup() {
+    tmux delete-buffer -b "$buffer_name" >/dev/null 2>&1 || true
+    rm -f "$scrollback_file"
+}
+
+trap cleanup EXIT
+trap 'exit 1' HUP INT TERM
+
+tmux save-buffer -b "$buffer_name" "$scrollback_file"
+tmux delete-buffer -b "$buffer_name"
+"${TMUX_SCROLLBACK_EDITOR:-nvim}" -R "$scrollback_file"

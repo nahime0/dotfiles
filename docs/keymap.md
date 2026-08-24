@@ -10,6 +10,7 @@ Keybindings configured across the tools in this repository.
   - [Workspaces](#workspaces)
   - [Monitors](#monitors)
   - [Service mode](#service-mode)
+- [Tmux](#tmux)
 - [Zellij](#zellij)
 - [Neovim](#neovim)
 - [Vimium](#vimium)
@@ -105,6 +106,14 @@ Enter service mode with `⌥⌃ ;`. Every action returns to the main mode.
 | `⌥⌃ J` | Join with the window below |
 | `⌥⌃ K` | Join with the window above |
 | `⌥⌃ L` | Join with the window on the right |
+
+## Tmux
+
+Prefix key: `Ctrl-q`.
+
+| Keybinding | Action |
+|------------|--------|
+| `Ctrl-q e` | Open the current pane scrollback in a Neovim popup |
 
 ## Zellij
 
