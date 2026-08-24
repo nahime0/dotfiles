@@ -163,6 +163,10 @@ if.app-id = 'com.anysphere.sand'            # Grok Bot
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'com.parallels.desktop.console' # Parallels Desktop VMs
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'com.superduper.superwhisper'   # Superwhisper
 run = 'layout floating'
 
