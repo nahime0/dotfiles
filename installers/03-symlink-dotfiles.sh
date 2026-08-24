@@ -54,8 +54,10 @@ log_message "Created symbolic link for zsh config file..."
 # Tmux
 rm -rf $HOME/.tmux.conf
 mkdir -p $HOME/.tmux
+rm -rf $HOME/.tmux/themes
 rm -rf $HOME/.tmux/scripts
 ln -s $DIR/config/tmux/tmux.conf $HOME/.tmux.conf
+ln -s $DIR/config/tmux/themes $HOME/.tmux/themes
 ln -s $DIR/config/tmux/scripts $HOME/.tmux/scripts
 log_message "Created symbolic link for Tmux config file..."
 
