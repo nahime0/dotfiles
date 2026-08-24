@@ -79,6 +79,18 @@ Vim-style `hjkl` navigation.
 |------------|--------|
 | `⌥⌃ Tab` | Move current workspace to the next monitor (wrap-around) |
 
+Workspaces 1-3 are pinned to their physical displays:
+
+| Workspace | Display |
+|-----------|---------|
+| `1` | Built-in Retina Display |
+| `2` | LG HDR 4K |
+| `3` | LG ULTRAWIDE |
+
+If a display is disconnected, AeroSpace can temporarily show its workspace on
+another display; the fixed assignment applies again when the display returns.
+If it does not move immediately, switch to another workspace and back.
+
 ### Service mode
 
 Enter service mode with `⌥⌃ ;`. Every action returns to the main mode.

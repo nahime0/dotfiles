@@ -19,6 +19,12 @@ default-root-container-orientation = 'auto'
 # Move the mouse to the monitor taking focus
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
+# Keep the first three workspaces tied to their physical displays
+[workspace-to-monitor-force-assignment]
+1 = '^Built-in Retina Display$'
+2 = '^LG HDR 4K$'
+3 = '^LG ULTRAWIDE$'
+
 [key-mapping]
 preset = 'qwerty'
 
