@@ -335,6 +335,7 @@ plugins {
 // eg. "https://example.com/my-plugin.wasm"
 load_plugins {
     tab-notes-watcher
+    "file:/Users/nahime/Developer/nahime/dotfiles/config/zellij/plugins/zrpc.wasm"
 }
 web_client {
     font "monospace"
