@@ -126,6 +126,7 @@ alias get-music="yt-dlp -o '%(playlist_index)02d - %(title)s.%(ext)s' -x --audio
 alias get-video="yt-dlp -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\""
 alias get-video-and-subs="yt-dlp --write-subs --write-auto-subs --sub-langs \"en,it\" --convert-subs srt -o \"%(title)s.%(ext)s\""
 alias t="tmux new -As0"
+alias td="toodoo"
 alias co="composer"
 alias a="php artisan"
 alias warp='open "warp://action/new_tab?path=$(pwd)"'
@@ -287,6 +288,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # opencode
 export PATH="$HOME/.opencode/bin:$PATH"
 
+# kimi-code
+export PATH="$HOME/.kimi-code/bin:$PATH"
+
 # Shell helpers for:
 # - ggg
 # - ggw
@@ -295,6 +299,8 @@ command -v ggg >/dev/null && eval "$(ggg shell-init zsh)"
 
 # >>> grok installer >>>
 export PATH="$HOME/.grok/bin:$PATH"
+fpath=("$HOME/.grok/completions/zsh" $fpath)
+autoload -Uz compinit && compinit -C
 # <<< grok installer <<<
 
 # MiniMax (mavis)
@@ -302,3 +308,6 @@ export PATH="$HOME/.mavis/bin:$PATH"
 
 # kilo
 export PATH="$HOME/.kilo/bin:$PATH"
+
+# elvm
+export PATH="$HOME/.elvm/bin:$PATH"
