@@ -26,7 +26,6 @@ require("lazy").setup({
   { import = 'user.lazy.vim-sleuth' }, -- Use editorconfig to set up the editor indentations
   { import = 'user.lazy.vim-repeat' }, -- Use vim repeat to allow plugins to repeat actions
   { import = 'user.lazy.vim-tmux-navigator' }, -- Integration with tmux
-  { import = 'user.lazy.zellij-nav' }, -- Integration with Zellij
   { import = 'user.lazy.vim-lastplace' }, -- Return to the last location on a file when opening it
   { import = 'user.lazy.vim-visual-star-search' }, -- Enable * searching also for visual selection
   { import = 'user.lazy.vim-heritage' }, -- Automatically create folders when saving a file

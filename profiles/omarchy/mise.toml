@@ -1,0 +1,6 @@
+[tools]
+go = "latest"
+"go:golang.org/x/tools/gopls" = "latest"
+yazi = "latest"
+pipx = "latest"
+ansible = "latest"

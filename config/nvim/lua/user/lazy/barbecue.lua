@@ -13,7 +13,6 @@ return {
     },
     "nvim-tree/nvim-web-devicons", -- optional dependency
   },
-  opts = {
-    theme = 'tokyonight',
-  },
+  -- Let barbecue derive its colours from the active colorscheme.
+  opts = {},
 }

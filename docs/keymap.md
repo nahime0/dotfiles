@@ -11,7 +11,6 @@ Keybindings configured across the tools in this repository.
   - [Monitors](#monitors)
   - [Service mode](#service-mode)
 - [Tmux](#tmux)
-- [Zellij](#zellij)
 - [Neovim](#neovim)
 - [Vimium](#vimium)
   - [Page navigation](#page-navigation)
@@ -114,25 +113,6 @@ Prefix key: `Ctrl-q`.
 | Keybinding | Action |
 |------------|--------|
 | `Ctrl-q e` | Open the current pane scrollback in a Neovim popup |
-
-## Zellij
-
-`Ctrl-h/j/k/l` navigates seamlessly between Neovim splits and Zellij panes. At the outer horizontal edge, `Ctrl-h/l` continues to the previous or next Zellij tab.
-
-| Keybinding | Action |
-|------------|--------|
-| `Ctrl-h/j/k/l` | Navigate left/down/up/right through Neovim and Zellij |
-| `Ctrl-q c` | Open a new tab |
-| `Ctrl-q n/p` | Go to the next/previous tab |
-| `Ctrl-q %` | Open a pane on the right |
-| `Ctrl-q "` | Open a pane below |
-| `Ctrl-q z` | Toggle focused pane fullscreen |
-| `Ctrl-q [` | Enter scroll mode |
-| `Ctrl-q d` | Detach from the session |
-| `Ctrl-p m`, then `h/j/k/l` | Move the focused pane |
-| `Ctrl-t a` | Open the note for the current tab |
-| `Ctrl-t h/l` | Go to the previous/next tab |
-| `Ctrl-t k/j` | Move the current tab left/right |
 
 ## Neovim
 

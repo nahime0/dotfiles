@@ -2,33 +2,11 @@ return {
   'neovim/nvim-lspconfig',
   event = 'VeryLazy',
   dependencies = {
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
     'b0o/schemastore.nvim',
     'nvimtools/none-ls.nvim',
     'nvimtools/none-ls-extras.nvim',
-    'jay-babu/mason-null-ls.nvim',
   },
   config = function()
-    -- Setup Mason to automatically install LSP servers
-    require('mason').setup({
-      ui = {
-        height = 0.8,
-      },
-    })
-    require('mason-lspconfig').setup({
-      ensure_installed = {
-        'intelephense',
-        'phpactor',
-        'html',
-        'vue_ls',
-        'tailwindcss',
-        'elixirls',
-        'gopls',
-        'jsonls',
-      },
-    })
-
     local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     -- Global LSP config with capabilities
@@ -135,7 +113,7 @@ return {
         }),
       },
       on_attach = function(client, bufnr)
-        if client.supports_method("textDocument/formatting") then
+        if client:supports_method('textDocument/formatting', bufnr) then
           vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
           vim.api.nvim_create_autocmd("BufWritePre", {
             group = augroup,
@@ -147,8 +125,6 @@ return {
         end
       end,
     })
-
-    require('mason-null-ls').setup({ automatic_installation = true })
 
     -- Keymaps
     vim.keymap.set('n', '<Leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>')

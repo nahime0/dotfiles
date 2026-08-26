@@ -1,52 +1,88 @@
-# Dotfiles 
+# Dotfiles
 
-This repository contains my dotfiles and some scripts to install them.
+Personal dotfiles with separate macOS and Omarchy profiles.
 
-# Usage
+## Safety model
 
-Just run the setup script to install all the needed symlinks
+The installer is a dry run unless `--apply` is explicitly supplied. Existing
+targets are moved to a timestamped directory under
+`~/.local/state/dotfiles/backups/` before a symlink is created. It never runs
+`rm -rf`.
 
-On MacOS, install the xcode command line tools first:
+Always inspect a profile first:
 
-```bash
-xcode-select --install
+```sh
+./setup --profile omarchy
+./setup --profile macos
 ```
 
-Then run the setup script:
+Apply only after reviewing the output:
 
-```bash
-./setup.sh
+```sh
+./setup --profile omarchy --apply
 ```
 
-# Warnings
+Tools supported by mise are declared per profile and are optional:
 
-This setup will delete configuration files and replace them with a symlink to
-the files in this repository.
-
-Launch this at your own risk.
-
-# Private stuff
-The installer in this repository will check for the existance of a file setup
-in the folder `dotfiles-private`.
-
-If the file is found, it will be launched. You can use the `dotfiles-private`
-folder to store personal configuration (i.e. ssh and so on).
-
-# Git
-
-The idenity for git commits will be included from the `~/.gitidentity` file.
-The file should include the `[user]` section of the git configuration file.
-
-For example:
-
-```gitconfig
-[user]
-    name = My name
-    email = my@email.com
-    signingKey = ~/.ssh/id_rsa
+```sh
+./setup --profile omarchy --apply --packages
 ```
 
-You can create the `~/.gitidentity` file using the dotfiles-private folder described above.
+With `--packages`, the declarations are merged into mise's global config so
+the installed tools are active outside this repository as well.
+
+The installer does not install Homebrew. System and desktop packages remain the
+responsibility of Omarchy/pacman; mise is used for portable runtimes and CLIs.
+
+## Profiles
+
+### Omarchy
+
+The Omarchy profile is additive and deliberately leaves these under Omarchy's
+control:
+
+- terminal configuration and dynamic theme includes;
+- Hyprland and the Omarchy shell/bar;
+- Omarchy's XDG Git configuration;
+- `plugins/theme.lua` and Omarchy's theme definitions.
+
+It installs the personal tmux layout with symbolic ANSI colours so theme
+switches continue to recolour tmux. Neovim runs the personal configuration as
+its base, excluding the old macOS Nord/light-dark stack, and imports only
+Omarchy's active colorscheme definitions. A profile watcher applies theme
+changes to running Neovim instances without requiring a restart.
+
+Portable personal aliases live in `profiles/omarchy/shell/aliases.sh`. The
+profile links this fragment under `~/.config/bash/` and adds one idempotent
+source line to the existing Omarchy `~/.bashrc`, whose previous contents are
+copied to the timestamped backup directory. Omarchy's Bash defaults remain the
+base configuration and the personal aliases load afterwards.
+
+If `dotfiles-private/setup` is present, the selected profile and execution mode
+are delegated to it. The public repository does not know or document which
+private operations it performs. If it is absent, setup reports it and continues.
+
+### macOS
+
+The macOS profile links the original terminal, Zsh, tmux and Neovim
+configurations. Install platform applications separately; this repository no
+longer bootstraps Homebrew.
+
+## Repository layout
+
+```text
+config/                 original personal configuration (macOS source)
+profiles/macos/         macOS installer and mise manifest
+profiles/omarchy/       Omarchy adapters, tmux config and mise manifest
+lib/install.sh          backup-aware linking primitives
+installers/             legacy installers; retained for reference, not called
+```
+
+## Private setup
+
+If an executable `dotfiles-private/setup` exists, the main installer delegates
+the selected profile and dry-run/apply mode to it. Its behavior is intentionally
+defined and documented only in the private repository.
 
 # What software and libraries ecc. will be installed?
 
@@ -58,7 +94,7 @@ You can create the `~/.gitidentity` file using the dotfiles-private folder descr
 
 # CLI Tools
 
-Modern CLI tools installed via Homebrew.
+Portable CLI tools are declared in each profile's `mise.toml`.
 
 ## File manager
 

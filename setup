@@ -1,322 +1,62 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+set -euo pipefail
 
-################################################################################
-# Setup needed variables and env                                               #
-#                                                                              #
-# 1. The directory of the script                                               #
-# 2. The path of the gum binary                                                #
-#                                                                              #
-# Then this script will take care of installing the needed fonts, and the      #
-# needed software and tools.                                                   #
-#                                                                              #
-# Usage:                                                                       #
-#   ./setup              - Interactive mode: select operations to execute     #
-#   ./setup --all        - Execute all operations                              #
-################################################################################
+ROOT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+usage() {
+  cat <<'EOF'
+Usage: ./setup --profile <macos|omarchy> [--apply] [--packages]
 
-#####################################
-# Check if the current shell is ZSH #
-#####################################
-if [ -z "$ZSH_VERSION" ]; then
-    echo ""
-    echo "You need to be in ZSH to launch this script."
-    echo "Install ZSH, then change shell:"
-    echo ""
-    echo ">  chsh -s \$(which zsh)"
-    echo ""
-    echo "You need to re-login afterwards."
-    exit 1
-fi
-
-export DIR="${0:A:h}"
-
-######################################################
-# Import lib/oses.sh                                 #
-# Import lib/shell.sh                                #
-#                                                    #
-# they contains the functions for detecting the OS   #
-# and the current shell                              #
-######################################################
-
-source $DIR/lib/oses.sh
-source $DIR/lib/shell.sh
-
-##############################################
-# Check if the operating system is supported #
-##############################################
-if [ $OS = "other" ]; then
-    echo ""
-    echo "This script is only for macOS and Linux systems."
-    echo ""
-    exit 1
-fi
-
-##############################################
-# Parse command line arguments                #
-##############################################
-INSTALL_ALL=false
-if [[ "$1" == "--all" ]]; then
-    INSTALL_ALL=true
-fi
-
-##############################################
-# Check if gum is available                   #
-##############################################
-GUM_AVAILABLE=false
-if command -v gum &> /dev/null; then
-    GUM_AVAILABLE=true
-else
-    # Try to add Homebrew to PATH if it exists
-    if [ -d /opt/homebrew ]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null
-    elif [ -d /home/linuxbrew/.linuxbrew ]; then
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" 2>/dev/null
-    fi
-    
-    if command -v brew &> /dev/null && command -v gum &> /dev/null; then
-        GUM_AVAILABLE=true
-    fi
-fi
-
-# If gum is not available and --all is not passed, exit with message
-if [ "$GUM_AVAILABLE" = false ] && [ "$INSTALL_ALL" = false ]; then
-    echo ""
-    echo "gum is not available. This script requires gum for interactive mode."
-    echo ""
-    echo "Please run the script with --all flag to execute all operations:"
-    echo "  ./setup --all"
-    echo ""
-    exit 1
-fi
-
-##############################################
-# Interactive operation selection             #
-##############################################
-SELECTED_OPERATIONS=""
-if [ "$INSTALL_ALL" = false ]; then
-    OPERATIONS=(
-        "Install Homebrew"
-        "Install macOS fonts and kitty"
-        "Install Linux make tools"
-        "Install brew packages (gum, git, tmux, etc.)"
-        "Install brew casks (ghostty, AeroSpace)"
-        "Create folders"
-        "Install oh-my-zsh"
-        "Symlink dotfiles"
-        "Symlink binaries"
-        "Clone tmux TPM"
-        "Sync editor extensions (Cursor/VS Code)"
-        "Setup private dotfiles"
-    )
-    
-    log_header "Select operations to execute (use Space to select, Enter to confirm):"
-    SELECTED_OPERATIONS=$(gum choose --no-limit "${OPERATIONS[@]}")
-    
-    if [ -z "$SELECTED_OPERATIONS" ]; then
-        log_message "No operations selected. Installation aborted."
-        exit 1
-    fi
-    
-    echo ""
-    gum style --border normal --padding "0 4" --border-foreground 212 "Selected operations:" "$SELECTED_OPERATIONS"
-    echo ""
-    
-    if ! confirm_prompt "Continue with the selected operations?" ; then
-        log_message "Installation aborted."
-        exit 1
-    fi
-fi
-
-##############################################
-# Helper function to check if operation      #
-# should be executed                          #
-##############################################
-should_execute() {
-    local operation_name=$1
-    if [ "$INSTALL_ALL" = true ]; then
-        return 0
-    else
-        # Check if operation is in selected list (handle newlines)
-        if echo "$SELECTED_OPERATIONS" | grep -Fq "$operation_name"; then
-            return 0
-        else
-            return 1
-        fi
-    fi
+Without --apply, print operations without changing the machine.
+--packages installs the profile's mise tools (requires --apply).
+EOF
 }
 
-##########################################
-# Install Homebrew (required for later)  #
-##########################################
-if should_execute "Install Homebrew"; then
-    $DIR/installers/00-install-homebrew.sh
+profile=""; apply=false; packages=false
+while (($#)); do
+  case "$1" in
+    --profile) [[ $# -ge 2 ]] || { usage; exit 2; }; profile=$2; shift 2 ;;
+    --apply) apply=true; shift ;;
+    --packages) packages=true; shift ;;
+    -h|--help) usage; exit 0 ;;
+    *) echo "Unknown argument: $1" >&2; usage; exit 2 ;;
+  esac
+done
+
+case "$profile" in
+  macos|omarchy) ;;
+  "") echo "A profile is required." >&2; usage; exit 2 ;;
+  *) echo "Unsupported profile: $profile" >&2; exit 2 ;;
+esac
+
+export DOTFILES_ROOT="$ROOT_DIR" DOTFILES_APPLY="$apply"
+source "$ROOT_DIR/lib/install.sh"
+export DOTFILES_BACKUP_DIR
+
+if [[ "$apply" == true ]]; then
+  case "$profile:$(uname -s)" in
+    macos:Darwin|omarchy:Linux) ;;
+    *) die "Profile '$profile' is not compatible with $(uname -s)" ;;
+  esac
 fi
 
-##########################################
-# Only on MacOS, install fonts and kitty #
-##########################################
-if should_execute "Install macOS fonts and kitty"; then
-    if [ $OS = "macos" ]; then
-        $DIR/installers/macos/fonts.sh
-        $DIR/installers/macos/kitty.sh
-    fi
+if [[ "$packages" == true ]]; then
+  [[ "$apply" == true ]] || die "--packages requires --apply"
+  command -v mise >/dev/null 2>&1 || die "mise is required to install profile tools"
+  install_mise_tools "$ROOT_DIR/profiles/$profile/mise.toml"
 fi
 
-##############################################
-# Only on Linux, install make tools          #
-##############################################
-if should_execute "Install Linux make tools"; then
-    if [[ $OS = "linux" || $OS = "wsl" ]]; then
-        echo ""
-        echo "Installing make tools..."
-        echo ""
-        sudo apt update
-        sudo apt install g++ gcc make
-    fi
+source "$ROOT_DIR/profiles/$profile/install.sh"
+
+if [[ -x "$ROOT_DIR/dotfiles-private/setup" ]]; then
+  private_args=(--profile "$profile")
+  [[ "$apply" == true ]] && private_args+=(--apply)
+  "$ROOT_DIR/dotfiles-private/setup" "${private_args[@]}"
+else
+  log "Private dotfiles setup not found; skipping"
 fi
 
-##########################################
-# Install gum first (needed for prompts) #
-##########################################
-if ! command -v gum &> /dev/null; then
-    # Add Homebrew to PATH if it exists
-    if [ -d /opt/homebrew ]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null
-    elif [ -d /home/linuxbrew/.linuxbrew ]; then
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" 2>/dev/null
-    fi
-    
-    if command -v brew &> /dev/null && should_execute "Install brew packages (gum, git, tmux, etc.)"; then
-        echo "Installing gum (required for interactive prompts)..."
-        brew install gum
-    fi
+if [[ "$apply" == true ]]; then
+  log "Profile '$profile' installed. Backups, when needed, are in $DOTFILES_BACKUP_DIR"
+else
+  log "Dry run complete. Re-run with --apply after reviewing the operations above."
 fi
-
-#########################
-# Install brew software #
-#########################
-if should_execute "Install brew packages (gum, git, tmux, etc.)"; then
-    # Add Homebrew to PATH
-    if [ -d /opt/homebrew ]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null
-    elif [ -d /home/linuxbrew/.linuxbrew ]; then
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" 2>/dev/null
-    fi
-    
-    if command -v brew &> /dev/null; then
-        brew install gum git tmux zellij \
-            micro \
-            neovim ripgrep fzf \
-            yt-dlp \
-            mailpit \
-            python \
-            go \
-            ffmpeg \
-            ansible \
-            yazi eza bat fd zoxide \
-            lazygit lazydocker difftastic \
-            tldr btop dust procs sd \
-            httpie doggo gping mosh broot
-    fi
-fi
-
-######################
-# Install brew casks #
-######################
-if should_execute "Install brew casks (ghostty, AeroSpace)"; then
-    # Add Homebrew to PATH
-    if [ -d /opt/homebrew ]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null
-    elif [ -d /home/linuxbrew/.linuxbrew ]; then
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" 2>/dev/null
-    fi
-    
-    if command -v brew &> /dev/null; then
-        # Install ghostty for macOS without OpenGL support
-        brew install --cask ghostty
-
-        if [ "$OS" = "macos" ]; then
-            # Install AeroSpace
-            brew install --cask nikitabobko/tap/aerospace
-
-            # Optional: install JankyBorders
-            # brew tap felixkratz/formulae
-            # brew install borders
-        fi
-
-        # Install lazyworktree (TUI for git worktrees)
-        brew tap chmouel/lazyworktree https://github.com/chmouel/lazyworktree
-        brew install --cask lazyworktree
-    fi
-fi
-
-################################################################################
-#                                                                              #
-#         GUM is available, we can now start the installation process.         #
-#                                                                              #
-################################################################################
-
-if [ "$INSTALL_ALL" = true ]; then
-    log_header "All dependencies are installed."
-    
-    if ! confirm_prompt "Continue with the installation?" ; then
-        log_message "Installation aborted."
-        exit 1
-    fi
-fi
-
-##########################################
-# Create folders                          #
-##########################################
-if should_execute "Create folders"; then
-    $DIR/installers/01-create-folders.sh
-fi
-
-##########################################
-# Install oh-my-zsh                       #
-##########################################
-if should_execute "Install oh-my-zsh"; then
-    $DIR/installers/02-install-oh-my-zsh.sh
-fi
-
-##########################################
-# Symlink dotfiles                        #
-##########################################
-if should_execute "Symlink dotfiles"; then
-    $DIR/installers/03-symlink-dotfiles.sh
-fi
-
-##########################################
-# Symlink binaries                        #
-##########################################
-if should_execute "Symlink binaries"; then
-    $DIR/installers/04-symlink-binaries.sh
-fi
-
-##########################################
-# Clone tmux TPM                          #
-##########################################
-if should_execute "Clone tmux TPM"; then
-    $DIR/installers/05-clone-tmux-tpm.sh
-fi
-
-##########################################
-# Install editor extensions               #
-##########################################
-if should_execute "Sync editor extensions (Cursor/VS Code)"; then
-    $DIR/installers/06-sync-editor-extensions.sh
-fi
-
-##################################################################
-# If the private dotfiles repo exists, then run the setup script #
-##################################################################
-if should_execute "Setup private dotfiles"; then
-    if [ -f $DIR/dotfiles-private/setup ] ; then
-        log_message "Setting up private dotfiles..."
-        $DIR/dotfiles-private/setup
-    else
-        log_message "Private dotfiles setup not found. Skipping."
-    fi
-fi
-
-log_header "Installation completed!"

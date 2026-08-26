@@ -1,100 +1,84 @@
+local languages = {
+  'bash', 'blade', 'c', 'cpp', 'css', 'dockerfile', 'go', 'html',
+  'javascript', 'json', 'lua', 'markdown', 'php', 'python', 'rust',
+  'sql', 'tsx', 'typescript', 'vim', 'vimdoc', 'yaml',
+}
+
 return {
   'nvim-treesitter/nvim-treesitter',
-  event = 'VeryLazy',
-  build = function()
-    require('nvim-treesitter.install').update({ with_sync = true })
-  end,
+  branch = 'main',
+  lazy = false,
+  build = ':TSUpdate',
   dependencies = {
-    { 'nvim-treesitter/playground', cmd = "TSPlaygroundToggle" },
     {
       'JoosepAlviste/nvim-ts-context-commentstring',
       opts = {
-        custom_calculation = function (node, language_tree)
+        custom_calculation = function(_, language_tree)
           if vim.bo.filetype == 'blade' and language_tree._lang ~= 'javascript' then
             return '{{-- %s --}}'
           end
         end,
       },
     },
-    'nvim-treesitter/nvim-treesitter-textobjects',
+    {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      branch = 'main',
+    },
   },
-  main = 'nvim-treesitter.configs',
-  opts = {
-    ensure_installed = {
-      'bash',
-      'c',
-      'cpp',
-      'css',
-      'dockerfile',
-      'go',
-      'html',
-      'javascript',
-      'json',
-      'lua',
-      'markdown',
-      'php',
-      'python',
-      'rust',
-      'sql',
-      'tsx',
-      'typescript',
-      'vim',
-      'vimdoc',
-      'yaml',
-    },
-    auto_install = true,
-    highlight = {
-      enable = true,
-      additional_vim_regex_highlighting = true,
-    },
-    indent = {
-      enable = true,
-      disable = { "yaml" }
-    },
-    rainbow = {
-      enable = true,
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        lookahead = true,
-        keymaps = {
-          ['if'] = '@function.inner',
-          ['af'] = '@function.outer',
-          ['ia'] = '@parameter.inner',
-          ['aa'] = '@parameter.outer',
+  config = function()
+    local function register_blade()
+      require('nvim-treesitter.parsers').blade = {
+        install_info = {
+          url = 'https://github.com/EmranMR/tree-sitter-blade',
+          files = { 'src/parser.c' },
+          branch = 'main',
+          queries = 'queries',
         },
-      },
-    },
-  },
-  config = function (_, opts)
-    require('nvim-treesitter.configs').setup(opts)
+      }
+    end
 
-
-    -- Support for custom filetypes
-    -- For more information about tree-sitter-blade, see
-    -- https://github.com/EmranMR/tree-sitter-blade/discussions/19#discussion-5400675
-    local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-    parser_config.blade = {
-      install_info = {
-        url = "https://github.com/EmranMR/tree-sitter-blade",
-        files = {"src/parser.c"},
-        branch = "main",
-      },
-      filetype = "blade"
-    }
-    vim.filetype.add({
-      pattern = {
-        ['.*%.blade%.php'] = 'blade',
-      },
+    register_blade()
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'TSUpdate',
+      callback = register_blade,
     })
 
-    -- commentstrings
+    require('nvim-treesitter').setup()
+
+    vim.filetype.add({
+      pattern = { ['.*%.blade%.php'] = 'blade' },
+    })
+
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = languages,
+      callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+        if vim.bo[args.buf].filetype ~= 'yaml' then
+          vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+      end,
+    })
+
+    require('nvim-treesitter-textobjects').setup({
+      select = { lookahead = true },
+    })
+
+    local select = require('nvim-treesitter-textobjects.select').select_textobject
+    vim.keymap.set({ 'x', 'o' }, 'if', function()
+      select('@function.inner', 'textobjects')
+    end)
+    vim.keymap.set({ 'x', 'o' }, 'af', function()
+      select('@function.outer', 'textobjects')
+    end)
+    vim.keymap.set({ 'x', 'o' }, 'ia', function()
+      select('@parameter.inner', 'textobjects')
+    end)
+    vim.keymap.set({ 'x', 'o' }, 'aa', function()
+      select('@parameter.outer', 'textobjects')
+    end)
+
     require('ts_context_commentstring').setup({})
     vim.g.skip_ts_context_commentstring_module = true
-
-    -- Force @variable.php to be highlighted as an Identifier
-    -- Workaround to avoid all red variables in PHP using one-dark-pro
-    vim.api.nvim_set_hl(0, "@variable.php", { link = "Identifier" })
+    vim.api.nvim_set_hl(0, '@variable.php', { link = 'Identifier' })
   end,
 }

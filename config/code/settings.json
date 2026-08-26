@@ -86,7 +86,6 @@
     },
     "Laravel.phpEnvironment": "herd",
     "atlascode.rovodev.enabled": false,
-    "settingsSync.ignoredExtensions": [],
     "redhat.telemetry.enabled": false,
     "claudeCode.selectedModel": "default",
     "diffEditor.renderSideBySide": true
