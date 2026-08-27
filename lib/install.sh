@@ -6,7 +6,9 @@ die() { printf 'error: %s\n' "$*" >&2; exit 1; }
 run() {
   if [[ "$DOTFILES_APPLY" == true ]]; then "$@"; else printf '+ '; printf '%q ' "$@"; printf '\n'; fi
 }
-ensure_dir() { run mkdir -p "$1"; }
+ensure_dir() {
+  [[ -d "$1" ]] || run mkdir -p "$1"
+}
 backup_path() {
   local target=$1 relative
   [[ -e "$target" || -L "$target" ]] || return 0
