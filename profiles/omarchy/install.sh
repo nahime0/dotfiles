@@ -5,6 +5,7 @@
 
 link_children "$DOTFILES_ROOT/fonts/ComicShanns" "$HOME/.local/share/fonts/ComicShanns"
 run fc-cache -f "$HOME/.local/share/fonts/ComicShanns"
+link_file "$DOTFILES_ROOT/config/git/gitignore" "${XDG_CONFIG_HOME:-$HOME/.config}/git/ignore"
 link_file "$DOTFILES_ROOT/profiles/omarchy/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
 link_file "$DOTFILES_ROOT/config/tmux/scripts" "$HOME/.tmux/scripts"
 link_file "$DOTFILES_ROOT/profiles/omarchy/kitty/local.conf" "$HOME/.config/kitty/local.conf"
