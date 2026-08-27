@@ -8,11 +8,31 @@ return {
   },
   config = function()
     local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local servers = {
+      'intelephense',
+      'phpactor',
+      'html',
+      'vue_ls',
+      'tailwindcss',
+      'elixirls',
+      'gopls',
+      'jsonls',
+    }
 
     -- Global LSP config with capabilities
     vim.lsp.config('*', {
       capabilities = capabilities,
     })
+
+    -- Load the personal command, filetype and root definitions explicitly.
+    -- This avoids depending on runtime-path ordering versus nvim-lspconfig's
+    -- built-in definitions.
+    for _, server in ipairs(servers) do
+      local path = vim.fn.stdpath('config') .. '/lsp/' .. server .. '.lua'
+      if vim.fn.filereadable(path) == 1 then
+        vim.lsp.config(server, dofile(path))
+      end
+    end
 
     -- Server-specific configurations
     vim.lsp.config('intelephense', {
@@ -68,16 +88,7 @@ return {
     })
 
     -- Enable all LSP servers
-    vim.lsp.enable({
-      'intelephense',
-      'phpactor',
-      'html',
-      'vue_ls',
-      'tailwindcss',
-      'elixirls',
-      'gopls',
-      'jsonls',
-    })
+    vim.lsp.enable(servers)
 
     -- null-ls
     local null_ls = require('null-ls')

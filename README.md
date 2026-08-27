@@ -33,6 +33,9 @@ the installed tools are active outside this repository as well.
 
 The installer does not install Homebrew. System and desktop packages remain the
 responsibility of Omarchy/pacman; mise is used for portable runtimes and CLIs.
+When the Omarchy profile is run with `--packages`, it installs the minimal Arch
+build dependencies `re2c` and `gd` through `omarchy pkg add`; these are required
+to build the mise-managed PHP runtime used by PHPActor.
 
 ## Profiles
 

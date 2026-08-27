@@ -1,5 +1,5 @@
 return {
-  cmd = { 'phpactor', 'language-server' },
+  cmd = { 'phpactor.phar', 'language-server' },
   filetypes = { 'php' },
   root_markers = { 'composer.json', '.git' },
   init_options = {

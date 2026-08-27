@@ -42,6 +42,10 @@ fi
 if [[ "$packages" == true ]]; then
   [[ "$apply" == true ]] || die "--packages requires --apply"
   command -v mise >/dev/null 2>&1 || die "mise is required to install profile tools"
+  if [[ "$profile" == omarchy ]]; then
+    command -v omarchy >/dev/null 2>&1 || die "The omarchy command was not found"
+    run omarchy pkg add re2c gd
+  fi
   install_mise_tools "$ROOT_DIR/profiles/$profile/mise.toml"
 fi
 

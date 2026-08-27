@@ -12,6 +12,7 @@ link_file "$DOTFILES_ROOT/profiles/omarchy/nvim/init.lua" "$HOME/.config/nvim/in
 link_file "$DOTFILES_ROOT/config/nvim/lua/user" "$HOME/.config/nvim/lua/dotfiles_legacy"
 link_file "$DOTFILES_ROOT/profiles/omarchy/nvim" "$HOME/.config/nvim/lua/omarchy_profile"
 link_file "$DOTFILES_ROOT/config/nvim/snippets" "$HOME/.config/nvim/snippets/dotfiles"
+link_children "$DOTFILES_ROOT/config/nvim/lsp" "$HOME/.config/nvim/lsp"
 link_file "$DOTFILES_ROOT/quotes/quotes.txt" "$HOME/.quotes.txt"
 link_file "$DOTFILES_ROOT/bin/project-switcher" "$HOME/.local/bin/p"
 link_file "$DOTFILES_ROOT/profiles/omarchy/shell/aliases.sh" "$HOME/.config/bash/dotfiles.sh"
