@@ -35,3 +35,12 @@ alias yolo.grok='grok --permission-mode bypassPermissions'
 alias ll='eza -la --icons'
 alias lt='eza --tree --icons'
 alias ssh='TERM=xterm-256color ssh'
+
+# Personal Git tools (shell navigation and Bash completion)
+if command -v ggg >/dev/null 2>&1; then
+  eval "$(command ggg shell-init bash)"
+fi
+
+if command -v ggw >/dev/null 2>&1; then
+  eval "$(command ggw shell-init bash)"
+fi

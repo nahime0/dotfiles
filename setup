@@ -45,6 +45,8 @@ if [[ "$packages" == true ]]; then
   if [[ "$profile" == omarchy ]]; then
     command -v omarchy >/dev/null 2>&1 || die "The omarchy command was not found"
     run omarchy pkg add re2c gd
+    run omarchy mise install github:illegalstudio/ggg ggg
+    run omarchy mise install github:illegalstudio/ggw ggw
   fi
   install_mise_tools "$ROOT_DIR/profiles/$profile/mise.toml"
 fi
