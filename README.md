@@ -102,7 +102,7 @@ defined and documented only in the private repository.
 
 # What software and libraries ecc. will be installed?
 
-- ComicShanns font
+- ComicShanns and Maple Mono fonts
 - oh-my-zsh
 - Kitty
 - Neovim
