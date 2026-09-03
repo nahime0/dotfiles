@@ -6,8 +6,8 @@ Personal dotfiles with separate macOS and Omarchy profiles.
 
 The installer is a dry run unless `--apply` is explicitly supplied. Existing
 targets are moved to a timestamped directory under
-`~/.local/state/dotfiles/backups/` before a symlink is created. It never runs
-`rm -rf`.
+`~/.local/state/dotfiles/backups/` before a managed file is copied or linked.
+It never runs `rm -rf`.
 
 Always inspect a profile first:
 
@@ -56,6 +56,16 @@ its base, excluding the old macOS Nord/light-dark stack, and imports only
 Omarchy's active colorscheme definitions. A profile watcher applies theme
 changes to running Neovim instances without requiring a restart.
 
+Cursor receives Linux-specific settings and keybindings under
+`~/.config/Cursor/User/`. Keybindings are linked directly. Settings are copied
+because Omarchy updates `workbench.colorTheme` in place whenever its active
+theme changes; this keeps that generated change out of the repository. The
+profile uses Linux paths and Ctrl-based shortcuts while leaving Cursor's colour
+theme under Omarchy's control. Reapplying the profile preserves the active
+Cursor theme and installs its declared theme extension when Cursor is present.
+The IllegalStudio Nord Light theme is installed alongside it for light-mode
+use. VSCodeVim is also installed so the profile's Vim mappings are functional.
+
 Portable personal aliases live in `profiles/omarchy/shell/aliases.sh`. The
 profile links this fragment under `~/.config/bash/` and adds one idempotent
 source line to the existing Omarchy `~/.bashrc`, whose previous contents are
@@ -79,7 +89,7 @@ longer bootstraps Homebrew.
 ```text
 config/                 original personal configuration (macOS source)
 profiles/macos/         macOS installer and mise manifest
-profiles/omarchy/       Omarchy adapters, tmux config and mise manifest
+profiles/omarchy/       Omarchy adapters, app configs and mise manifest
 lib/install.sh          backup-aware linking primitives
 installers/             legacy installers; retained for reference, not called
 ```

@@ -35,6 +35,16 @@ link_file() {
   ensure_dir "$(dirname -- "$target")"
   run ln -s "$source" "$target"
 }
+copy_file() {
+  local source=$1 target=$2
+  [[ -f "$source" ]] || die "Missing source: $source"
+  if [[ -f "$target" && ! -L "$target" ]] && cmp -s "$source" "$target"; then
+    log "unchanged: $target"; return
+  fi
+  backup_path "$target"
+  ensure_dir "$(dirname -- "$target")"
+  run cp "$source" "$target"
+}
 link_children() {
   local source_dir=$1 target_dir=$2 entry
   ensure_dir "$target_dir"
