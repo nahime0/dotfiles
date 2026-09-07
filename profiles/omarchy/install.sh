@@ -61,6 +61,7 @@ link_file "$DOTFILES_ROOT/config/nvim/snippets" "$HOME/.config/nvim/snippets/dot
 link_children "$DOTFILES_ROOT/config/nvim/lsp" "$HOME/.config/nvim/lsp"
 link_file "$DOTFILES_ROOT/quotes/quotes.txt" "$HOME/.quotes.txt"
 link_file "$DOTFILES_ROOT/bin/project-switcher" "$HOME/.local/bin/p"
+link_file "$DOTFILES_ROOT/bin/tailscale-config" "$HOME/.local/bin/tailscale-config"
 link_file "$DOTFILES_ROOT/profiles/omarchy/shell/aliases.sh" "$HOME/.config/bash/dotfiles.sh"
 ensure_source_line "$HOME/.bashrc" '[[ -r "$HOME/.config/bash/dotfiles.sh" ]] && source "$HOME/.config/bash/dotfiles.sh"'
 

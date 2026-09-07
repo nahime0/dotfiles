@@ -1,0 +1,303 @@
+#!/usr/bin/env python3
+"""Gestisce l'uscita Internet tramite Tailscale, da menu o da terminale."""
+
+import argparse
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+import tempfile
+
+
+STATE_FILE = Path(os.environ.get("XDG_STATE_HOME") or Path.home() / ".local/state") / "tailscale-config/state.json"
+
+
+class ConfigError(Exception):
+    pass
+
+
+class Cancelled(Exception):
+    pass
+
+
+def run(*args):
+    try:
+        result = subprocess.run(["tailscale", *args], capture_output=True, text=True, timeout=20)
+    except subprocess.TimeoutExpired as exc:
+        raise ConfigError("Tailscale non ha risposto entro 20 secondi.") from exc
+    if result.returncode:
+        raise ConfigError(result.stderr.strip() or result.stdout.strip() or "Comando Tailscale fallito.")
+    return result.stdout
+
+
+def read_json(*args):
+    try:
+        return json.loads(run(*args))
+    except json.JSONDecodeError as exc:
+        raise ConfigError("Risposta JSON di Tailscale non valida.") from exc
+
+
+def snapshot():
+    return read_json("status", "--json"), read_json("debug", "prefs")
+
+
+def remembered():
+    try:
+        value = json.loads(STATE_FILE.read_text())
+        if not isinstance(value, dict):
+            raise ValueError("formato non valido")
+        return value
+    except FileNotFoundError:
+        return {}
+    except (ValueError, OSError) as exc:
+        raise ConfigError(f"Impossibile leggere {STATE_FILE}: {exc}") from exc
+
+
+def remember(node, allow_lan):
+    value = {
+        "node_id": node.get("ID", ""),
+        "node_name": node.get("HostName", ""),
+        "node_ip": (node.get("TailscaleIPs") or [""])[0].split("/")[0],
+        "allow_lan": bool(allow_lan),
+    }
+    temporary = None
+    try:
+        STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.NamedTemporaryFile(mode="w", dir=STATE_FILE.parent, delete=False) as stream:
+            temporary = Path(stream.name)
+            json.dump(value, stream, indent=2)
+            stream.write("\n")
+        temporary.replace(STATE_FILE)
+    except OSError as exc:
+        print(f"Avviso: non riesco a ricordare il nodo: {exc}", file=sys.stderr)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
+def nodes(status):
+    peers = (status.get("Peer") or {}).values()
+    return sorted(
+        (p for p in peers if p.get("ExitNodeOption") or p.get("ExitNode")),
+        key=lambda p: (not p.get("Online"), p.get("HostName", "").lower()),
+    )
+
+
+def active(prefs):
+    return bool(prefs.get("ExitNodeID") or prefs.get("ExitNodeIP"))
+
+
+def matches(node, value):
+    identifiers = [node.get("ID", ""), node.get("HostName", ""), node.get("DNSName", "")]
+    identifiers.extend(ip.split("/")[0] for ip in node.get("TailscaleIPs", []))
+    return bool(value) and value.lower().rstrip(".") in [str(x).lower().rstrip(".") for x in identifiers]
+
+
+def current_node(status, prefs):
+    identifier = prefs.get("ExitNodeID") or prefs.get("ExitNodeIP")
+    return next((p for p in nodes(status) if matches(p, identifier)), None)
+
+
+def describe(node):
+    ip = (node.get("TailscaleIPs") or ["IP non disponibile"])[0].split("/")[0]
+    return f"{node.get('HostName') or node.get('ID') or ip} ({ip})"
+
+
+def show_status(status=None, prefs=None):
+    if status is None:
+        status, prefs = snapshot()
+    print(f"Tailscale: {status.get('BackendState', 'stato sconosciuto')}")
+    if active(prefs):
+        node = current_node(status, prefs)
+        print("Uscita Internet: " + (describe(node) if node else str(prefs.get("ExitNodeID") or prefs.get("ExitNodeIP"))))
+        if not (status.get("ExitNodeStatus") or {}).get("Online", False):
+            print("Il nodo selezionato risulta offline; l'uscita Internet potrebbe essere interrotta.")
+        print("Accesso LAN: " + ("consentito" if prefs.get("ExitNodeAllowLANAccess") else "disattivato"))
+        print("Il traffico Internet passa dal nodo selezionato.")
+    else:
+        print("Uscita Internet: diretta, nessun exit node selezionato.")
+        saved = remembered()
+        if saved.get("node_name"):
+            print("Ultimo nodo: " + saved["node_name"])
+
+
+def show_nodes(status=None, prefs=None):
+    if status is None:
+        status, prefs = snapshot()
+    available = nodes(status)
+    if not available:
+        print("Nessun exit node disponibile. Il nodo deve essere approvato nella console Tailscale.")
+        return
+    for node in available:
+        selected = matches(node, prefs.get("ExitNodeID") or prefs.get("ExitNodeIP"))
+        print(f"{'*' if selected else ' '} {describe(node)} - {'online' if node.get('Online') else 'offline'}")
+
+
+def choose(title, options):
+    if not sys.stdin.isatty() or not sys.stdout.isatty():
+        raise ConfigError("Serve un terminale interattivo. Specifica il nodo con: tailscale-config on NODO")
+    if shutil.which("gum") and os.environ.get("TERM") != "dumb":
+        result = subprocess.run(["gum", "choose", "--header", title, "--", *options], text=True, stdout=subprocess.PIPE)
+        if result.returncode:
+            raise Cancelled()
+        return options.index(result.stdout.strip())
+    print("\n" + title)
+    for index, label in enumerate(options, 1):
+        print(f"  {index}. {label}")
+    while True:
+        answer = input("Scelta (Invio per annullare): ").strip()
+        if not answer:
+            raise Cancelled()
+        if answer.isdigit() and 1 <= int(answer) <= len(options):
+            return int(answer) - 1
+        print("Inserisci il numero di una delle opzioni.")
+
+
+def select_node(status, prefs, requested=None, force_choice=False):
+    available = nodes(status)
+    if requested:
+        found = [node for node in available if matches(node, requested)]
+        if len(found) != 1:
+            raise ConfigError(f"Nodo '{requested}' non trovato o ambiguo. Usa 'tailscale-config list'.")
+        node = found[0]
+    else:
+        online = [p for p in available if p.get("Online")]
+        if not online:
+            raise ConfigError("Nessun exit node online e approvato disponibile.")
+        saved = remembered()
+        preferred = prefs.get("ExitNodeID") or prefs.get("ExitNodeIP") or saved.get("node_id") or saved.get("node_ip") or "proxy-jump"
+        node = next((p for p in online if matches(p, preferred)), None)
+        if force_choice or node is None:
+            if not force_choice and any(matches(p, preferred) for p in available):
+                raise ConfigError("L'ultimo nodo usato risulta offline. Scegline un altro con 'tailscale-config on NODO'.")
+            elif len(online) == 1:
+                node = online[0]
+            else:
+                node = online[choose("Scegli il nodo di uscita", [describe(p) for p in online])]
+    if not node.get("Online"):
+        raise ConfigError(f"{describe(node)} risulta offline. La configurazione non è stata modificata.")
+    return node
+
+
+def enable(requested=None, lan=None, force_choice=False):
+    status, prefs = snapshot()
+    if status.get("BackendState") != "Running":
+        raise ConfigError("Tailscale deve essere collegato prima di selezionare un exit node.")
+    node = select_node(status, prefs, requested, force_choice)
+    allow_lan = (prefs.get("ExitNodeAllowLANAccess", True) if active(prefs) else remembered().get("allow_lan", True)) if lan is None else lan
+    ip = (node.get("TailscaleIPs") or [None])[0]
+    if not ip:
+        raise ConfigError("Il nodo non ha un indirizzo Tailscale utilizzabile.")
+    run("set", "--exit-node=" + ip.split("/")[0], "--exit-node-allow-lan-access=" + str(bool(allow_lan)).lower())
+    after = read_json("debug", "prefs")
+    if not matches(node, after.get("ExitNodeID") or after.get("ExitNodeIP")) or bool(after.get("ExitNodeAllowLANAccess")) != bool(allow_lan):
+        raise ConfigError("Tailscale non conferma la configurazione richiesta. Controlla 'tailscale-config status'.")
+    remember(node, allow_lan)
+    print(f"Uscita attivata: {describe(node)}. Accesso LAN: {'sì' if allow_lan else 'no'}.")
+
+
+def disable():
+    status, prefs = snapshot()
+    if not active(prefs):
+        print("L'uscita tramite exit node è già disattivata.")
+        return
+    node = current_node(status, prefs)
+    if node:
+        remember(node, prefs.get("ExitNodeAllowLANAccess", True))
+    run("set", "--exit-node=", "--exit-node-allow-lan-access=false")
+    if active(read_json("debug", "prefs")):
+        raise ConfigError("L'exit node risulta ancora selezionato. Controlla 'tailscale-config status'.")
+    print("Uscita tramite exit node disattivata. Tailscale resta collegato.")
+
+
+def set_lan(allow):
+    status, prefs = snapshot()
+    if not active(prefs):
+        raise ConfigError("Attiva prima un exit node per modificare l'accesso alla LAN.")
+    run("set", "--exit-node-allow-lan-access=" + str(allow).lower())
+    if bool(read_json("debug", "prefs").get("ExitNodeAllowLANAccess")) != allow:
+        raise ConfigError("Tailscale non conferma la preferenza LAN richiesta.")
+    node = current_node(status, prefs)
+    if node:
+        remember(node, allow)
+    print("Accesso LAN " + ("consentito." if allow else "disattivato."))
+
+
+def menu():
+    while True:
+        status, prefs = snapshot()
+        print()
+        show_status(status, prefs)
+        enabled = active(prefs)
+        options = [
+            "Disattiva l'uscita tramite exit node" if enabled else "Attiva l'ultimo exit node",
+            "Scegli e attiva un exit node",
+            "Disattiva accesso LAN" if prefs.get("ExitNodeAllowLANAccess") else "Consenti accesso LAN",
+            "Elenca gli exit node",
+            "Aggiorna lo stato",
+            "Esci",
+        ]
+        try:
+            action = choose("Tailscale: configurazione uscita Internet", options)
+            if action == 0:
+                disable() if enabled else enable()
+            elif action == 1:
+                enable(force_choice=True)
+            elif action == 2:
+                set_lan(not prefs.get("ExitNodeAllowLANAccess", False))
+            elif action == 3:
+                show_nodes(status, prefs)
+            elif action == 5:
+                return
+        except ConfigError as exc:
+            print(f"Errore: {exc}", file=sys.stderr)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Attiva e disattiva l'uscita Internet tramite un exit node Tailscale.",
+        epilog="Senza argomenti apre il menu; senza terminale interattivo mostra lo stato.",
+    )
+    commands = parser.add_subparsers(dest="command")
+    commands.add_parser("menu", help="Apri il menu interattivo")
+    commands.add_parser("status", help="Mostra lo stato attuale")
+    commands.add_parser("list", help="Elenca i nodi disponibili")
+    on = commands.add_parser("on", help="Attiva l'ultimo nodo usato oppure quello indicato")
+    on.add_argument("node", nargs="?", help="Nome, IP o ID del nodo")
+    on.add_argument("--lan", choices=["on", "off"], help="Consenti o disattiva l'accesso alla LAN")
+    commands.add_parser("off", help="Disattiva l'exit node, mantenendo Tailscale collegato")
+    commands.add_parser("toggle", help="Alterna uscita diretta e ultimo exit node")
+    lan = commands.add_parser("lan", help="Modifica l'accesso alla LAN con exit node attivo")
+    lan.add_argument("state", choices=["on", "off"])
+    args = parser.parse_args()
+    if not shutil.which("tailscale"):
+        raise ConfigError("Il comando tailscale non è nel PATH.")
+    command = args.command or ("menu" if sys.stdin.isatty() and sys.stdout.isatty() else "status")
+    if command == "menu":
+        menu()
+    elif command == "status":
+        show_status()
+    elif command == "list":
+        show_nodes()
+    elif command == "on":
+        enable(args.node, None if args.lan is None else args.lan == "on")
+    elif command == "off":
+        disable()
+    elif command == "toggle":
+        _, prefs = snapshot()
+        disable() if active(prefs) else enable()
+    elif command == "lan":
+        set_lan(args.state == "on")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (Cancelled, KeyboardInterrupt, EOFError):
+        print("\nAnnullato.", file=sys.stderr)
+        sys.exit(130)
+    except (ConfigError, OSError) as error:
+        print(f"Errore: {error}", file=sys.stderr)
+        sys.exit(1)
