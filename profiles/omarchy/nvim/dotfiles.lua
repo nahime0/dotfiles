@@ -1,8 +1,8 @@
 -- Personal plugin specs shared with macOS, excluding the macOS/Nord theme
--- stack and local development-only plugins. Omarchy supplies only the active
--- theme; LazyVim itself is deliberately not loaded.
+-- stack. Omarchy supplies only the active theme; LazyVim itself is deliberately
+-- not loaded.
 local modules = {
-  "barbecue", "bufferline", "bufdelete", "codecompanion", "copilot",
+  "agentlog", "barbecue", "bufferline", "bufdelete", "codecompanion", "copilot",
   "dashboard", "fine-cmdline", "gitsigns", "indent-blankline", "lualine",
   "neo-tree", "neoscroll", "nvim-autopairs", "nvim-cmp", "nvim-lspconfig",
   "nvim-treesitter", "phpactor", "telescope", "treesj", "vim-commentary",
