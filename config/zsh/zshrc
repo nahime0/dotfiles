@@ -216,46 +216,12 @@ alias ssh="TERM=xterm-256color ssh"
 export ANDROID_HOME=/Users/nahime/Library/Android/sdk
 export PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
 
-# Added by Windsurf
-export PATH="/Users/nahime/.codeium/windsurf/bin:$PATH"
-
 # Path for .local bin
 export PATH="$HOME/.local/bin:$PATH"
 
-
-# Herd injected PHP 8.4 configuration.
-export HERD_PHP_84_INI_SCAN_DIR="/Users/nahime/Library/Application Support/Herd/config/php/84/"
-
-
-# Herd injected PHP binary.
-export PATH="/Users/nahime/Library/Application Support/Herd/bin/":$PATH
-
-
-# Herd injected PHP 8.3 configuration.
-export HERD_PHP_83_INI_SCAN_DIR="/Users/nahime/Library/Application Support/Herd/config/php/83/"
-
-
-# Herd injected PHP 8.2 configuration.
-export HERD_PHP_82_INI_SCAN_DIR="/Users/nahime/Library/Application Support/Herd/config/php/82/"
-
-
-# Herd injected NVM configuration
-export NVM_DIR="/Users/nahime/Library/Application Support/Herd/config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-[[ -f "/Applications/Herd.app/Contents/Resources/config/shell/zshrc.zsh" ]] && builtin source "/Applications/Herd.app/Contents/Resources/config/shell/zshrc.zsh"
-# Added by Antigravity
-export PATH="/Users/nahime/.antigravity/antigravity/bin:$PATH"
-
-
-# Herd injected PHP 8.1 configuration.
-export HERD_PHP_81_INI_SCAN_DIR="/Users/nahime/Library/Application Support/Herd/config/php/81/"
-
-# Added by Antigravity
-export PATH="/Users/nahime/.antigravity/antigravity/bin:$PATH"
-
-source /Users/nahime/.config/broot/launcher/bash/br
-
+#############################
+# Stable SSH agent socket   #
+#############################
 
 if [ -z "$TMUX" ]; then
   # Outside tmux: refresh the symlink
@@ -265,36 +231,8 @@ if [ -z "$TMUX" ]; then
 fi
 export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
 
-# bun completions
-[ -s "$ZSH/completions/_bun" ] && source "$ZSH/completions/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# opencode
-export PATH="$HOME/.opencode/bin:$PATH"
-
-# kimi-code
-export PATH="$HOME/.kimi-code/bin:$PATH"
-
 # Shell helpers for:
 # - ggg
 # - ggw
 command -v ggw >/dev/null && eval "$(ggw shell-init zsh)"
 command -v ggg >/dev/null && eval "$(ggg shell-init zsh)"
-
-# >>> grok installer >>>
-export PATH="$HOME/.grok/bin:$PATH"
-fpath=("$HOME/.grok/completions/zsh" $fpath)
-autoload -Uz compinit && compinit -C
-# <<< grok installer <<<
-
-# MiniMax (mavis)
-export PATH="$HOME/.mavis/bin:$PATH"
-
-# kilo
-export PATH="$HOME/.kilo/bin:$PATH"
-
-# elvm
-export PATH="$HOME/.elvm/bin:$PATH"
