@@ -1,8 +1,15 @@
+# Runtimes, CLI tools and language servers for macOS.
+#
+# Homebrew keeps the casks and GUI applications, python and ruby (mise would
+# build those from source, and brew's python backs httpie and mpv), and mosh,
+# whose server starts from a session that never reads ~/.zshrc.
+#
+# git-lfs and difftastic are spawned by git, including from IDEs that get their
+# PATH from path_helper rather than the shell. They work here only because
+# /etc/paths.d/mise puts mise's shim directory on that system-wide PATH.
 [tools]
 node = "latest"
-python = "latest"
 go = "latest"
-ruby = "latest"
 neovim = "latest"
 tmux = "latest"
 ripgrep = "latest"
@@ -12,7 +19,33 @@ bat = "latest"
 eza = "latest"
 zoxide = "latest"
 lazygit = "latest"
+lazydocker = "latest"
 yazi = "latest"
 gum = "latest"
-yt-dlp = "latest"
-ansible = "latest"
+dust = "latest"
+gping = "latest"
+doggo = "latest"
+sd = "latest"
+broot = "latest"
+micro = "latest"
+gh = "latest"
+terraform = "latest"
+awscli = "latest"
+mailpit = "latest"
+yarn = "latest"
+goreleaser = "latest"
+actionlint = "latest"
+vhs = "latest"
+difftastic = "latest"
+git-lfs = "latest"
+"go:golang.org/x/tools/gopls" = "latest"
+"npm:intelephense" = "latest"
+"npm:vscode-langservers-extracted" = "latest"
+"npm:@vue/language-server" = "latest"
+"npm:@tailwindcss/language-server" = "latest"
+"npm:prettier" = "latest"
+"npm:eslint_d" = "latest"
+"github:phpactor/phpactor" = "latest"
+"github:illegalstudio/ggg" = "latest"
+"github:illegalstudio/ggw" = "latest"
+"github:illegalstudio/pxon" = "latest"

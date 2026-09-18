@@ -39,6 +39,10 @@ if [[ "$apply" == true ]]; then
   esac
 fi
 
+if [[ -r "$ROOT_DIR/profiles/$profile/bootstrap.sh" ]]; then
+  source "$ROOT_DIR/profiles/$profile/bootstrap.sh"
+fi
+
 if [[ "$packages" == true ]]; then
   [[ "$apply" == true ]] || die "--packages requires --apply"
   command -v mise >/dev/null 2>&1 || die "mise is required to install profile tools"
