@@ -61,7 +61,39 @@ link_file "$DOTFILES_ROOT/config/cursor/keybindings.json" "$HOME/Library/Applica
 link_file "$DOTFILES_ROOT/config/code/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
 link_file "$DOTFILES_ROOT/config/code/keybindings.json" "$HOME/Library/Application Support/Code/User/keybindings.json"
 
+# GUI applications build their PATH from path_helper, which reads /etc/paths and
+# /etc/paths.d and never a shell profile. Without this, mise's tools are
+# invisible to any process an application spawns: git-lfs and difftastic would
+# silently stop working whenever git runs from an IDE rather than the terminal.
+# Homebrew registers itself the same way, through /etc/paths.d/homebrew.
+#
+# This is the one step of the profile that needs root, and it asks only when the
+# file is missing or stale.
+register_mise_shims() {
+  local shims="$HOME/.local/share/mise/shims" target=/etc/paths.d/mise
+
+  if [[ -f "$target" ]] && grep -Fxq "$shims" "$target"; then
+    log "unchanged: $target"
+    return
+  fi
+
+  if [[ "$DOTFILES_APPLY" != true ]]; then
+    printf '+ write %q to %q (needs sudo)\n' "$shims" "$target"
+    return
+  fi
+
+  log "Registering mise's shims for GUI applications; sudo will ask for your password"
+  if ! printf '%s\n' "$shims" | sudo tee "$target" >/dev/null; then
+    log "warning: could not write $target, so GUI applications will not see mise's"
+    log "         tools. Everything else was installed; re-run to try again."
+  fi
+}
+
 link_file "$DOTFILES_ROOT/quotes/quotes.txt" "$HOME/.quotes.txt"
 link_file "$DOTFILES_ROOT/bin/project-switcher" "$HOME/bin/p"
 link_file "$DOTFILES_ROOT/bin/ray" "$HOME/bin/ray"
 link_file "$DOTFILES_ROOT/bin/tailscale-config" "$HOME/bin/tailscale-config"
+
+# Last: it is the only step that can prompt, and a declined password must not
+# stop the file links above or the private repository's setup that follows.
+register_mise_shims
