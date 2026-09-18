@@ -3,7 +3,7 @@
 
 config-version = 2
 
-start-at-login = true
+start-at-login = false
 
 # JankyBorders temporarily disabled
 after-startup-command = []

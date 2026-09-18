@@ -2,3 +2,6 @@
 
 # Expose brew path so mosh server can be found when connecting
 [ -d /opt/homebrew/bin ] && export PATH="/opt/homebrew/bin:$PATH"
+
+# Reap mosh sessions whose client never came back (default: wait forever)
+export MOSH_SERVER_NETWORK_TMOUT=86400
