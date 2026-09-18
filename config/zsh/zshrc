@@ -164,8 +164,16 @@ alias yolo.grok='grok --permission-mode bypassPermissions'
 # Other aliases #
 #################
 
+alias ls="eza --icons"
 alias ll="eza -la --icons"
 alias lt="eza --tree --icons"
+alias cat="bat"
+alias find="fd"
+alias grep="rg"
+alias du="dust"
+alias ps="procs"
+alias ping="gping"
+alias dig="doggo"
 
 ##########################
 # MacOS specific aliases #
