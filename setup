@@ -11,7 +11,7 @@ Without --apply, print operations without changing the machine.
 EOF
 }
 
-profile=""; apply=false; packages=false
+profile=""; apply=false; packages=false; packages_failed=false
 while (($#)); do
   case "$1" in
     --profile) [[ $# -ge 2 ]] || { usage; exit 2; }; profile=$2; shift 2 ;;
@@ -52,7 +52,12 @@ if [[ "$packages" == true ]]; then
     run omarchy mise install github:illegalstudio/ggg ggg
     run omarchy mise install github:illegalstudio/ggw ggw
   fi
-  install_mise_tools "$ROOT_DIR/profiles/$profile/mise.toml"
+  # A tool that fails to install must not stop the configuration that follows:
+  # with versions pinned to "latest", an upstream release whose artifact is not
+  # published yet is enough to fail, and that has nothing to do with the
+  # symbolic links below. Calling this in a condition also keeps `set -e` from
+  # aborting inside it.
+  install_mise_tools "$ROOT_DIR/profiles/$profile/mise.toml" || packages_failed=true
 fi
 
 source "$ROOT_DIR/profiles/$profile/install.sh"
@@ -63,6 +68,12 @@ if [[ -x "$ROOT_DIR/dotfiles-private/setup" ]]; then
   "$ROOT_DIR/dotfiles-private/setup" "${private_args[@]}"
 else
   log "Private dotfiles setup not found; skipping"
+fi
+
+if [[ "$packages_failed" == true ]]; then
+  log "warning: some tools declared in profiles/$profile/mise.toml could not be"
+  log "         installed; the configuration above was applied anyway. Re-run"
+  log "         with --packages to retry them."
 fi
 
 if [[ "$apply" == true ]]; then
