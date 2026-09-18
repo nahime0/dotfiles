@@ -48,6 +48,7 @@ install_cursor_settings() {
 link_children "$DOTFILES_ROOT/fonts/ComicShanns" "$HOME/.local/share/fonts/ComicShanns"
 link_children "$DOTFILES_ROOT/fonts/MapleMono" "$HOME/.local/share/fonts/MapleMono"
 run fc-cache -f "$HOME/.local/share/fonts/ComicShanns" "$HOME/.local/share/fonts/MapleMono"
+link_file "$DOTFILES_ROOT/profiles/omarchy/git/gitconfig" "$HOME/.gitconfig"
 link_file "$DOTFILES_ROOT/config/git/gitignore" "${XDG_CONFIG_HOME:-$HOME/.config}/git/ignore"
 link_file "$DOTFILES_ROOT/profiles/omarchy/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
 link_file "$DOTFILES_ROOT/config/tmux/scripts" "$HOME/.tmux/scripts"

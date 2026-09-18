@@ -47,8 +47,12 @@ control:
 
 - terminal configuration and dynamic theme includes;
 - Hyprland and the Omarchy shell/bar;
-- Omarchy's XDG Git configuration;
+- Omarchy's base XDG Git configuration;
 - `plugins/theme.lua` and Omarchy's theme definitions.
+
+Personal Git overrides are kept in a linked `~/.gitconfig`, which Git reads
+alongside Omarchy's XDG config. This currently sets the initial branch of new
+repositories to `main` while preserving Omarchy's other Git defaults.
 
 It installs the personal tmux layout with symbolic ANSI colours so theme
 switches continue to recolour tmux. Neovim runs the personal configuration as
