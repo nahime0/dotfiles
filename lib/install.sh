@@ -54,14 +54,34 @@ link_children() {
 }
 
 clone_git_repo() {
-  local source=$1 target=$2
+  local source=$1 target=$2 revision=${3:-}
   if [[ -d "$target/.git" && $(git -C "$target" remote get-url origin 2>/dev/null) == "$source" ]]; then
+    [[ -z "$revision" || $(git -C "$target" rev-parse HEAD) == "$revision" ]] || die "Unexpected git revision in $target; expected $revision"
     log "unchanged: $target"; return
   fi
   [[ "$DOTFILES_APPLY" != true ]] || command -v git >/dev/null 2>&1 || die "git is required to clone $source"
   backup_path "$target"
   ensure_dir "$(dirname -- "$target")"
   run git clone --depth 1 "$source" "$target"
+  if [[ -n "$revision" ]]; then
+    if [[ "$DOTFILES_APPLY" != true || $(git -C "$target" rev-parse HEAD) != "$revision" ]]; then
+      run git -C "$target" fetch --depth 1 origin "$revision"
+    fi
+    run git -C "$target" checkout --detach "$revision"
+  fi
+}
+
+apply_git_patch() {
+  local patch=$1 target=$2
+  [[ -f "$patch" ]] || die "Missing patch: $patch"
+  if [[ -d "$target/.git" ]] && git -C "$target" apply --unidiff-zero --reverse --check "$patch" >/dev/null 2>&1; then
+    log "unchanged: $patch already applied to $target"; return
+  fi
+  if [[ "$DOTFILES_APPLY" == true ]]; then
+    [[ -d "$target/.git" ]] || die "Missing git checkout: $target"
+    git -C "$target" apply --unidiff-zero --check "$patch" || die "Cannot apply $patch to $target"
+  fi
+  run git -C "$target" apply --unidiff-zero "$patch"
 }
 
 ensure_source_line() {
