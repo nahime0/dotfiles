@@ -71,6 +71,9 @@ On macOS, install a newer Bash (for example, `brew install bash`) and keep it on
 `PATH` for tmux. Agent status hooks are optional and are not installed by
 setup.
 
+Inactive tmux panes use the terminal theme's muted text colour. The active pane
+keeps its normal text colour and highlighted border.
+
 Both profiles also clone `tmux-sessionx` to
 `~/.config/tmux/plugins/tmux-sessionx`. Use `prefix + O` to search, preview,
 create, rename, or delete tmux sessions. The popup opens with all windows
