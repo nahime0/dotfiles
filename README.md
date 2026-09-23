@@ -62,10 +62,11 @@ changes to running Neovim instances without requiring a restart.
 
 Both profiles clone `tmux-pane-tree` to `~/.config/tmux/plugins/tmux-pane-tree`
 and load it from their tmux configuration. Use `prefix + t` to toggle its pane
-tree. A local patch folds a window with one content pane into a single
-selectable row, keeping agent badges on that row; windows with multiple panes
-still show each pane. Fresh installs pin the plugin revision so the patch
-applies consistently. The plugin requires tmux 3.0+, Python 3, and Bash 4.0+.
+tree. Local patches fold a window with one content pane into a single
+selectable row, keeping agent badges on that row. Selecting it focuses its
+content pane; windows with multiple panes still show each pane. Fresh installs
+pin the plugin revision so the patches apply consistently. The plugin requires
+tmux 3.0+, Python 3, and Bash 4.0+.
 On macOS, install a newer Bash (for example, `brew install bash`) and keep it on
 `PATH` for tmux. Agent status hooks are optional and are not installed by
 setup.
