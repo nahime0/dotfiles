@@ -60,6 +60,13 @@ its base, excluding the old macOS Nord/light-dark stack, and imports only
 Omarchy's active colorscheme definitions. A profile watcher applies theme
 changes to running Neovim instances without requiring a restart.
 
+Both profiles clone `tmux-pane-tree` to `~/.config/tmux/plugins/tmux-pane-tree`
+and load it from their tmux configuration. Use `prefix + t` to toggle its pane
+tree. The plugin requires tmux 3.0+, Python 3, and Bash 4.0+. On macOS,
+install a newer Bash (for example, `brew install bash`) and make sure it is on
+`PATH` for tmux. Agent status hooks are optional and are not installed by
+setup.
+
 Cursor receives Linux-specific settings and keybindings under
 `~/.config/Cursor/User/`. Keybindings are linked directly. Settings are copied
 because Omarchy updates `workbench.colorTheme` in place whenever its active

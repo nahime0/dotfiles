@@ -53,6 +53,17 @@ link_children() {
   shopt -u nullglob dotglob
 }
 
+clone_git_repo() {
+  local source=$1 target=$2
+  if [[ -d "$target/.git" && $(git -C "$target" remote get-url origin 2>/dev/null) == "$source" ]]; then
+    log "unchanged: $target"; return
+  fi
+  [[ "$DOTFILES_APPLY" != true ]] || command -v git >/dev/null 2>&1 || die "git is required to clone $source"
+  backup_path "$target"
+  ensure_dir "$(dirname -- "$target")"
+  run git clone --depth 1 "$source" "$target"
+}
+
 ensure_source_line() {
   local target=$1 line=$2
 
