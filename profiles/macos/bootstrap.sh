@@ -12,5 +12,7 @@ fi
 # fail with 403. Borrow the gh CLI's token when there is one, so no credential
 # has to live in this repository.
 if [[ -z "${GITHUB_TOKEN:-}" ]] && command -v gh >/dev/null 2>&1; then
-  GITHUB_TOKEN=$(gh auth token 2>/dev/null) && export GITHUB_TOKEN
+  if GITHUB_TOKEN=$(gh auth token 2>/dev/null); then
+    export GITHUB_TOKEN
+  fi
 fi
