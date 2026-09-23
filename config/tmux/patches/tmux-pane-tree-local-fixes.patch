@@ -1,0 +1,144 @@
+diff --git a/scripts/features/sidebar/on-pane-focus.sh b/scripts/features/sidebar/on-pane-focus.sh
+index 70f73f3..f18d81d 100755
+--- a/scripts/features/sidebar/on-pane-focus.sh
++++ b/scripts/features/sidebar/on-pane-focus.sh
+@@ -17 +17,6 @@ if [ -n "$pane_id" ]; then
+-    tmux set-option -g @tmux_sidebar_main_pane "$pane_id"
++    focus_state="$(tmux display-message -p -t "$pane_id" '#{pane_active}|#{window_active}|#{session_attached}' 2>/dev/null || true)"
++    IFS='|' read -r pane_active window_active session_attached <<< "$focus_state"
++    if [ "$pane_active" = "1" ] && [ "$window_active" = "1" ] && [ "${session_attached:-0}" -gt 0 ]; then
++      tmux set-option -g @tmux_sidebar_main_pane "$pane_id"
++      signal_sidebar_refresh
++    fi
+diff --git a/scripts/ui/sidebar-ui.py b/scripts/ui/sidebar-ui.py
+index b78f149..6339cc7 100644
+--- a/scripts/ui/sidebar-ui.py
++++ b/scripts/ui/sidebar-ui.py
+@@ -33,0 +34 @@ from sidebar_ui_lib.core import (
++    feature_script,
+@@ -43,0 +45 @@ from sidebar_ui_lib.core import (
++    wait_for_sidebar_selection,
+@@ -86,0 +89 @@ def _write_pid_file() -> None:
++        pid_path.with_suffix(".selected").unlink(missing_ok=True)
+@@ -100,0 +104 @@ def _remove_pid_file() -> None:
++        pid_path.with_suffix(".selected").unlink(missing_ok=True)
+@@ -180,0 +185,15 @@ def selected_pane_row(pane_rows: list[dict], selected_pane_id: str) -> dict | No
++def activate_row(row: dict) -> None:
++    if row["kind"] == "session":
++        subprocess.run(["tmux", "switch-client", "-t", row["session"]], check=False)
++        return
++    pane_id = row.get("pane_id", "")
++    if pane_id.startswith("%"):
++        selected = subprocess.run(["tmux", "select-pane", "-t", pane_id], check=False)
++        if selected.returncode == 0:
++            subprocess.run(["tmux", "set-option", "-g", "@tmux_sidebar_main_pane", pane_id], check=False)
++            subprocess.run(["bash", str(feature_script("sidebar", "notify-sidebar.sh"))], check=False)
++            wait_for_sidebar_selection(row["window"], pane_id)
++    subprocess.run(["tmux", "select-window", "-t", row["window"]], check=False)
++    subprocess.run(["tmux", "switch-client", "-t", row["session"]], check=False)
++
++
+@@ -379,0 +399,6 @@ def run_interactive(stdscr) -> None:
++            selection_path = _pid_file_path()
++            if selection_path is not None:
++                try:
++                    selection_path.with_suffix(".selected").write_text(selected_pane_id)
++                except OSError:
++                    pass
+@@ -418,13 +443,5 @@ def run_interactive(stdscr) -> None:
+-                    if clicked["kind"] == "pane":
+-                        selected_pane_id = clicked["pane_id"]
+-                        needs_render = True
+-                        subprocess.run(["tmux", "switch-client", "-t", clicked["session"]], check=False)
+-                        subprocess.run(["tmux", "select-window", "-t", clicked["window"]], check=False)
+-                        subprocess.run(["tmux", "select-pane", "-t", clicked["pane_id"]], check=False)
+-                        next_refresh_at = 0.0
+-                    elif clicked["kind"] == "window":
+-                        subprocess.run(["tmux", "switch-client", "-t", clicked["session"]], check=False)
+-                        subprocess.run(["tmux", "select-window", "-t", clicked["window"]], check=False)
+-                        next_refresh_at = 0.0
+-                    elif clicked["kind"] == "session":
+-                        subprocess.run(["tmux", "switch-client", "-t", clicked["session"]], check=False)
++                    if clicked["kind"] in ("pane", "window", "session"):
++                        if clicked.get("pane_id", "").startswith("%"):
++                            selected_pane_id = clicked["pane_id"]
++                            needs_render = True
++                        activate_row(clicked)
+@@ -578,4 +595 @@ def run_interactive(stdscr) -> None:
+-            subprocess.run(["tmux", "switch-client", "-t", target["session"]], check=False)
+-            subprocess.run(["tmux", "select-window", "-t", target["window"]], check=False)
+-            if target["kind"] == "pane":
+-                subprocess.run(["tmux", "select-pane", "-t", target["pane_id"]], check=False)
++            activate_row(target)
+diff --git a/scripts/ui/sidebar_ui_lib/core.py b/scripts/ui/sidebar_ui_lib/core.py
+index 39940bc..90591c0 100644
+--- a/scripts/ui/sidebar_ui_lib/core.py
++++ b/scripts/ui/sidebar_ui_lib/core.py
+@@ -7,0 +8 @@ import subprocess
++import time
+@@ -192,0 +194,29 @@ def focus_main_pane() -> None:
++def wait_for_sidebar_selection(window_id: str, pane_id: str, timeout: float = 0.5) -> None:
++    try:
++        pane_lines = run_tmux(
++            "list-panes", "-t", window_id, "-F", "#{pane_id}|#{pane_title}|#{pane_current_command}"
++        ).splitlines()
++    except subprocess.CalledProcessError:
++        return
++    sidebar_id = next(
++        (
++            candidate_id
++            for line in pane_lines
++            for candidate_id, title, command in [line.split("|", 2)]
++            if is_sidebar_pane(title, command)
++        ),
++        "",
++    )
++    if not sidebar_id:
++        return
++    selection_path = STATE_DIR / f"sidebar-{sidebar_id}.selected"
++    deadline = time.monotonic() + timeout
++    while time.monotonic() < deadline:
++        try:
++            if selection_path.read_text().strip() == pane_id:
++                return
++        except OSError:
++            pass
++        time.sleep(0.01)
++
++
+diff --git a/scripts/ui/sidebar_ui_lib/tree.py b/scripts/ui/sidebar_ui_lib/tree.py
+index 7939263..5291cd1 100644
+--- a/scripts/ui/sidebar_ui_lib/tree.py
++++ b/scripts/ui/sidebar_ui_lib/tree.py
+@@ -119,0 +120,4 @@ def load_tree() -> list[dict]:
++            content_panes = [
++                pane for pane in window["panes"]
++                if not is_sidebar_pane(pane["title"], pane["label"])
++            ]
+@@ -121,3 +125,2 @@ def load_tree() -> list[dict]:
+-                pane
+-                for pane in window["panes"]
+-                if not is_sidebar_pane(pane["title"], pane["label"]) and pane_matches_filter(pane, pane_states.get(pane["id"], {}), filter_tokens)
++                pane for pane in content_panes
++                if pane_matches_filter(pane, pane_states.get(pane["id"], {}), filter_tokens)
+@@ -127 +130 @@ def load_tree() -> list[dict]:
+-            filtered_windows[window_id] = {**window, "panes": panes}
++            filtered_windows[window_id] = {**window, "panes": panes, "content_pane_count": len(content_panes)}
+@@ -132,0 +136 @@ def load_tree() -> list[dict]:
++    compact_single_panes = tmux_option_value("compact_single_panes").lower() in ("on", "1", "true", "yes")
+@@ -147 +151,9 @@ def load_tree() -> list[dict]:
+-            if hide_panes:
++            compact_window = compact_single_panes and window["content_pane_count"] == 1
++            if compact_window:
++                pane = visible_panes[0]
++                pane_state = pane_states.get(pane["id"], {})
++                badge = badge_for_status(effective_pane_status(pane["id"], pane["label"], pane["title"], pane_state))
++                if badge:
++                    display_name = f"{display_name} {badge}"
++                visible_panes = []
++            elif hide_panes:
+@@ -160 +172,3 @@ def load_tree() -> list[dict]:
+-            if hide_panes and not visible_panes:
++            if compact_window:
++                window_row["pane_id"] = pane["id"]
++            elif hide_panes and not visible_panes:
