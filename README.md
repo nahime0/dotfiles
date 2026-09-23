@@ -73,7 +73,8 @@ setup.
 Both profiles also clone `tmux-sessionx` to
 `~/.config/tmux/plugins/tmux-sessionx`. Use `prefix + O` to search, preview,
 create, rename, or delete tmux sessions. The popup opens with all windows
-listed, as if `Ctrl+w` had been pressed. It uses the popup built into
+listed, as if `Ctrl+w` had been pressed. The preview starts at the bottom of
+the captured output. It uses the popup built into
 `fzf` 0.53+ and also requires `bat`; `zoxide` is optional.
 
 Cursor receives Linux-specific settings and keybindings under
