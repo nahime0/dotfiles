@@ -53,6 +53,7 @@ link_file "$DOTFILES_ROOT/config/git/gitignore" "${XDG_CONFIG_HOME:-$HOME/.confi
 link_file "$DOTFILES_ROOT/profiles/omarchy/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
 link_file "$DOTFILES_ROOT/config/tmux/scripts" "$HOME/.tmux/scripts"
 clone_git_repo "https://github.com/sandudorogan/tmux-pane-tree.git" "$HOME/.config/tmux/plugins/tmux-pane-tree"
+clone_git_repo "https://github.com/omerxx/tmux-sessionx.git" "$HOME/.config/tmux/plugins/tmux-sessionx"
 link_file "$DOTFILES_ROOT/profiles/omarchy/kitty/local.conf" "$HOME/.config/kitty/local.conf"
 install_cursor_settings "$DOTFILES_ROOT/profiles/omarchy/cursor/settings.json" "$HOME/.config/Cursor/User/settings.json"
 link_file "$DOTFILES_ROOT/profiles/omarchy/cursor/keybindings.json" "$HOME/.config/Cursor/User/keybindings.json"
