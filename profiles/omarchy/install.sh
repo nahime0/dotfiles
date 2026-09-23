@@ -51,6 +51,8 @@ run fc-cache -f "$HOME/.local/share/fonts/ComicShanns" "$HOME/.local/share/fonts
 link_file "$DOTFILES_ROOT/profiles/omarchy/git/gitconfig" "$HOME/.gitconfig"
 link_file "$DOTFILES_ROOT/config/git/gitignore" "${XDG_CONFIG_HOME:-$HOME/.config}/git/ignore"
 link_file "$DOTFILES_ROOT/profiles/omarchy/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
+link_file "$DOTFILES_ROOT/profiles/omarchy/tmux/pane-colors.sh" "$HOME/.config/tmux/pane-colors.sh"
+link_file "$DOTFILES_ROOT/profiles/omarchy/tmux/pane-colors.sh" "$HOME/.config/omarchy/hooks/theme-set.d/tmux-pane-colors"
 link_file "$DOTFILES_ROOT/config/tmux/scripts" "$HOME/.tmux/scripts"
 clone_git_repo "https://github.com/sandudorogan/tmux-pane-tree.git" "$HOME/.config/tmux/plugins/tmux-pane-tree" "d1053873c236e11168c5b7b3a296233fc80224ef"
 apply_git_patch "$DOTFILES_ROOT/config/tmux/patches/tmux-pane-tree-local-fixes.patch" "$HOME/.config/tmux/plugins/tmux-pane-tree"

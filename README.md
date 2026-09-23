@@ -59,6 +59,8 @@ switches continue to recolour tmux. Neovim runs the personal configuration as
 its base, excluding the old macOS Nord/light-dark stack, and imports only
 Omarchy's active colorscheme definitions. A profile watcher applies theme
 changes to running Neovim instances without requiring a restart.
+Tmux uses the current theme's darker background for inactive panes, adds arrows
+to the active pane border, and refreshes its colours when the Omarchy theme changes.
 
 Both profiles clone `tmux-pane-tree` to `~/.config/tmux/plugins/tmux-pane-tree`
 and load it from their tmux configuration. Use `prefix + t` to toggle its pane
