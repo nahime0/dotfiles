@@ -233,8 +233,12 @@ export PATH="$HOME/.local/bin:$PATH"
 #############################
 
 if [ -z "$TMUX" ]; then
-  # Outside tmux: refresh the symlink
-  if [ -n "$SSH_AUTH_SOCK" ] && [ "$SSH_AUTH_SOCK" != "$HOME/.ssh/ssh_auth_sock" ]; then
+  # Outside tmux: refresh the symlink. Bitwarden holds the commit signing key
+  # on a fixed socket the shell never inherits, so it wins over the one the
+  # terminal handed down.
+  if [ -S "$HOME/.bitwarden-ssh-agent.sock" ]; then
+    ln -sf "$HOME/.bitwarden-ssh-agent.sock" "$HOME/.ssh/ssh_auth_sock"
+  elif [ -n "$SSH_AUTH_SOCK" ] && [ "$SSH_AUTH_SOCK" != "$HOME/.ssh/ssh_auth_sock" ]; then
     ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/ssh_auth_sock"
   fi
 fi
