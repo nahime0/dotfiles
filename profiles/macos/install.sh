@@ -92,70 +92,11 @@ register_mise_shims() {
   fi
 }
 
-# The same blind spot, for the SSH agent: launchd hands GUI applications the
-# system agent's socket, while the commit signing key lives in Bitwarden's. Git
-# then fails with "Couldn't find key in agent?" whenever it runs from Obsidian
-# or an IDE rather than from a terminal. config/zsh/zshrc covers the shell side.
-#
-# The socket path is fixed, so the agent only has to publish it once per login.
-register_gui_ssh_agent() {
-  local label=me.nahi.ssh-auth-sock
-  local socket="$HOME/.bitwarden-ssh-agent.sock"
-  local target="$HOME/Library/LaunchAgents/$label.plist"
-  local plist
-
-  plist=$(cat <<PLIST
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>Label</key>
-	<string>$label</string>
-	<key>ProgramArguments</key>
-	<array>
-		<string>/bin/launchctl</string>
-		<string>setenv</string>
-		<string>SSH_AUTH_SOCK</string>
-		<string>$socket</string>
-	</array>
-	<key>RunAtLoad</key>
-	<true/>
-</dict>
-</plist>
-PLIST
-)
-
-  if [[ -f "$target" && "$(cat "$target")" == "$plist" ]]; then
-    log "unchanged: $target"
-    return
-  fi
-
-  if [[ "$DOTFILES_APPLY" != true ]]; then
-    printf '+ write %q and load it with launchctl\n' "$target"
-    return
-  fi
-
-  backup_path "$target"
-  ensure_dir "$(dirname -- "$target")"
-  printf '%s\n' "$plist" >"$target"
-
-  # Only applications started from here on inherit it: a running one keeps the
-  # environment it was launched with.
-  launchctl bootout "gui/$UID/$label" 2>/dev/null || true
-  if launchctl bootstrap "gui/$UID" "$target" 2>/dev/null; then
-    launchctl setenv SSH_AUTH_SOCK "$socket"
-  else
-    log "warning: could not load $label, so GUI applications will only pick the"
-    log "         agent up after the next login."
-  fi
-}
-
 link_file "$DOTFILES_ROOT/quotes/quotes.txt" "$HOME/.quotes.txt"
 link_file "$DOTFILES_ROOT/bin/project-switcher" "$HOME/bin/p"
 link_file "$DOTFILES_ROOT/bin/ray" "$HOME/bin/ray"
 link_file "$DOTFILES_ROOT/bin/tailscale-config" "$HOME/bin/tailscale-config"
-
-register_gui_ssh_agent
+link_file "$DOTFILES_ROOT/bin/ssh-keygen-bitwarden" "$HOME/bin/ssh-keygen-bitwarden"
 
 # Last: it is the only step that can prompt, and a declined password must not
 # stop the file links above or the private repository's setup that follows.

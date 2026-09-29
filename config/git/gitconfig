@@ -35,6 +35,6 @@
     sta = stash
     stap = stash pop
 [gpg "ssh"]
-	program = ssh-keygen
+	program = /Users/nahime/bin/ssh-keygen-bitwarden
 [diff]
     external = difft
