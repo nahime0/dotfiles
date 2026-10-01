@@ -44,3 +44,37 @@ fi
 if command -v ggw >/dev/null 2>&1; then
   eval "$(command ggw shell-init bash)"
 fi
+
+# tmux drops DISPLAY and WAYLAND_DISPLAY when a client without them attaches.
+# xdg-open then runs $BROWSER, so `open .` opens the browser instead of
+# Nautilus. Fill only the names this shell is missing, and only when the local
+# sockets exist. A stale SSH_CONNECTION left in the tmux session is not a
+# reason to skip: these panes are still on this machine.
+__restore_graphical_session() {
+  local runtime="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+  local sock
+  [[ -d $runtime ]] || return 0
+  if [[ -z ${WAYLAND_DISPLAY:-} ]]; then
+    for sock in "$runtime"/wayland-*; do
+      [[ -S $sock ]] || continue
+      export WAYLAND_DISPLAY="${sock##*/}"
+      break
+    done
+  fi
+  if [[ -z ${DISPLAY:-} && -S /tmp/.X11-unix/X0 ]]; then
+    export DISPLAY=:0
+  fi
+  if [[ -n ${WAYLAND_DISPLAY:-} ]]; then
+    if [[ -z ${XDG_SESSION_TYPE:-} || ${XDG_SESSION_TYPE} == tty ]]; then
+      export XDG_SESSION_TYPE=wayland
+    fi
+    if [[ -z ${XDG_CURRENT_DESKTOP:-} && -d $runtime/hypr ]]; then
+      export XDG_CURRENT_DESKTOP=Hyprland
+    fi
+    if [[ -z ${XDG_SESSION_DESKTOP:-} && -d $runtime/hypr ]]; then
+      export XDG_SESSION_DESKTOP=Hyprland
+    fi
+  fi
+}
+__restore_graphical_session
+unset -f __restore_graphical_session
