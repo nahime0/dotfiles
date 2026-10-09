@@ -96,7 +96,11 @@ link_file "$DOTFILES_ROOT/quotes/quotes.txt" "$HOME/.quotes.txt"
 link_file "$DOTFILES_ROOT/bin/project-switcher" "$HOME/bin/p"
 link_file "$DOTFILES_ROOT/bin/ray" "$HOME/bin/ray"
 link_file "$DOTFILES_ROOT/bin/tailscale-config" "$HOME/bin/tailscale-config"
-link_file "$DOTFILES_ROOT/bin/ssh-keygen-bitwarden" "$HOME/bin/ssh-keygen-bitwarden"
+
+# Retire only the wrapper symlink previously installed by this repository.
+if [[ -L "$HOME/bin/ssh-keygen-bitwarden" && $(readlink "$HOME/bin/ssh-keygen-bitwarden") == "$DOTFILES_ROOT/bin/ssh-keygen-bitwarden" ]]; then
+  backup_path "$HOME/bin/ssh-keygen-bitwarden"
+fi
 
 # Last: it is the only step that can prompt, and a declined password must not
 # stop the file links above or the private repository's setup that follows.

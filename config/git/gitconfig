@@ -35,6 +35,6 @@
     sta = stash
     stap = stash pop
 [gpg "ssh"]
-	program = /Users/nahime/bin/ssh-keygen-bitwarden
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 [diff]
     external = difft

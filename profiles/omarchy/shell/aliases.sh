@@ -1,5 +1,8 @@
 # Portable personal aliases loaded after Omarchy's Bash defaults.
 
+# Use 1Password for SSH clients and Git commit signing in interactive shells.
+export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
+
 # Media
 alias get-music="yt-dlp -o '%(playlist_index)02d - %(title)s.%(ext)s' -x --audio-format mp3 --audio-quality 0 --embed-thumbnail --add-metadata --parse-metadata ':%(meta_comment)s' --parse-metadata ':%(meta_synopsis)s' --parse-metadata ':%(meta_description)s' --parse-metadata 'playlist_index:%(track_number)s'"
 alias get-video='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"'
