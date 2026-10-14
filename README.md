@@ -66,16 +66,23 @@ those variables from the session, and `xdg-open` then opens the browser instead
 of Nautilus. `profiles/omarchy/tmux/restore-graphical-env.sh` puts them back on
 `client-attached` and `session-created`.
 
-Both profiles clone `tmux-pane-tree` to `~/.config/tmux/plugins/tmux-pane-tree`
-and load it from their tmux configuration. Use `prefix + t` to toggle its pane
-tree. Local patches fold a window with one content pane into a single
-selectable row, keeping agent badges on that row. Selecting it focuses its
-content pane; windows with multiple panes still show each pane. Fresh installs
-pin the plugin revision so the patches apply consistently. The plugin requires
-tmux 3.0+, Python 3, and Bash 4.0+.
+Both profiles install [tmux-binder](https://github.com/illegalstudio/tmux-binder)
+at `~/.config/tmux/plugins/tmux-binder`. When
+`~/Developer/illegalstudio/tmux-binder` exists, setup links that development
+checkout directly; otherwise it clones the fork from GitHub. Use `prefix + t`
+to toggle its pane tree. The fork includes our compact single-pane windows and
+selection refresh fixes, so setup no longer applies local patches. A window
+with one content pane occupies one selectable row, keeping its agent badge;
+windows with multiple panes still show each pane. Existing plugin option names
+remain compatible. The plugin requires tmux 3.0+, Python 3, and Bash 4.0+.
 On macOS, install a newer Bash (for example, `brew install bash`) and keep it on
 `PATH` for tmux. Agent status hooks are optional and are not installed by
 setup.
+
+With the local checkout linked, shell changes are available on the next
+invocation. After editing Python UI code, run
+`bash ~/Developer/illegalstudio/tmux-binder/scripts/reload-live.sh` to reload
+the plugin and restart only sidebar processes, preserving content panes.
 
 Both profiles also clone `tmux-sessionx` to
 `~/.config/tmux/plugins/tmux-sessionx`. Use `prefix + O` to search, preview,

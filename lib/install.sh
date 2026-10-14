@@ -71,17 +71,15 @@ clone_git_repo() {
   fi
 }
 
-apply_git_patch() {
-  local patch=$1 target=$2
-  [[ -f "$patch" ]] || die "Missing patch: $patch"
-  if [[ -d "$target/.git" ]] && git -C "$target" apply --unidiff-zero --reverse --check "$patch" >/dev/null 2>&1; then
-    log "unchanged: $patch already applied to $target"; return
+install_tmux_binder() {
+  local checkout="$HOME/Developer/illegalstudio/tmux-binder"
+  local target="$HOME/.config/tmux/plugins/tmux-binder"
+  if [[ -d "$checkout" ]]; then
+    [[ -f "$checkout/tmux-pane-tree.conf" ]] || die "Missing tmux-binder configuration in $checkout"
+    link_file "$checkout" "$target"
+  else
+    clone_git_repo "https://github.com/illegalstudio/tmux-binder.git" "$target"
   fi
-  if [[ "$DOTFILES_APPLY" == true ]]; then
-    [[ -d "$target/.git" ]] || die "Missing git checkout: $target"
-    git -C "$target" apply --unidiff-zero --check "$patch" || die "Cannot apply $patch to $target"
-  fi
-  run git -C "$target" apply --unidiff-zero "$patch"
 }
 
 ensure_source_line() {

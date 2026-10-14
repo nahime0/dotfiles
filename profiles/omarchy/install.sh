@@ -55,8 +55,7 @@ link_file "$DOTFILES_ROOT/profiles/omarchy/tmux/pane-colors.sh" "$HOME/.config/t
 link_file "$DOTFILES_ROOT/profiles/omarchy/tmux/restore-graphical-env.sh" "$HOME/.config/tmux/restore-graphical-env.sh"
 link_file "$DOTFILES_ROOT/profiles/omarchy/tmux/pane-colors.sh" "$HOME/.config/omarchy/hooks/theme-set.d/tmux-pane-colors"
 link_file "$DOTFILES_ROOT/config/tmux/scripts" "$HOME/.tmux/scripts"
-clone_git_repo "https://github.com/sandudorogan/tmux-pane-tree.git" "$HOME/.config/tmux/plugins/tmux-pane-tree" "d1053873c236e11168c5b7b3a296233fc80224ef"
-apply_git_patch "$DOTFILES_ROOT/config/tmux/patches/tmux-pane-tree-local-fixes.patch" "$HOME/.config/tmux/plugins/tmux-pane-tree"
+install_tmux_binder
 clone_git_repo "https://github.com/omerxx/tmux-sessionx.git" "$HOME/.config/tmux/plugins/tmux-sessionx"
 link_file "$DOTFILES_ROOT/profiles/omarchy/kitty/local.conf" "$HOME/.config/kitty/local.conf"
 install_cursor_settings "$DOTFILES_ROOT/profiles/omarchy/cursor/settings.json" "$HOME/.config/Cursor/User/settings.json"
