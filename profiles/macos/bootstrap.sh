@@ -11,7 +11,9 @@ fi
 # an hour unauthenticated: enough tools in one run exhaust it and the installs
 # fail with 403. Borrow the gh CLI's token when there is one, so no credential
 # has to live in this repository.
-if [[ -z "${GITHUB_TOKEN:-}" ]] && command -v gh >/dev/null 2>&1; then
+# Only query it for package installation: invoking a mise-managed gh can
+# initialize its state directory, even when gh itself is only reading a token.
+if [[ "${packages:-false}" == true && "$DOTFILES_APPLY" == true && -z "${GITHUB_TOKEN:-}" ]] && command -v gh >/dev/null 2>&1; then
   if GITHUB_TOKEN=$(gh auth token 2>/dev/null); then
     export GITHUB_TOKEN
   fi

@@ -13,6 +13,7 @@ return {
       'phpactor',
       'html',
       'vue_ls',
+      'vtsls',
       'tailwindcss',
       'elixirls',
       'gopls',

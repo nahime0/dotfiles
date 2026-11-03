@@ -9,6 +9,11 @@ targets are moved to a timestamped directory under
 `~/.local/state/dotfiles/backups/` before a managed file is copied or linked.
 It never runs `rm -rf`.
 
+Backup directories are accessible only to their owner (0700). Repeated backups
+of the same target receive numbered suffixes so earlier copies are preserved.
+Set `DOTFILES_BACKUP_DIR` to group a reviewed installation's backups in a
+specific directory, including those created by the private installer.
+
 Always inspect a profile first:
 
 ```sh
@@ -74,7 +79,8 @@ to toggle its pane tree. The fork includes our compact single-pane windows and
 selection refresh fixes, so setup no longer applies local patches. A window
 with one content pane occupies one selectable row, keeping its agent badge;
 windows with multiple panes still show each pane. Existing plugin option names
-remain compatible. The plugin requires tmux 3.0+, Python 3, and Bash 4.0+.
+remain compatible. The plugin requires tmux 3.5+, Python 3.10+ with curses,
+and Bash. The session switcher below also needs a modern Bash.
 On macOS, install a newer Bash (for example, `brew install bash`) and keep it on
 `PATH` for tmux. Agent status hooks are optional and are not installed by
 setup.
@@ -135,6 +141,18 @@ Zsh uses the native 1Password SSH agent socket. Git commit signing uses
 from a graphical application. Install 1Password at its standard application
 path and enable its SSH agent. Setup backs up the old managed signing-wrapper
 symlink when migrating an existing installation.
+
+Neovim's Vue support runs `vue_ls` alongside `vtsls` and the mise-managed
+`@vue/typescript-plugin`. Vue uses vtsls's TypeScript SDK to avoid an incompatible
+automatically resolved peer dependency. The macOS manifest also declares
+ElixirLS, which is enabled by the shared Neovim configuration.
+
+Installer regression checks run in temporary home directories and do not apply
+configuration to the current account:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
+```
 
 ## Repository layout
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DOTFILES_BACKUP_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/backups/$(date +%Y%m%d-%H%M%S)"
+DOTFILES_BACKUP_DIR="${DOTFILES_BACKUP_DIR:-${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/backups/$(date +%Y%m%d-%H%M%S)-$$}"
 log() { printf '%s\n' "$*"; }
 die() { printf 'error: %s\n' "$*" >&2; exit 1; }
 run() {
@@ -9,20 +9,37 @@ run() {
 ensure_dir() {
   [[ -d "$1" ]] || run mkdir -p "$1"
 }
-backup_path() {
-  local target=$1 relative
-  [[ -e "$target" || -L "$target" ]] || return 0
+backup_destination() {
+  local target=$1 relative destination suffix=0
+  [[ "$target" == "$HOME/"* ]] || die "Backup target is outside HOME: $target"
   relative=${target#"$HOME"/}
-  run mkdir -p "$DOTFILES_BACKUP_DIR/$(dirname -- "$relative")"
-  run mv "$target" "$DOTFILES_BACKUP_DIR/$relative"
+  destination="$DOTFILES_BACKUP_DIR/$relative"
+  while [[ -e "$destination" || -L "$destination" ]]; do
+    suffix=$((suffix + 1))
+    destination="$DOTFILES_BACKUP_DIR/$relative.$suffix"
+  done
+  printf '%s\n' "$destination"
+}
+prepare_backup_parent() {
+  # Backups can contain private SSH material or local shell credentials.
+  run mkdir -p -m 700 "$DOTFILES_BACKUP_DIR"
+  run chmod 700 "$DOTFILES_BACKUP_DIR"
+  run mkdir -p "$(dirname -- "$1")"
+}
+backup_path() {
+  local target=$1 destination
+  [[ -e "$target" || -L "$target" ]] || return 0
+  destination=$(backup_destination "$target") || return
+  prepare_backup_parent "$destination"
+  run mv "$target" "$destination"
 }
 
 backup_copy_path() {
-  local target=$1 relative
+  local target=$1 destination
   [[ -e "$target" || -L "$target" ]] || return 0
-  relative=${target#"$HOME"/}
-  run mkdir -p "$DOTFILES_BACKUP_DIR/$(dirname -- "$relative")"
-  run cp -a "$target" "$DOTFILES_BACKUP_DIR/$relative"
+  destination=$(backup_destination "$target") || return
+  prepare_backup_parent "$destination"
+  run cp -a "$target" "$destination"
 }
 
 link_file() {

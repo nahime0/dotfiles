@@ -7,7 +7,7 @@ export PATH="$HOME/bin":"$HOME/.composer/vendor/bin":$PATH
 ########
 
 # Push toolbox App at the end of the PATH
-export PATH="$PATH:/Users/vuppi/Library/Application Support/JetBrains/Toolbox/scripts"
+export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
