@@ -3,3 +3,4 @@
 micro/backups
 micro/buffers
 dotfiles-private
+__pycache__/

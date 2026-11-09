@@ -71,4 +71,4 @@ link_file "$DOTFILES_ROOT/bin/tailscale-config" "$HOME/.local/bin/tailscale-conf
 link_file "$DOTFILES_ROOT/profiles/omarchy/shell/aliases.sh" "$HOME/.config/bash/dotfiles.sh"
 ensure_source_line "$HOME/.bashrc" '[[ -r "$HOME/.config/bash/dotfiles.sh" ]] && source "$HOME/.config/bash/dotfiles.sh"'
 
-log "Preserved: Omarchy terminal theme and settings outside kitty/local.conf, shell, Hyprland, bar, Cursor and Neovim theme files"
+log "Preserved: Omarchy terminal theme and settings outside kitty/local.conf, monitor/device configuration, Cursor and Neovim theme files"

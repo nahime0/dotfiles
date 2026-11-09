@@ -1,0 +1,110 @@
+{
+  "bar": {
+    "background": "glassy",
+    "layout": {
+      "center": [
+        {
+          "id": "omarchy.clock",
+          "format": "ddd d MMM HH:mm"
+        }
+      ],
+      "centerBegin": [
+        {
+          "id": "omarchy.indicators",
+          "items": [
+            "ScreenRecording",
+            "Reminder",
+            "NightLight",
+            "Dnd",
+            "StayAwake"
+          ]
+        }
+      ],
+      "centerEnd": [
+        {
+          "id": "omarchy.elsewhen"
+        },
+        {
+          "id": "omarchy.weather"
+        },
+        {
+          "id": "omarchy.system-update"
+        }
+      ],
+      "left": [
+        {
+          "id": "omarchy.menu"
+        },
+        {
+          "id": "nahime.workspaces"
+        }
+      ],
+      "right": [
+        {
+          "id": "omarchy.tray",
+          "pinned": [
+            "chrome_status_icon_1",
+            "Grok Bot_status_icon_1",
+            "Lazyagent",
+            "cursor_status_icon_1",
+            "Claude_status_icon_1",
+            "1Password_status_icon_1",
+            "NordVPN",
+            "toolbox"
+          ]
+        },
+        {
+          "id": "omarchy.keyboard-layout"
+        },
+        {
+          "id": "superwhisper.panel",
+          "existingOnly": true
+        },
+        {
+          "id": "omarchy.tailscale"
+        },
+        {
+          "id": "illegalstudio.omarchy-call-recorder"
+        },
+        {
+          "id": "io.github.ncr.omaphones"
+        },
+        {
+          "id": "illegalstudio.omarchy-lazyagent"
+        },
+        {
+          "id": "illegalstudio.omarchy-insta360"
+        },
+        {
+          "id": "illegalstudio.omarchy-firewall"
+        },
+        {
+          "id": "omarchy.bluetooth"
+        },
+        {
+          "id": "omarchy.network"
+        },
+        {
+          "id": "omarchy.audio"
+        },
+        {
+          "id": "omarchy.monitor"
+        },
+        {
+          "id": "omarchy.power"
+        }
+      ]
+    }
+  },
+  "dock": {
+    "pinned": [
+      "org.gnome.Nautilus",
+      "kitty",
+      "omacalc",
+      "omawrite",
+      "chromium",
+      "X",
+      "YouTube"
+    ]
+  }
+}

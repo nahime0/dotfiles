@@ -51,13 +51,16 @@ The Omarchy profile is additive and deliberately leaves these under Omarchy's
 control:
 
 - terminal configuration and dynamic theme includes;
-- Hyprland and the Omarchy shell/bar;
+- Hyprland defaults, monitor/device configuration and unselected shell settings;
 - Omarchy's base XDG Git configuration;
 - `plugins/theme.lua` and Omarchy's theme definitions.
 
 Personal Git overrides are kept in a linked `~/.gitconfig`, which Git reads
 alongside Omarchy's XDG config. This currently sets the initial branch of new
 repositories to `main` while preserving Omarchy's other Git defaults.
+
+The selected desktop customizations are additive modules described below.
+They load after the user files and before saved workspace layouts are restored.
 
 It installs the personal tmux layout with symbolic ANSI colours so theme
 switches continue to recolour tmux. Neovim runs the personal configuration as
@@ -169,6 +172,72 @@ installers/             legacy installers; retained for reference, not called
 If an executable `dotfiles-private/setup` exists, the main installer delegates
 the selected profile and dry-run/apply mode to it. Its behavior is intentionally
 defined and documented only in the private repository.
+
+## Omarchy desktop preferences
+
+The Omarchy profile installs the selected desktop preferences from
+`profiles/omarchy/desktop/`. To preview or apply only this part, without fonts,
+editor changes, package installation or delegating to the private setup:
+
+```sh
+./setup --profile omarchy --only desktop
+./setup --profile omarchy --only desktop --apply
+```
+
+The modules provide:
+
+- Super+H/J/K/L focus and Super+Shift+H/J/K/L window swapping;
+- Super+Left split toggle, Super+Up next workspace and Super+Down keybindings;
+- Super+Right cycling Tiling, Scrolling, Wide (95%) and native Floating;
+- Super+Shift+S moving a window to the scratchpad without following it, plus
+  scratchpad fade animations;
+- Super+C/V support for Herdr, with the existing terminal behavior elsewhere;
+- fullscreen RustDesk shortcut forwarding, keeping Super+1 as a local exit;
+- automatic-focus protection for terminals and Brave, floating Nautilus,
+  border resizing, natural scrolling and Right Alt Compose;
+- the personal workspace widget, glassy bar, clock format, tray pins and dock
+  preferences, plus the Call Recorder menu entry.
+
+The installer links only user-owned modules. It adds one loader to
+`hyprland.lua` before workspace layout restoration, migrating the exact reviewed
+legacy overrides when present. A changed legacy binding block is refused for
+manual review. Unrelated integrations, including generated dictation bindings,
+stay in place. Previous files are backed up using the normal installer policy.
+With a running Hyprland session, plugin discovery is refreshed and the config is
+reloaded and checked for errors.
+
+Shell preferences are merged into the existing JSON. Settings such as clock
+personal data, cities, microphone/device choices, unknown widgets and idle
+preferences are retained locally and are not exported into this repository.
+The selected UI preferences are reapplied when setup is run; edit
+`shell-preferences.json` to change those shared preferences. Existing-only
+dictation integration is preserved, and missing third-party widgets are omitted
+until their plugin is installed.
+
+### Plugin recipes
+
+Install and enable the six selected plugins separately from a running Omarchy session:
+
+```sh
+./setup --profile omarchy --only plugins
+./setup --profile omarchy --only plugins --apply
+```
+
+`plugins.json` declares Cmdtab, Lazyagent, Call Recorder, Insta360, Firewall and
+Omaphones. This runs Omarchy's plugin CLI for missing installations, then
+applies the desktop preferences. Existing checkouts and development symlinks
+are preserved and are never updated by setup. Plugin source remains in its own
+repository. Installing new plugins requires network access; enabling them runs
+their code in Omarchy's shell.
+
+Lazyagent and Insta360 need their separately installed `lazyagent` and `linkctl`
+commands; the other runtime prerequisites remain documented in each plugin's
+README. Setup does not install those dependencies or start recordings, provider
+requests or camera previews. Cmdtab bindings are loaded only when its bundled
+Hyprland module is installed.
+
+Monitor layouts, themes, Superwhisper settings and Herdr app layouts are outside
+this selected desktop migration.
 
 # What software and libraries ecc. will be installed?
 

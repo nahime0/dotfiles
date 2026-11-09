@@ -1,0 +1,50 @@
+#!/bin/bash
+# Add Wide (95% columns) between native Scrolling and Floating.
+# Omarchy owns the other transitions, including floating tags and the dock.
+set -euo pipefail
+
+ACTIVE_WORKSPACE=$(hyprctl activeworkspace -j | jq -r '.id')
+[[ $ACTIVE_WORKSPACE =~ ^[0-9]+$ ]] && (( ACTIVE_WORKSPACE >= 1 )) || exit 1
+MODES_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/omarchy/workspace-layouts"
+MODE_FILE="$MODES_DIR/$ACTIVE_WORKSPACE.lua"
+CURRENT_MODE=$(omarchy-hyprland-workspace-layout-current)
+
+wide_saved=0
+if [[ -f $MODE_FILE ]] && grep -Eq 'omarchy_workspace_set_wide\([^,]+,[[:space:]]*true' "$MODE_FILE"; then
+  wide_saved=1
+fi
+
+if [[ $CURRENT_MODE == scrolling && $wide_saved == 0 ]]; then
+  # Save a native scrolling mode plus the user-owned Wide extension.
+  apply="o.workspace_mode({ workspace = \"$ACTIVE_WORKSPACE\", mode = \"scrolling\" })"
+  wide="omarchy_workspace_set_wide(\"$ACTIVE_WORKSPACE\", true, { pending = true })"
+  hyprctl eval "$apply; omarchy_workspace_set_wide(\"$ACTIVE_WORKSPACE\", true, { resize_now = true })" >/dev/null
+
+  mkdir -p "$MODES_DIR"
+  mode_temp=$(mktemp "$MODES_DIR/.layout.XXXXXX")
+  trap 'rm -f -- "$mode_temp"' EXIT
+  printf '%s\n%s\n' "$apply" "$wide" >"$mode_temp"
+  mv -- "$mode_temp" "$MODE_FILE"
+  trap - EXIT
+
+  notification_state="${XDG_STATE_HOME:-$HOME/.local/state}/omarchy/workspace-layout-notification"
+  last=0
+  [[ ! -r $notification_state ]] || read -r last <"$notification_state" || true
+  if id=$(omarchy-notification-send -p -r "$last" -g 󱂬 'Workspace layout set to Wide (95%)') && [[ $id =~ ^[0-9]+$ ]]; then
+    printf '%s\n' "$id" >"$notification_state"
+  fi
+  omarchy-shell -q omarchy.workspaces refresh
+  omarchy-shell -q omarchy.dock refresh
+else
+  # In particular, Wide leaves its saved scrolling mode for Omarchy to read,
+  # so the native next step is Floating, with titlebars and dock intact.
+  hyprctl eval "omarchy_workspace_set_wide(\"$ACTIVE_WORKSPACE\", false)" >/dev/null
+  omarchy-hyprland-workspace-layout-toggle
+
+  # Returning to normal Scrolling restores the configured column width.
+  if [[ $(hyprctl activeworkspace -j | jq -r '.id') == "$ACTIVE_WORKSPACE" ]] &&
+      [[ $(omarchy-hyprland-workspace-layout-current) == scrolling ]]; then
+    normal_width=$(hyprctl getoption scrolling.column_width -j | jq -er '.float | select(. > 0 and . <= 1)')
+    hyprctl dispatch "hl.dsp.layout(\"colresize all $normal_width\")" >/dev/null
+  fi
+fi

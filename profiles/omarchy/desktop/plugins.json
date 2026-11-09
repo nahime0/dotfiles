@@ -1,0 +1,31 @@
+[
+  {
+    "id": "illegalstudio.omarchy-cmdtab",
+    "url": "https://github.com/illegalstudio/omarchy-cmdtab.git"
+  },
+  {
+    "id": "illegalstudio.omarchy-lazyagent",
+    "url": "https://github.com/illegalstudio/omarchy-lazyagent.git",
+    "section": "right"
+  },
+  {
+    "id": "illegalstudio.omarchy-call-recorder",
+    "url": "https://github.com/illegalstudio/omarchy-call-recorder.git",
+    "section": "right"
+  },
+  {
+    "id": "illegalstudio.omarchy-insta360",
+    "url": "https://github.com/illegalstudio/omarchy-insta360.git",
+    "section": "right"
+  },
+  {
+    "id": "illegalstudio.omarchy-firewall",
+    "url": "https://github.com/illegalstudio/omarchy-firewall.git",
+    "section": "right"
+  },
+  {
+    "id": "io.github.ncr.omaphones",
+    "url": "https://github.com/ncr/omarchy-headphones.git",
+    "section": "right"
+  }
+]

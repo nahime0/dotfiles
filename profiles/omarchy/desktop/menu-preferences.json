@@ -1,0 +1,9 @@
+{
+  "trigger.capture.call-recorder": {
+    "icon": "\uf130",
+    "label": "Record call audio",
+    "description": "Microphone and desktop audio, without video",
+    "action": "omarchy-shell illegalstudio.omarchy-call-recorder start",
+    "checked": "test -f \"${XDG_RUNTIME_DIR:-/tmp}/illegalstudio.omarchy-call-recorder.active\""
+  }
+}

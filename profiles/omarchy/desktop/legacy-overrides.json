@@ -1,0 +1,38 @@
+{
+  "hypr/bindings.lua": [
+    {
+      "marker": "-- Vim-style focus:",
+      "text": "-- Vim-style focus: Super + H/J/K/L\nhl.unbind(\"SUPER + J\")\nhl.unbind(\"SUPER + K\")\nhl.unbind(\"SUPER + L\")\nhl.unbind(\"SUPER + LEFT\")\nhl.unbind(\"SUPER + RIGHT\")\nhl.unbind(\"SUPER + UP\")\nhl.unbind(\"SUPER + DOWN\")\n\nhl.unbind(\"SUPER + H\")\no.bind(\"SUPER + H\", \"Focus on left window\", hl.dsp.focus({ direction = \"l\" }))\no.bind(\"SUPER + J\", \"Focus on below window\", hl.dsp.focus({ direction = \"d\" }))\no.bind(\"SUPER + K\", \"Focus on above window\", hl.dsp.focus({ direction = \"u\" }))\nhl.unbind(\"SUPER + L\")\no.bind(\"SUPER + L\", \"Focus on right window\", hl.dsp.focus({ direction = \"r\" }))\n\n-- Vim-style window swapping: Super + Shift + H/J/K/L\nhl.unbind(\"SUPER + SHIFT + LEFT\")\nhl.unbind(\"SUPER + SHIFT + DOWN\")\nhl.unbind(\"SUPER + SHIFT + UP\")\nhl.unbind(\"SUPER + SHIFT + RIGHT\")\n\no.bind(\"SUPER + SHIFT + H\", \"Swap window to the left\", hl.dsp.window.swap({ direction = \"l\" }))\no.bind(\"SUPER + SHIFT + J\", \"Swap window down\", hl.dsp.window.swap({ direction = \"d\" }))\no.bind(\"SUPER + SHIFT + K\", \"Swap window up\", hl.dsp.window.swap({ direction = \"u\" }))\no.bind(\"SUPER + SHIFT + L\", \"Swap window to the right\", hl.dsp.window.swap({ direction = \"r\" }))\n\no.bind(\"SUPER + LEFT\", \"Toggle window split\", hl.dsp.layout(\"togglesplit\"))\no.bind(\"SUPER + DOWN\", \"Keybindings\", \"omarchy-menu-keybindings\")\no.bind(\"SUPER + RIGHT\", \"Cycle workspace layout (including Wide)\", (os.getenv(\"HOME\") or \"\") .. \"/.config/hypr/workspace-layout-cycle\")\no.bind(\"SUPER + UP\", \"Next workspace\", hl.dsp.focus({ workspace = \"e+1\" }))\n\n-- Move to scratchpad with Shift, replacing the Google Maps shortcut.\nhl.unbind(\"SUPER + ALT + S\")\no.rebind(\"SUPER + SHIFT + S\", \"Move window to scratchpad\", hl.dsp.window.move({ workspace = \"special:scratchpad\", follow = false }))\n\n-- Include Herdr in universal copy/paste.\nrequire(\"hypr.herdr-clipboard\")\n\n-- Cmdtab captures its own keys in a dedicated submap while open.\ndofile((os.getenv(\"XDG_CONFIG_HOME\") or os.getenv(\"HOME\") .. \"/.config\")\n  .. \"/omarchy/plugins/illegalstudio.omarchy-cmdtab/hyprland.lua\")(\"SUPER\")\n"
+    }
+  ],
+  "hypr/input.lua": [
+    {
+      "text": "hl.config({\n  input = {\n    -- Right Alt is Compose. Caps Lock goes back to Caps Lock\n    -- (Omarchy default uses Caps Lock as Compose).\n    kb_options = \"compose:ralt\",\n\n    -- Natural (inverse) scrolling on mouse wheel: content follows the wheel.\n    natural_scroll = true,\n\n    touchpad = {\n      -- Natural (inverse) scrolling on a trackpad, if one is connected later.\n      natural_scroll = true,\n    },\n  },\n})"
+    }
+  ],
+  "hypr/looknfeel.lua": [
+    {
+      "text": "    -- Resize floating windows by dragging a border or corner without SUPER.\n    resize_on_border = true,\n"
+    },
+    {
+      "text": "-- Fade special workspaces in and out, including the scratchpad.\nhl.animation({ leaf = \"specialWorkspaceIn\", enabled = true, speed = 3, bezier = \"easeOutQuint\", style = \"fade\" })\nhl.animation({ leaf = \"specialWorkspaceOut\", enabled = true, speed = 2, bezier = \"easeInOutCubic\", style = \"fade\" })\n"
+    }
+  ],
+  "hypr/hyprland.lua": [
+    {
+      "text": "-- Defines omarchy_workspace_set_wide before saved workspace layouts load.\nrequire(\"hypr.wide-layout\")\n"
+    },
+    {
+      "text": "-- Terminal BEL/OSC alerts (AI agents in tmux, Codex, etc.) must not steal focus.\no.window({ tag = \"terminal\" }, { focus_on_activate = false })\n"
+    },
+    {
+      "text": "-- Brave automation must not switch workspaces through activation requests.\no.window(\"^(brave-browser)$\", { focus_on_activate = false })\n"
+    },
+    {
+      "text": "-- Nautilus, file manager and open/save chooser, opens floating.\n-- Anchored so org.gnome.NautilusPreviewer keeps its own rule.\no.window(\"^(org\\\\.gnome\\\\.Nautilus)$\", { float = true })\n"
+    },
+    {
+      "text": "-- Fullscreen RustDesk forwards shortcuts, except Super+1 to workspace 1.\nrequire(\"hypr.rustdesk-shortcuts\")\n"
+    }
+  ]
+}

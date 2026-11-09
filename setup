@@ -4,19 +4,22 @@ set -euo pipefail
 ROOT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 usage() {
   cat <<'EOF'
-Usage: ./setup --profile <macos|omarchy> [--apply] [--packages]
+Usage: ./setup --profile <macos|omarchy> [--apply] [--packages] [--only desktop|plugins]
 
 Without --apply, print operations without changing the machine.
 --packages installs the profile's mise tools (requires --apply).
+--only desktop applies only the selected Omarchy desktop preferences.
+--only plugins installs/enables the selected plugins, then applies desktop preferences.
 EOF
 }
 
-profile=""; apply=false; packages=false; packages_failed=false
+profile=""; apply=false; packages=false; packages_failed=false; scope=all
 while (($#)); do
   case "$1" in
     --profile) [[ $# -ge 2 ]] || { usage; exit 2; }; profile=$2; shift 2 ;;
     --apply) apply=true; shift ;;
     --packages) packages=true; shift ;;
+    --only) [[ $# -ge 2 && ( $2 == desktop || $2 == plugins ) ]] || { usage; exit 2; }; scope=$2; shift 2 ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Unknown argument: $1" >&2; usage; exit 2 ;;
   esac
@@ -28,6 +31,11 @@ case "$profile" in
   *) echo "Unsupported profile: $profile" >&2; exit 2 ;;
 esac
 
+if [[ "$scope" != all && ( "$profile" != omarchy || "$packages" == true ) ]]; then
+  echo "--only desktop/plugins requires --profile omarchy and cannot use --packages" >&2
+  exit 2
+fi
+
 export DOTFILES_ROOT="$ROOT_DIR" DOTFILES_APPLY="$apply"
 source "$ROOT_DIR/lib/install.sh"
 export DOTFILES_BACKUP_DIR
@@ -37,6 +45,22 @@ if [[ "$apply" == true ]]; then
     macos:Darwin|omarchy:Linux) ;;
     *) die "Profile '$profile' is not compatible with $(uname -s)" ;;
   esac
+fi
+
+if [[ "$profile" == omarchy ]]; then
+  source "$ROOT_DIR/profiles/omarchy/desktop/install.sh"
+fi
+
+if [[ "$scope" != all ]]; then
+  if [[ "$scope" == plugins ]]; then
+    plugin_options=()
+    if [[ "$apply" == true ]]; then
+      plugin_options+=(--apply)
+    fi
+    python3 "$ROOT_DIR/profiles/omarchy/desktop/plugins.py" "${plugin_options[@]}"
+  fi
+  install_desktop
+  exit
 fi
 
 if [[ -r "$ROOT_DIR/profiles/$profile/bootstrap.sh" ]]; then
@@ -61,6 +85,10 @@ if [[ "$packages" == true ]]; then
 fi
 
 source "$ROOT_DIR/profiles/$profile/install.sh"
+
+if [[ "$profile" == omarchy ]]; then
+  install_desktop
+fi
 
 if [[ -x "$ROOT_DIR/dotfiles-private/setup" ]]; then
   private_args=(--profile "$profile")
