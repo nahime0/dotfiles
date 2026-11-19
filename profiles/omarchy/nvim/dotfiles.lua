@@ -16,6 +16,10 @@ local modules = {
 local specs = {}
 for _, name in ipairs(modules) do
   local module_specs = require("dotfiles_legacy.lazy." .. name)
+  if name == "neo-tree" then
+    -- Shallow grouping can reuse sibling nodes whose children NUI detaches.
+    module_specs.opts.filesystem.group_empty_dirs = false
+  end
   if type(module_specs[1]) == "string" then
     table.insert(specs, module_specs)
   else
